@@ -9,27 +9,34 @@
     <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-enviropacks@0.10.0/aframe-enviropacks.js"></script>
-    <script src="https://cdn.rawgit.com/mrturck/aframe-joystick/master/joystick.min.js"></script>
     <script src="js/highlight.js"></script>
     <script src="js/info-panel.js"></script>
+    <script src="js/joystick.js"></script>
   </head>
+  
   <body>
-    <a-scene
-      background="color: #ECECEC" renderer="colorManagement: true; physicallyCorrectLights: true" enviropack-material="shader: auto"
+  
+    
+    <a-scene 
+      renderer="colorManagement: true;" 
       info-message="htmlSrc: #messageText"
-      joystick>
+      loading-screen="dotsColor: white; backgroundColor: black">
       
       
       <a-assets>
-        <!--  -->
         <a-entity enviropack="preset: tankfarm"></a-entity>
         
+        
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space.glb"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_2.glb"></a-asset-item>
         <a-asset-item id="exhibition_glass" src="src/mesh/exhibition_glass.glb"></a-asset-item>
+        <a-asset-item id="exhibition_scaffolding" src="src/mesh/exhibition_scaffolding.glb"></a-asset-item>
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh.glb"></a-asset-item>
+
+        <!-- -->
+       <a-asset-item id="garment_1" src="src/mesh/g1.glb"></a-asset-item> 
 
 
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
@@ -37,8 +44,8 @@
           Image source: http://www.ghibli.jp/works/kazetachinu/#frame&gid=1&pid=1
           Image author: Studio Ghibli
         -->
-        <img id="kazetachinu"/>
-        <img id="kazetachinuPoster" src="https://cdn.aframe.io/examples/ui/kazetachinuPoster.jpg" crossorigin="anonymous"/>
+        <img id="howard" src="src/img/howard.PNG" crossorigin="anonymous"/>
+        <img id="howardPoster" src="src/img/howard-riley.jpg" crossorigin="anonymous"/>
      
         <img id="ponyo" src="https://cdn.aframe.io/examples/ui/ponyo.jpg" crossorigin="anonymous"/>
         <img id="ponyoPoster" src="https://cdn.aframe.io/examples/ui/ponyoPoster.jpg" crossorigin="anonymous"/>
@@ -60,17 +67,21 @@
           position="0 0 0.005"
          ></a-mixin>
          <a-mixin
-          id="movieImage"
+          id="Image"
           geometry="primitive: plane; width: 1.5; height: 0.81"
           material="src: #ponyo; shader: flat; transparent: true"
           position="0 0.495 0.002"
          ></a-mixin>
       </a-assets>
 
-      <a-entity gltf-model="#exhibition_space" position="0 -1.525 0"></a-entity>
+
+      <a-entity gltf-model="#exhibition_space" material="shader: flat;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
+      <a-entity gltf-model="#exhibition_scaffolding" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
       <a-entity nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
       <a-entity gltf-model="#exhibition_glass" material="opacity:0.5; transparent: true;" position="0 -1.525 0"></a-entity>
-      
+      <a-entity gltf-model="#garment_1" material="shader: flat;" renderer="colorManagement: true;" position="4.362 1.236 -4.045"></a-entity>
+
+
       <a-entity
         id="background"
         position="0 0 0"
@@ -81,16 +92,20 @@
       </a-entity>
 
       <a-entity id="rig" 
-        movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, touch;"
+        movement-controls="constrainToNavMesh: true; controls: checkpoint, trackpad, keyboard;"
         position=""
         rotation=""
-        checkpoint-controls=""
-        gamepad-controls=""
-        trackpad-controls=""
         keyboard-controls=""
-        touch-controls=""
+        universal-controls="movementControls: checkpoint"
+        checkpoint-controls="mode: animate"
         >
-          <a-entity camera id="camera" camera position="0 1.6 0" look-controls="pointerLockEnabled: true">
+          <a-entity 
+            camera 
+            id="camera" 
+            camera 
+            position="0 1.6 0" 
+            look-controls="pointerLockEnabled: true"
+            touch-listener>
               <a-cursor 
                 material="" 
                 raycaster="objects: .raycastable"
@@ -105,6 +120,12 @@
           </a-entity>
       </a-entity>
 
+      <!-- Checkpoint -->
+        <a-cylinder checkpoint radius="0.5" height="0.01" position="0 0 -20" color="#39BB82"></a-cylinder>
+        <a-cylinder checkpoint radius="0.5" height="0.01" position="0 0 -16" color="#39BB82"></a-cylinder>
+        <a-cylinder checkpoint radius="0.5" height="0.01" position="0 0 -12" color="#39BB82"></a-cylinder>
+        <a-cylinder checkpoint radius="0.5" height="0.01" position="0 0 -8" color="#39BB82"></a-cylinder>
+
       <!-- Hand controls -->
       <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .raycastable"></a-entity>
       <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .raycastable" line="color: #118A7E"></a-entity>
@@ -116,8 +137,8 @@
             <a-entity material="src: #karigurashiPoster;" mixin="poster"></a-entity>
           </a-entity>
 
-          <a-entity id="kazetachinuButton" position="0 0 0" mixin="frame" class="raycastable menu-button">
-            <a-entity material="src: #kazetachinuPoster" mixin="poster"></a-entity>
+          <a-entity id="howardButton" position="0 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #howardPoster" mixin="poster"></a-entity>
           </a-entity>
 
           <a-entity id="ponyoButton" position="0.8 0 0" mixin="frame" class="raycastable menu-button">
@@ -125,7 +146,12 @@
           </a-entity>
         </a-entity>
 
-        <!-- Info panel of the selected movie. -->
+
+        
+
+
+
+        <!-- Info panel of the selected Poster. -->
         <a-entity
           id="infoPanel"
           position="0 0 0.5"
@@ -134,17 +160,18 @@
           scale="0.001 0.001 0.001"
           geometry="primitive: plane; width: 1.5; height: 1.8"
           material="color: #333333; shader: flat; transparent: false" class="raycastable">
-          <a-entity id="ponyoMovieImage" mixin="movieImage" material="src: #ponyo" visible="false"></a-entity>
-          <a-entity id="kazetachinuMovieImage" mixin="movieImage" material="src: #kazetachinu" visible="false"></a-entity>
-          <a-entity id="karigurashiMovieImage" mixin="movieImage" material="src: #karigurashi" visible="false"></a-entity>
-          <a-entity id="movieTitle"
+          <a-entity id="ponyoImage" mixin="Image" material="src: #ponyo" visible="false"></a-entity>
+          <a-entity id="howardImage" mixin="Image" material="src: #howard" visible="false"></a-entity>
+          <a-entity id="karigurashiImage" mixin="Image" material="src: #karigurashi" visible="false"></a-entity>
+          <a-entity id="Title"
             position="-0.68 -0.1 0"
-            text="shader: msdf; anchor: left; width: 1.5; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: Ponyo (2003)"></a-entity>
-          <a-entity id="movieDescription"
+            text="shader: msdf; anchor: left; width: 1.5; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: [LIMEN EXHIBITION SPEAKER]"></a-entity>
+          <a-entity id="Description"
             position="-0.68 -0.2 0"
-            text="baseline: top; shader: msdf; anchor: left; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></a-entity>
+            text="baseline: top; shader: msdf; anchor: left; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: LIMEN EXHIBITION SPEAKER DESCRIPTION."></a-entity>
         </a-entity>
       </a-entity>
     </a-scene>
+   
   </body>
 </html>

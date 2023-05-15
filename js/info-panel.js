@@ -4,24 +4,24 @@ AFRAME.registerComponent('info-panel', {
       var buttonEls = document.querySelectorAll('.menu-button');
       var fadeBackgroundEl = this.fadeBackgroundEl = document.querySelector('#fadeBackground');
   
-      this.movieImageEl;
-      this.movieTitleEl = document.querySelector('#movieTitle');
-      this.movieDescriptionEl = document.querySelector('#movieDescription');
+      this.ImageEl;
+      this.TitleEl = document.querySelector('#Title');
+      this.DescriptionEl = document.querySelector('#Description');
   
-      this.movieInfo = {
-        karigurashiButton: {
+      this.Info = {
+        howardButton: {
           title: 'The Secret World of Arrietty (2010)',
-          imgEl: document.querySelector('#karigurashiMovieImage'),
-          description: 'Based on the 1952 novel The Borrowers by Mary Norton, an English author of children\'s books, about a family of tiny people who live secretly in the walls and floors of a typical household, borrowing items from humans to survive.'
+          imgEl: document.querySelector('#howardImage'),
+          description: 'The cottage, yeah. They called it a cottage for some reason. And it looked like a hospital or a nursery. I remember a lot of cots being in there. But as a child, kindy years is I only went to one end of the building, wasn\'t- I didn\’t going anywhere else in the building. So maybe it was being used for something else while I was a kindy.' 
         },
         kazetachinuButton: {
           title: 'The Wind Rises (2013)',
-          imgEl: document.querySelector('#kazetachinuMovieImage'),
+          imgEl: document.querySelector('#kazetachinuImage'),
           description: 'The Wind Rises is a fictionalised biographical film of Jiro Horikoshi (1903, 1982), designer of the Mitsubishi A5M fighter aircraft and its successor, the Mitsubishi A6M Zero, used by the Empire of Japan during World War II. The film is adapted from Miyazaki\'s manga of the same name, which was in turn loosely based on both the 1937 novel The Wind Has Risen by Tatsuo Hori and the life of Jiro Horikoshi.'
         },
         ponyoButton: {
           title: 'Ponyo (2003)',
-          imgEl: document.querySelector('#ponyoMovieImage'),
+          imgEl: document.querySelector('#ponyoImage'),
           description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
         }
       };
@@ -40,7 +40,7 @@ AFRAME.registerComponent('info-panel', {
     },
   
     onMenuButtonClick: function (evt) {
-      var movieInfo = this.movieInfo[evt.currentTarget.id];
+      var Info = this.Info[evt.currentTarget.id];
   
       this.backgroundEl.object3D.scale.set(1, 1, 1);
   
@@ -49,12 +49,12 @@ AFRAME.registerComponent('info-panel', {
       this.el.object3D.visible = true;
       this.fadeBackgroundEl.object3D.visible = true;
   
-      if (this.movieImageEl) { this.movieImageEl.object3D.visible = false; }
-      this.movieImageEl = movieInfo.imgEl;
-      this.movieImageEl.object3D.visible = true;
+      if (this.ImageEl) { this.ImageEl.object3D.visible = false; }
+      this.ImageEl = Info.imgEl;
+      this.ImageEl.object3D.visible = true;
   
-      this.movieTitleEl.setAttribute('text', 'value', movieInfo.title);
-      this.movieDescriptionEl.setAttribute('text', 'value', movieInfo.description);
+      this.TitleEl.setAttribute('text', 'value', Info.title);
+      this.DescriptionEl.setAttribute('text', 'value', Info.description);
     },
   
     onBackgroundClick: function (evt) {
