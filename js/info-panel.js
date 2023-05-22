@@ -4,15 +4,21 @@ AFRAME.registerComponent('info-panel', {
   init: function () {
     var buttonEls = document.querySelectorAll('.menu-button');
     var fadeBackgroundEl = this.fadeBackgroundEl = document.querySelector('#fadeBackground');
-    var modal = document.getElementById("myModal"); // Store the modal reference
+    var self = this;
+
+
+   
     
     // Code to close modal
+    var modal = document.getElementById("myModal"); // Store the modal reference
     var span = document.getElementsByClassName("close")[0];
 
+    
     span.onclick = function() {
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
-    }; // Semicolon added
+
+    }; 
 
     this.TitleEl = document.querySelector('#Title');
     this.DescriptionEl = document.querySelector('#Description');
@@ -22,7 +28,10 @@ AFRAME.registerComponent('info-panel', {
         howardButton: {
           title: 'Howard Riley',
           imgEl: document.querySelector('#howardImage'),
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non urna augue. Donec vitae nunc vitae nibh vulputate lobortis ut vehicula quam. Vivamus luctus tempor cursus. Curabitur consequat urna nisl, et suscipit libero tempus a. Curabitur elementum nunc felis, sit amet porttitor felis ultricies ac. Nullam auctor quam eu volutpat condimentum. Morbi quis dui in turpis viverra volutpat. Donec vitae accumsan arcu. Integer quam justo, blandit ut pretium non, scelerisque sit amet ipsum. Aenean a sem nibh. Aliquam eu nisl vel enim sodales faucibus nec ut risus. Fusce mattis, tortor et condimentum rhoncus, sapien mi tincidunt turpis, quis elementum orci leo nec sapien. Mauris accumsan fringilla eleifend. Nulla laoreet semper ex ut dapibus. Sed a finibus metus, sed vulputate elit. Maecenas nisi lorem, ultricies ut nisl tincidunt, iaculis viverra lorem. Donec quis hendrerit neque. Duis blandit elit convallis dui viverra eleifend. Fusce a consequat velit, nec pharetra mi. Integer eu sagittis augue. Morbi volutpat nisl erat, elementum maximus justo viverra at. Maecenas ligula est, commodo eget sagittis quis, euismod vitae dolor. Cras mi odio, sodales consequat consequat sed, lacinia non eros. Fusce vel porta lorem. Ut quis augue quam. Sed sed odio nibh. Vestibulum condimentum sed justo sit amet viverra. Nam sit amet augue gravida, sollicitudin lacus vel, lobortis magna. Morbi dignissim efficitur vulputate. Etiam ut faucibus risus, et pulvinar quam. Aliquam ut sapien interdum, molestie ipsum sit amet, rutrum lacus. In hac habitasse platea dictumst. Proin vitae ipsum tellus. Duis ultricies mi eu laoreet feugiat. Curabitur lacinia pretium velit id facilisis. Fusce enim elit, congue ac purus quis, suscipit mattis arcu. Cras feugiat lorem nec eleifend auctor. Ut leo velit, ullamcorper ac aliquam nec, dignissim eget diam. Fusce quis dictum magna, vitae pulvinar erat. Nulla sagittis neque vel ex volutpat mattis. Donec in lectus odio. Pellentesque in accumsan quam. Cras nisi nunc, sagittis finibus sem viverra, viverra ultricies libero. Duis nec urna vehicula, dictum augue sit amet, luctus urna. Fusce in finibus purus, sed finibus ligula. Morbi egestas velit ut velit tristique, sit amet eleifend ante condimentum. Proin eget tincidunt augue, a faucibus ante. Curabitur congue magna quis mauris laoreet volutpat. Etiam dignissim eu massa vitae fringilla. Aenean posuere, nunc in suscipit rhoncus, risus mi euismod enim, ut vulputate dolor diam nec purus. Mauris mollis erat in sagittis vestibulum. Vestibulum id efficitur augue, eu aliquam elit. Morbi auctor arcu neque, sed sagittis libero feugiat id. Nunc mi urna, varius at urna ut, malesuada efficitur elit. Nunc eget libero ac orci consectetur condimentum. Nulla finibus posuere consequat. Nunc sit amet dolor nibh. Sed eu purus non quam posuere iaculis quis eget ante. Praesent consequat tristique nisi, non blandit ex molestie et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacus leo, fermentum a scelerisque sit amet, feugiat et quam. Ut et odio sed est consectetur cursus. Duis a ultrices metus. Nullam lorem dui, pretium eu malesuada at, maximus varius elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non urna augue. Donec vitae nunc vitae nibh vulputate lobortis ut vehicula quam. Vivamus luctus tempor cursus. Curabitur consequat urna nisl, et suscipit libero tempus a. Curabitur elementum nunc felis, sit amet porttitor felis ultricies ac. Nullam auctor quam eu volutpat condimentum. Morbi quis dui in turpis viverra volutpat. Donec vitae accumsan arcu. Integer quam justo, blandit ut pretium non, scelerisque sit amet ipsum. Aenean a sem nibh. Aliquam eu nisl vel enim sodales faucibus nec ut risus. Fusce mattis, tortor et condimentum rhoncus, sapien mi tincidunt turpis, quis elementum orci leo nec sapien. Mauris accumsan fringilla eleifend. Nulla laoreet semper ex ut dapibus. Sed a finibus metus, sed vulputate elit. Maecenas nisi lorem, ultricies ut nisl tincidunt, iaculis viverra lorem. Donec quis hendrerit neque. Duis blandit elit convallis dui viverra eleifend. Fusce a consequat velit, nec pharetra mi. Integer eu sagittis augue. Morbi volutpat nisl erat, elementum maximus justo viverra at. Maecenas ligula est, commodo eget sagittis quis, euismod vitae dolor. Cras mi odio, sodales consequat consequat sed, lacinia non eros. Fusce vel porta lorem. Ut quis augue quam. Sed sed odio nibh. Vestibulum condimentum sed justo sit amet viverra. Nam sit amet augue gravida, sollicitudin lacus vel, lobortis magna. Morbi dignissim efficitur vulputate. Etiam ut faucibus risus, et pulvinar quam. Aliquam ut sapien interdum, molestie ipsum sit amet, rutrum lacus. In hac habitasse platea dictumst. Proin vitae ipsum tellus. Duis ultricies mi eu laoreet feugiat. Curabitur lacinia pretium velit id facilisis. Fusce enim elit, congue ac purus quis, suscipit mattis arcu. Cras feugiat lorem nec eleifend auctor. Ut leo velit, ullamcorper ac aliquam nec, dignissim eget diam. Fusce quis dictum magna, vitae pulvinar erat. Nulla sagittis neque vel ex volutpat mattis. Donec in lectus odio. Pellentesque in accumsan quam. Cras nisi nunc, sagittis finibus sem viverra, viverra ultricies libero. Duis nec urna vehicula, dictum augue sit amet, luctus urna. Fusce in finibus purus, sed finibus ligula. Morbi egestas velit ut velit tristique, sit amet eleifend ante condimentum. Proin eget tincidunt augue, a faucibus ante. Curabitur congue magna quis mauris laoreet volutpat. Etiam dignissim eu massa vitae fringilla. Aenean posuere, nunc in suscipit rhoncus, risus mi euismod enim, ut vulputate dolor diam nec purus. Mauris mollis erat in sagittis vestibulum. Vestibulum id efficitur augue, eu aliquam elit. Morbi auctor arcu neque, sed sagittis libero feugiat id. Nunc mi urna, varius at urna ut, malesuada efficitur elit. Nunc eget libero ac orci consectetur condimentum. Nulla finibus posuere consequat. Nunc sit amet dolor nibh. Sed eu purus non quam posuere iaculis quis eget ante. Praesent consequat tristique nisi, non blandit ex molestie et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacus leo, fermentum a scelerisque sit amet, feugiat et quam. Ut et odio sed est consectetur cursus. Duis a ultrices metus. Nullam lorem dui, pretium eu malesuada at, maximus varius elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non urna augue. Donec vitae nunc vitae nibh vulputate lobortis ut vehicula quam. Vivamus luctus tempor cursus. Curabitur consequat urna nisl, et suscipit libero tempus a. Curabitur elementum nunc felis, sit amet porttitor felis ultricies ac. Nullam auctor quam eu volutpat condimentum. Morbi quis dui in turpis viverra volutpat. Donec vitae accumsan arcu. Integer quam justo, blandit ut pretium non, scelerisque sit amet ipsum. Aenean a sem nibh. Aliquam eu nisl vel enim sodales faucibus nec ut risus. Fusce mattis, tortor et condimentum rhoncus, sapien mi tincidunt turpis, quis elementum orci leo nec sapien. Mauris accumsan fringilla eleifend. Nulla laoreet semper ex ut dapibus. Sed a finibus metus, sed vulputate elit. Maecenas nisi lorem, ultricies ut nisl tincidunt, iaculis viverra lorem. Donec quis hendrerit neque. Duis blandit elit convallis dui viverra eleifend. Fusce a consequat velit, nec pharetra mi. Integer eu sagittis augue. Morbi volutpat nisl erat, elementum maximus justo viverra at. Maecenas ligula est, commodo eget sagittis quis, euismod vitae dolor. Cras mi odio, sodales consequat consequat sed, lacinia non eros. Fusce vel porta lorem. Ut quis augue quam. Sed sed odio nibh. Vestibulum condimentum sed justo sit amet viverra. Nam sit amet augue gravida, sollicitudin lacus vel, lobortis magna. Morbi dignissim efficitur vulputate. Etiam ut faucibus risus, et pulvinar quam. Aliquam ut sapien interdum, molestie ipsum sit amet, rutrum lacus. In hac habitasse platea dictumst. Proin vitae ipsum tellus. Duis ultricies mi eu laoreet feugiat. Curabitur lacinia pretium velit id facilisis. Fusce enim elit, congue ac purus quis, suscipit mattis arcu. Cras feugiat lorem nec eleifend auctor. Ut leo velit, ullamcorper ac aliquam nec, dignissim eget diam. Fusce quis dictum magna, vitae pulvinar erat. Nulla sagittis neque vel ex volutpat mattis. Donec in lectus odio. Pellentesque in accumsan quam. Cras nisi nunc, sagittis finibus sem viverra, viverra ultricies libero. Duis nec urna vehicula, dictum augue sit amet, luctus urna. Fusce in finibus purus, sed finibus ligula. Morbi egestas velit ut velit tristique, sit amet eleifend ante condimentum. Proin eget tincidunt augue, a faucibus ante. Curabitur congue magna quis mauris laoreet volutpat. Etiam dignissim eu massa vitae fringilla. Aenean posuere, nunc in suscipit rhoncus, risus mi euismod enim, ut vulputate dolor diam nec purus. Mauris mollis erat in sagittis vestibulum. Vestibulum id efficitur augue, eu aliquam elit. Morbi auctor arcu neque, sed sagittis libero feugiat id. Nunc mi urna, varius at urna ut, malesuada efficitur elit. Nunc eget libero ac orci consectetur condimentum. Nulla finibus posuere consequat. Nunc sit amet dolor nibh. Sed eu purus non quam posuere iaculis quis eget ante. Praesent consequat tristique nisi, non blandit ex molestie et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacus leo, fermentum a scelerisque sit amet, feugiat et quam. Ut et odio sed est consectetur cursus. Duis a ultrices metus. Nullam lorem dui, pretium eu malesuada at, maximus varius elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non urna augue. Donec vitae nunc vitae nibh vulputate lobortis ut vehicula quam. Vivamus luctus tempor cursus. Curabitur consequat urna nisl, et suscipit libero tempus a. Curabitur elementum nunc felis, sit amet porttitor felis ultricies ac. Nullam auctor quam eu volutpat condimentum. Morbi quis dui in turpis viverra volutpat. Donec vitae accumsan arcu. Integer quam justo, blandit ut pretium non, scelerisque sit amet ipsum. Aenean a sem nibh. Aliquam eu nisl vel enim sodales faucibus nec ut risus. Fusce mattis, tortor et condimentum rhoncus, sapien mi tincidunt turpis, quis elementum orci leo nec sapien. Mauris accumsan fringilla eleifend. Nulla laoreet semper ex ut dapibus. Sed a finibus metus, sed vulputate elit. Maecenas nisi lorem, ultricies ut nisl tincidunt, iaculis viverra lorem. Donec quis hendrerit neque. Duis blandit elit convallis dui viverra eleifend. Fusce a consequat velit, nec pharetra mi. Integer eu sagittis augue. Morbi volutpat nisl erat, elementum maximus justo viverra at. Maecenas ligula est, commodo eget sagittis quis, euismod vitae dolor. Cras mi odio, sodales consequat consequat sed, lacinia non eros. Fusce vel porta lorem. Ut quis augue quam. Sed sed odio nibh. Vestibulum condimentum sed justo sit amet viverra. Nam sit amet augue gravida, sollicitudin lacus vel, lobortis magna. Morbi dignissim efficitur vulputate. Etiam ut faucibus risus, et pulvinar quam. Aliquam ut sapien interdum, molestie ipsum sit amet, rutrum lacus. In hac habitasse platea dictumst. Proin vitae ipsum tellus. Duis ultricies mi eu laoreet feugiat. Curabitur lacinia pretium velit id facilisis. Fusce enim elit, congue ac purus quis, suscipit mattis arcu. Cras feugiat lorem nec eleifend auctor. Ut leo velit, ullamcorper ac aliquam nec, dignissim eget diam. Fusce quis dictum magna, vitae pulvinar erat. Nulla sagittis neque vel ex volutpat mattis. Donec in lectus odio. Pellentesque in accumsan quam. Cras nisi nunc, sagittis finibus sem viverra, viverra ultricies libero. Duis nec urna vehicula, dictum augue sit amet, luctus urna. Fusce in finibus purus, sed finibus ligula. Morbi egestas velit ut velit tristique, sit amet eleifend ante condimentum. Proin eget tincidunt augue, a faucibus ante. Curabitur congue magna quis mauris laoreet volutpat. Etiam dignissim eu massa vitae fringilla. Aenean posuere, nunc in suscipit rhoncus, risus mi euismod enim, ut vulputate dolor diam nec purus. Mauris mollis erat in sagittis vestibulum. Vestibulum id efficitur augue, eu aliquam elit. Morbi auctor arcu neque, sed sagittis libero feugiat id. Nunc mi urna, varius at urna ut, malesuada efficitur elit. Nunc eget libero ac orci consectetur condimentum. Nulla finibus posuere consequat. Nunc sit amet dolor nibh. Sed eu purus non quam posuere iaculis quis eget ante. Praesent consequat tristique nisi, non blandit ex molestie et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacus leo, fermentum a scelerisque sit amet, feugiat et quam. Ut et odio sed est consectetur cursus. Duis a ultrices metus. Nullam lorem dui, pretium eu malesuada at, maximus varius elit.', 
+          description: `
+          <div style="text-align: center;">
+          <iframe width="600" height="315" src="https://www.youtube.com/embed/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><br>
+          <p>This is an example of Howard\'s dialogue. Here, I would advise adding the transcript of what howard is saying, along with any other background information on Howard that he is comfortable providing.</p>`, 
         },
         dianneButton: {
           title: 'Dianne Mippy',
@@ -73,11 +82,15 @@ AFRAME.registerComponent('info-panel', {
   
       this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
       this.onBackgroundClick = this.onBackgroundClick.bind(this);
+
   
       this.backgroundEl = document.querySelector('#background');
+
       for (var i = 0; i < buttonEls.length; ++i) {
         buttonEls[i].addEventListener('click', this.onMenuButtonClick);
+        buttonEls[i].addEventListener('mouseleave', this.onMouseLeave);
       }
+
       this.backgroundEl.addEventListener('click', this.onBackgroundClick);
       this.el.object3D.renderOrder = 9999999;
       this.el.object3D.depthTest = false;
@@ -88,26 +101,34 @@ AFRAME.registerComponent('info-panel', {
     onMenuButtonClick: function (evt) {
       var modal = document.getElementById("myModal"); // Store the modal reference
       var Info = this.Info[evt.currentTarget.id];
-      
-      document.querySelector('#camera').setAttribute('look-controls', 'enabled', false);
 
-      var infoKey = evt.currentTarget.id;
-      var Info = this.Info[infoKey];
+      var currentEntity = evt.currentTarget;
+      if (!currentEntity.classList.contains('menu-button')) {
+        currentEntity.classList.add('menu-button')
 
-      this.TitleEl.innerText = Info.title;
-      this.DescriptionEl.innerText = Info.description;
+      }else{
+        currentEntity.classList.remove('menu-button')
+        document.querySelector('#camera').setAttribute('look-controls', 'enabled', false);
+
+
+        var infoKey = evt.currentTarget.id;
+        var Info = this.Info[infoKey];
+
+        this.TitleEl.innerText = Info.title;
+        this.DescriptionEl.innerHTML = Info.description;
     
-  
-      this.backgroundEl.object3D.scale.set(1, 1, 1);
-      modal.style.display = "block";
-  
-  
-      this.el.object3D.scale.set(1, 1, 1);
-      if (AFRAME.utils.device.isMobile()) { this.el.object3D.scale.set(1.4, 1.4, 1.4); }
-      this.el.object3D.visible = true;
-      this.TitleEl.setAttribute('text', 'value', Info.title);
-      this.DescriptionEl.setAttribute('text', 'value', Info.description);
+        this.backgroundEl.object3D.scale.set(1, 1, 1);
+        modal.style.display = "flex";
+
+              
+        this.el.object3D.scale.set(1, 1, 1);
+        if (AFRAME.utils.device.isMobile()) { this.el.object3D.scale.set(1.4, 1.4, 1.4); }
+        this.el.object3D.visible = true;
+        this.TitleEl.setAttribute('text', 'value', Info.title);
+        this.DescriptionEl.setAttribute('text', 'value', Info.description);
+      }
     },
+
   
     onBackgroundClick: function (evt) {
       this.backgroundEl.object3D.scale.set(0.001, 0.001, 0.001);

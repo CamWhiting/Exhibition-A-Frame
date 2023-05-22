@@ -8,21 +8,19 @@
     <meta name="description" content="Curtin Exhibition Space">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-enviropacks@0.10.0/aframe-enviropacks.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-enviropacks@0.10.0/aframe-enviropacks.js"></script> 
     <script src="js/highlight.js"></script>
     <script src="js/info-panel.js"></script>
     <script src="js/joystick.js"></script>
-
     <link rel="stylesheet" href="styles.css">
     <link href='https://fonts.googleapis.com/css?family=Viga' rel='stylesheet'>
   </head>
  
   <body>
-    
-    <div id="myModal">
+    <div id="myModal" class="modal-wrapper">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5; font: ;">[LIMEN EXHIBITION SPEAKER]</h2>
+        <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">[LIMEN EXHIBITION SPEAKER]</h2>
         <p id="Description">[LIMEN EXHIBITION SPEAKER DESCRIPTION]</p>
       </div>
     </div> 
@@ -30,7 +28,8 @@
       vr-mode-ui="enabled: false"
       renderer="colorManagement: true;" 
       info-message="htmlSrc: #messageText"
-      loading-screen="dotsColor: white; backgroundColor: black">
+      loading-screen="dotsColor: white; backgroundColor: black"
+      embed>
       
       <!-- Asset Section. Code added here can be referenced but won't appear on page -->
       <a-assets>
@@ -46,7 +45,12 @@
         <a-asset-item id="exhibition_middle" src="src/mesh/screen_middle.glb"></a-asset-item>
         <a-asset-item id="exhibition_rear" src="src/mesh/screen_rear.glb"></a-asset-item>
         <a-asset-item id="exhibition_floor" src="src/mesh/screen_floor.glb"></a-asset-item>
-      
+        <video id="floor-video" autoplay loop="true" src="src/video/site-maps.mp4"></video>
+        <video id="left-video" autoplay loop="true" src="src/video/mogumber_moore_river.mp4"></video>
+        <video id="middle-video" autoplay loop="true" src="src/video/wandering_mission.mp4"></video>
+        <video id="rear-video" autoplay loop="true" src="src/video/carrolup-marribank-final-version.mp4"></video>
+        <img id="comp-instructions" src="src/img/computer-ctrls.jpg">
+        <img id="mobile-instructions" src="src/img/mobile-ctrls.jpg">
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh.glb"></a-asset-item>
@@ -107,6 +111,11 @@
           material="shader: flat; transparent: true"
           position="0 0.495 0.002"
         ></a-mixin>
+
+        <!-- Checkpoints -->
+        <a-mixin id="checkpoint"></a-mixin>
+        <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+        
       </a-assets>
 
       <!-- Lights  -->
@@ -125,16 +134,19 @@
       
       <!-- Meshes -->
       <a-entity>
-        <a-entity id="exhibition" gltf-model="#exhibition_space" material="shader: flat;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="scaffolding" gltf-model="#exhibition_scaffolding" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="screen_left" gltf-model="#exhibition_left" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="screen_middle" gltf-model="#exhibition_middle" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="screen_right" gltf-model="#exhibition_right" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="screen_rear" gltf-model="#exhibition_rear" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="screen_floor" gltf-model="#exhibition_floor" material=" color: #032225;" renderer="colorManagement: true;" position="0 -1.525 0"></a-entity>
+        <a-entity id="exhibition" gltf-model="#exhibition_space"  position="0 -1.525 0"></a-entity>
+        <a-entity id="scaffolding" gltf-model="#exhibition_scaffolding" material="color: #032225;" renderer="colorManagement: true;"  position="0 -1.525 0"></a-entity>
+        <a-entity id="screen_left" geometry="primitive: plane"  material="color: #FFFFFF; src:#left-video" position="-5.267 2.074 -7.964" rotation="0 -5.688 0" scale="2.791 1.578 1"></a-entity>
+        <a-entity id="screen_middle" geometry="primitive: plane" material="color: #FFFFFF; src:#middle-video" position="-1.556 2.074 -7.589" rotation="0 -5.688 0" scale="2.792 1.571 1"></a-entity>
+        <a-entity id="screen_right" geometry="primitive: plane" material="color: #FFFFFF; src:#right-video" position="5.351 2.077 -8.496" rotation="0 15.733 0" scale="2.595 1.574 1"></a-entity>
+        <a-entity id="screen_rear" geometry="primitive: plane"  material="color: #FFFFFF; src:#rear-video" position="0.467 2.285 5.685" rotation="0 180.000 0" scale="2.792 1.574 1"></a-entity>
+        <a-entity id="screen_floor" geometry="primitive: plane" material="color: #FFFFFF; src:#floor-video" renderer="colorManagement: true;" position="1.391 0 -1.403" rotation="-90.000 0 0" scale="2.793 1.566 1.000"></a-entity>
         <a-entity id="navmesh" nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
         <a-entity id="glass" gltf-model="#exhibition_glass" material="opacity:0.5; transparent: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="garment_1" gltf-model="#garment_1" material="shader: flat;" renderer="colorManagement: true;" position="4.362 1.236 -4.045"></a-entity>
+        <!-- <a-entity id="garment_1" gltf-model="#garment_1" material="shader: flat;" renderer="colorManagement: true;" position="4.362 1.236 -4.045"></a-entity> -->
+        <a-box position="4.772 1.381 3.537" scale="0.772 2.770 2.576" material="color: #FFFFFF;"></a-box>
+        <a-image src="#mobile-instructions" ></a-image>
+        <a-image src="#comp-instructions" ></a-image>
       </a-entity>
 
       <a-entity
@@ -145,51 +157,45 @@
         scale="0.001 0.001 0.001"
         visible="false" class="raycastable">
       </a-entity>
-
-      <a-entity id="rig" 
-        movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard;"
-        checkpoint-controls="mode: animate"
-        position="6.783 0 4.107"
-        rotation="0 88.121 0"
-        >
-          <a-entity 
-            camera 
-            id="camera" 
-            camera 
-            position="0 1.6 0" 
-            look-controls="pointerLockEnabled: true"
-            touch-listener>
-              <a-cursor 
-                material="" 
-                raycaster="objects: .raycastable"
-                geometry="" 
-                position="0 0 -0.1"      
-                scale="0.1 0.1 0.1"/>
-              <a-entity
+      <a-entity id="rig"
+                movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
+                checkpoint-controls="mode: animate"
+                position="6.893 0 3.702"
+                rotation="0 88.121 0">
+        <a-entity id="camera" 
+                  camera
+                  position="0 1.6 0"
+                  look-controls="pointerLockEnabled: true; magicWindowTrackingEnabled: false;"
+                  touch-listener>
+          <a-entity cursor
+                    position="0 0 -0.1"
+                    raycaster="objects: .raycastable"
+                    geometry="primitive: circle; radius: 0.001; "
+                    material="color: #CCC">
+          </a-entity>
+          <a-entity
               id="fadeBackground"
               geometry="primitive: sphere; radius: 2.5"
               material="color: black; side: back; shader: flat; transparent: true; opacity: 0.6" visible="false">
             </a-entity>
-          </a-entity>
+        </a-entity>
       </a-entity>
 
+        
         <!-- Checkpoint -->
         <a-entity>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="6.907 0 3.652" color="#380402"  material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="5.416 0 -6.208" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.371 0 2.086" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.080 0 -3.995" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-2.587 0 4.783" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 0 4.783" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 -1.435 0.584" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 0.584" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -2.095" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -5.515" color="#380402" material="shader: flat; opacity: 0.5;"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="6.907 0 3.652" color="#380402"  material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="5.416 0 -6.208" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.371 0 2.086" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.080 0 -3.995" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-2.587 0 4.783" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 0 4.783" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 -1.435 0.584" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 0.584" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -2.095" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -5.515" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
         </a-entity>
       
-        <!-- Hand controls
-      <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .raycastable"></a-entity>
-      <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .raycastable" line="color: #118A7E"></a-entity> -->
 
       <a-entity id="ui" position="0 1.6 -2.5">
         <!-- Poster menu -->
