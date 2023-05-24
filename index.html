@@ -24,6 +24,27 @@
         <p id="Description">[LIMEN EXHIBITION SPEAKER DESCRIPTION]</p>
       </div>
     </div> 
+
+    <!-- Inital Pop-up -->
+    <div id="welcomeModal" class="modal-wrapper" style="display: none;">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence Exhibition.</h2>
+        <p id="Description">
+          <strong>CONTROLS</strong><br>
+          For PC, use WASD or ↑←↓→ keys to move around the exhibition and the mouse to look around. You can click on pictures in the exhibition to hear the Survivor's story.<br><br>
+          For mobile, click on the brown circles on the floor to move from place to place within the exhibition. Drag with your finger to look around and tap pictures in the exhibition to hear the Survivor's story.
+        </p> 
+
+        <p id="Description">
+          <strong>WARNING</strong><br>
+          The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture.<br><br>
+          This project contains distressing stories as Survivors bear witness to the traumas that occured in these places.<br><br>
+          This may be triggering for some people. We wish to advise that this exhibition and research study contains images, video footage and voice recordings of deceased persons, used with the permission of their familities.
+        </p>
+      </div>
+    </div>
+
     <a-scene
       vr-mode-ui="enabled: false"
       renderer="colorManagement: true;" 
@@ -45,12 +66,12 @@
         <a-asset-item id="exhibition_middle" src="src/mesh/screen_middle.glb"></a-asset-item>
         <a-asset-item id="exhibition_rear" src="src/mesh/screen_rear.glb"></a-asset-item>
         <a-asset-item id="exhibition_floor" src="src/mesh/screen_floor.glb"></a-asset-item>
+        <a-asset-item id="exhibition_props" src="src/mesh/props.glb"></a-asset-item>
         <video id="floor-video" autoplay loop="true" src="src/video/site-maps.mp4"></video>
         <video id="left-video" autoplay loop="true" src="src/video/mogumber_moore_river.mp4"></video>
         <video id="middle-video" autoplay loop="true" src="src/video/wandering_mission.mp4"></video>
         <video id="rear-video" autoplay loop="true" src="src/video/carrolup-marribank-final-version.mp4"></video>
-        <img id="comp-instructions" src="src/img/computer-ctrls.jpg">
-        <img id="mobile-instructions" src="src/img/mobile-ctrls.jpg">
+
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh.glb"></a-asset-item>
@@ -119,7 +140,7 @@
       </a-assets>
 
       <!-- Lights  -->
-      <a-light id="spotlights" type="spot" position="2.919 3.952 1.464" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-light>
+      <a-light id="spotlights" type="spot" castShadow="true" position="2.919 3.952 1.464" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-light>
       <a-light id="spotlights" type="spot" position="3.100 3.952 -2.841" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-light>
 
       <!-- Messages -->
@@ -131,10 +152,11 @@
         geometry="primitive: plane; height: auto; width: auto"
         material="color: #000000; transparent: true; opacity: 0.80;">
       </a-entity>
+
       
       <!-- Meshes -->
       <a-entity>
-        <a-entity id="exhibition" gltf-model="#exhibition_space"  position="0 -1.525 0"></a-entity>
+        <a-entity id="exhibition" gltf-model="#exhibition_space" material="shader: standard;" position="0 -1.525 0"></a-entity>
         <a-entity id="scaffolding" gltf-model="#exhibition_scaffolding" material="color: #032225;" renderer="colorManagement: true;"  position="0 -1.525 0"></a-entity>
         <a-entity id="screen_left" geometry="primitive: plane"  material="color: #FFFFFF; src:#left-video" position="-5.267 2.074 -7.964" rotation="0 -5.688 0" scale="2.791 1.578 1"></a-entity>
         <a-entity id="screen_middle" geometry="primitive: plane" material="color: #FFFFFF; src:#middle-video" position="-1.556 2.074 -7.589" rotation="0 -5.688 0" scale="2.792 1.571 1"></a-entity>
@@ -143,10 +165,9 @@
         <a-entity id="screen_floor" geometry="primitive: plane" material="color: #FFFFFF; src:#floor-video" renderer="colorManagement: true;" position="1.391 0 -1.403" rotation="-90.000 0 0" scale="2.793 1.566 1.000"></a-entity>
         <a-entity id="navmesh" nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
         <a-entity id="glass" gltf-model="#exhibition_glass" material="opacity:0.5; transparent: true;" position="0 -1.525 0"></a-entity>
+        <a-entity id="props" gltf-model="#exhibition_props" material="shader: standard;" position="0 -1.525 0"></a-entity>
         <!-- <a-entity id="garment_1" gltf-model="#garment_1" material="shader: flat;" renderer="colorManagement: true;" position="4.362 1.236 -4.045"></a-entity> -->
-        <a-box position="4.772 1.381 3.537" scale="0.772 2.770 2.576" material="color: #FFFFFF;"></a-box>
-        <a-image src="#mobile-instructions" ></a-image>
-        <a-image src="#comp-instructions" ></a-image>
+      
       </a-entity>
 
       <a-entity
@@ -246,4 +267,18 @@
       </a-entity>
     </a-scene>
   </body>
+  <script>
+    // Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis
+    AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
+    if (this.touchStarted && this.data.touchEnabled) {
+        this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
+        this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
+        this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+        this.touchStart = {
+            x: t.touches[0].pageX,
+            y: t.touches[0].pageY
+        }
+    }
+}
+  </script>
 </html>

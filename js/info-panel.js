@@ -5,15 +5,12 @@ AFRAME.registerComponent('info-panel', {
     var buttonEls = document.querySelectorAll('.menu-button');
     var fadeBackgroundEl = this.fadeBackgroundEl = document.querySelector('#fadeBackground');
     var self = this;
-
-
-   
+    
     
     // Code to close modal
     var modal = document.getElementById("myModal"); // Store the modal reference
     var span = document.getElementsByClassName("close")[0];
 
-    
     span.onclick = function() {
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
@@ -69,7 +66,7 @@ AFRAME.registerComponent('info-panel', {
           description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
         },
         timButton: {
-          title: 'Time Flowers',
+          title: 'Tim Flowers',
           imgEl: document.querySelector('#timImage'),
           description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
         },
@@ -100,6 +97,7 @@ AFRAME.registerComponent('info-panel', {
   
     onMenuButtonClick: function (evt) {
       var modal = document.getElementById("myModal"); // Store the modal reference
+      var welcome = document.getElementById("welcomeModal");
       var Info = this.Info[evt.currentTarget.id];
 
       var currentEntity = evt.currentTarget;
@@ -135,7 +133,6 @@ AFRAME.registerComponent('info-panel', {
       this.el.object3D.scale.set(0.001, 0.001, 0.001);
       this.el.object3D.visible = false;
       this.fadeBackgroundEl.object3D.visible = false;
-      modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
 
       
