@@ -1,6 +1,7 @@
 /* global AFRAME */
 AFRAME.registerComponent('info-panel', {
   modal: null,
+  welcomeModal: null,
   init: function () {
     var buttonEls = document.querySelectorAll('.menu-button');
     var fadeBackgroundEl = this.fadeBackgroundEl = document.querySelector('#fadeBackground');
@@ -9,12 +10,33 @@ AFRAME.registerComponent('info-panel', {
     
     // Code to close modal
     var modal = document.getElementById("myModal"); // Store the modal reference
+    var welcomeModal = document.getElementById("welcomeModal"); // Store the modal reference 
     var span = document.getElementsByClassName("close")[0];
 
     span.onclick = function() {
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
+    }; 
 
+        // Close the welcomeModal pop-up
+    var welcomeModalSpan = document.querySelector('.welcomeClose');
+    var helpModal = document.querySelector('#helpBG');
+    
+    welcomeModalSpan.onclick = function() {
+      var welcomeModal = document.querySelector('#welcomeModal');
+      welcomeModal.style.display = "none";
+
+    };
+
+    helpModal.onclick = function() {
+      var welcomeModal = document.querySelector('#welcomeModal');
+      welcomeModal.style.display = "flex";
+
+    };
+
+    span.onclick = function() {
+      modal.style.display = "none";
+      document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
     }; 
 
     this.TitleEl = document.querySelector('#Title');
@@ -75,7 +97,16 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#tonjiImage'),
           description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
         },
+        rearButton: {
+          title: 'Carrolup Marribank',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <div style="text-align: center;">
+          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/sTPuWor5kNI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+        },
       };
+
+      
   
       this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
       this.onBackgroundClick = this.onBackgroundClick.bind(this);
@@ -97,7 +128,7 @@ AFRAME.registerComponent('info-panel', {
   
     onMenuButtonClick: function (evt) {
       var modal = document.getElementById("myModal"); // Store the modal reference
-      var welcome = document.getElementById("welcomeModal");
+      var welcomeModal = document.getElementById("welcomeModal");
       var Info = this.Info[evt.currentTarget.id];
 
       var currentEntity = evt.currentTarget;

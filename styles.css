@@ -3,7 +3,7 @@
 #welcomeModal {
   position: absolute; /* Stay in place */
   z-index: 9999; /* Sit on top */
-
+  display: flex;
   margin-bottom: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -47,16 +47,49 @@
 }
 
 /* The Close Button */
-.close {
+.close, .welcomeClose {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .welcomeClose:hover,
+.close:focus, .welcomeClose:focus  {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+#help {
+  color: #ddd;
+  position: absolute;
+  display: inline; /* or display: inline-block; */
+  z-index: 2;
+  right: 2.5vh;
+  font-family: "Viga", Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  font-size: 2em;
+  margin: 17px 3px;
+  opacity: 1;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+#helpBG {
+  display: block;
+  width: 70px;
+  height: 70px; 
+  background-color: rgba(0,0,0,0.4); 
+  border-radius: 50%;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+  margin: 45px;
+}
+
+   
+#helpBG:hover, #helpBG:focus {
+  background-color: rgba(255, 255, 255, 0.4);
 }

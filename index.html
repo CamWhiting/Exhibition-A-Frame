@@ -26,17 +26,18 @@
     </div> 
 
     <!-- Inital Pop-up -->
-    <div id="welcomeModal" class="modal-wrapper" style="display: none;">
+    <div id="welcomeModal" class="modal-wrapper" >
       <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence Exhibition.</h2>
-        <p id="Description">
+        <span class="welcomeClose">&times;</span>
+        <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence exhibition.</h2>
+        <p id="Description" style="padding: 10px">
           <strong>CONTROLS</strong><br>
           For PC, use WASD or ↑←↓→ keys to move around the exhibition and the mouse to look around. You can click on pictures in the exhibition to hear the Survivor's story.<br><br>
-          For mobile, click on the brown circles on the floor to move from place to place within the exhibition. Drag with your finger to look around and tap pictures in the exhibition to hear the Survivor's story.
-        </p> 
-
-        <p id="Description">
+          For mobile, click on the brown circles on the floor to move from place to place within the exhibition. Drag with your finger to look around and tap pictures in the exhibition to hear the Survivor's story.<br><br>
+          If you need to exit this experience on the computer, press the escape key at any stage. If you need to see these instructions again, press the "?" in the top right corner.
+        </p>
+        
+        <p id="Description" style="padding: 10px">
           <strong>WARNING</strong><br>
           The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture.<br><br>
           This project contains distressing stories as Survivors bear witness to the traumas that occured in these places.<br><br>
@@ -44,29 +45,35 @@
         </p>
       </div>
     </div>
+    <!-- ? Help Symbol to display the welcomeModal again -->
+    <div id="helpBG">
+      <p id="help">?</p>
+    </div>
 
     <a-scene
       vr-mode-ui="enabled: false"
       renderer="colorManagement: true;" 
       info-message="htmlSrc: #messageText"
       loading-screen="dotsColor: white; backgroundColor: black"
-      embed>
+      embed
+      shadow="type: pcfsoft; autoUpdate: true">
       
       <!-- Asset Section. Code added here can be referenced but won't appear on page -->
       <a-assets>
-        <a-entity enviropack="preset: tankfarm"></a-entity>
+        <a-entity enviropack="preset: tankfarm" light="shadowCameraVisible:true; castShadow:true;"></a-entity>
         
         
         <!-- Exhibition Space  -->
         <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_2.glb"></a-asset-item>
         <a-asset-item id="exhibition_glass" src="src/mesh/exhibition_glass.glb"></a-asset-item>
+        <a-asset-item id="exhibition_props" src="src/mesh/props.glb"></a-asset-item>
         <a-asset-item id="exhibition_scaffolding" src="src/mesh/exhibition_scaffolding.glb"></a-asset-item>
         <a-asset-item id="exhibition_left" src="src/mesh/screen_left.glb"></a-asset-item>
         <a-asset-item id="exhibition_right" src="src/mesh/screen_right.glb"></a-asset-item>
         <a-asset-item id="exhibition_middle" src="src/mesh/screen_middle.glb"></a-asset-item>
         <a-asset-item id="exhibition_rear" src="src/mesh/screen_rear.glb"></a-asset-item>
         <a-asset-item id="exhibition_floor" src="src/mesh/screen_floor.glb"></a-asset-item>
-        <a-asset-item id="exhibition_props" src="src/mesh/props.glb"></a-asset-item>
+
         <video id="floor-video" autoplay loop="true" src="src/video/site-maps.mp4"></video>
         <video id="left-video" autoplay loop="true" src="src/video/mogumber_moore_river.mp4"></video>
         <video id="middle-video" autoplay loop="true" src="src/video/wandering_mission.mp4"></video>
@@ -74,10 +81,10 @@
 
 
         <!-- Nav Mesh -->
-        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh.glb"></a-asset-item>
+        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh_2.glb"></a-asset-item>
 
     
-        <a-asset-item id="garment_1" src="src/mesh/g1.glb"></a-asset-item> 
+        <!-- <a-asset-item id="garment_1" src="src/mesh/g1.glb"></a-asset-item>  -->
 
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
         
@@ -111,6 +118,10 @@
         <img id="tonji" crossorigin="anonymous"/>
         <img id="tonjiPoster" src="src/img/tonji-hansen.jpg" crossorigin="anonymous"/>
 
+        <!-- Video Test -->
+        <img id="rear" crossorigin="anonymous"/>
+        <video id="rear-video" autoplay loop="true" src="src/video/carrolup-marribank-final-version.mp4" crossorigin="anonymous"></video>
+        
         <!-- Frame Animation -->
         <a-mixin
           id="frame"
@@ -140,8 +151,9 @@
       </a-assets>
 
       <!-- Lights  -->
-      <a-light id="spotlights" type="spot" castShadow="true" position="2.919 3.952 1.464" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-light>
-      <a-light id="spotlights" type="spot" position="3.100 3.952 -2.841" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-light>
+      <!-- <a-entity id="directional" light="type:directional; shadowCameraVisible:true; castShadow:true;" position="10 3 2" rotation="13 23 13"></a-entity> -->
+      <!-- <a-entity id="spotlights" light="type:spot; shadowCameraVisible:true; castShadow:true;" position="2.919 3.952 1.464" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-entity>
+      <a-entity id="spotlights" light="type:spot; shadowCameraVisible:true; castShadow:true;" position="3.100 3.952 -2.841" rotation="-45.000 90 90" angle="23.740" intensity="2.410" penumbra="1" ></a-entity> -->
 
       <!-- Messages -->
       <a-entity 
@@ -156,18 +168,19 @@
       
       <!-- Meshes -->
       <a-entity>
-        <a-entity id="exhibition" gltf-model="#exhibition_space" material="shader: standard;" position="0 -1.525 0"></a-entity>
+        <a-entity id="exhibition" gltf-model="#exhibition_space" position="0 -1.525 0" shadow="receive: true; cast: true"></a-entity>
         <a-entity id="scaffolding" gltf-model="#exhibition_scaffolding" material="color: #032225;" renderer="colorManagement: true;"  position="0 -1.525 0"></a-entity>
         <a-entity id="screen_left" geometry="primitive: plane"  material="color: #FFFFFF; src:#left-video" position="-5.267 2.074 -7.964" rotation="0 -5.688 0" scale="2.791 1.578 1"></a-entity>
         <a-entity id="screen_middle" geometry="primitive: plane" material="color: #FFFFFF; src:#middle-video" position="-1.556 2.074 -7.589" rotation="0 -5.688 0" scale="2.792 1.571 1"></a-entity>
-        <a-entity id="screen_right" geometry="primitive: plane" material="color: #FFFFFF; src:#right-video" position="5.351 2.077 -8.496" rotation="0 15.733 0" scale="2.595 1.574 1"></a-entity>
+        <a-entity id="screen_right" geometry="primitive: plane" material="color: #98958C" position="5.351 2.077 -8.496" rotation="0 15.733 0" scale="2.595 1.574 1"></a-entity>
         <a-entity id="screen_rear" geometry="primitive: plane"  material="color: #FFFFFF; src:#rear-video" position="0.467 2.285 5.685" rotation="0 180.000 0" scale="2.792 1.574 1"></a-entity>
         <a-entity id="screen_floor" geometry="primitive: plane" material="color: #FFFFFF; src:#floor-video" renderer="colorManagement: true;" position="1.391 0 -1.403" rotation="-90.000 0 0" scale="2.793 1.566 1.000"></a-entity>
+        <a-entity id="screen_front" geometry="primitive: plane" material="color: #FFFFFF; src:#front-video" renderer="colorManagement: true;" position="7.372 1.138 3.243" rotation="-15.367 -12.816 0" scale="1.212 0.730 1.000"></a-entity>
         <a-entity id="navmesh" nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
         <a-entity id="glass" gltf-model="#exhibition_glass" material="opacity:0.5; transparent: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="props" gltf-model="#exhibition_props" material="shader: standard;" position="0 -1.525 0"></a-entity>
+        <a-entity id="props" gltf-model="#exhibition_props" shadow="cast: true" position="0 -1.525 0"></a-entity>
         <!-- <a-entity id="garment_1" gltf-model="#garment_1" material="shader: flat;" renderer="colorManagement: true;" position="4.362 1.236 -4.045"></a-entity> -->
-      
+      <!-- 7.372 1.138 3.243 -15.207 -12.830 -3.246-->
       </a-entity>
 
       <a-entity
@@ -181,8 +194,8 @@
       <a-entity id="rig"
                 movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
                 checkpoint-controls="mode: animate"
-                position="6.893 0 3.702"
-                rotation="0 88.121 0">
+                position="5.701 0 4.857"
+                rotation="0 0 0">
         <a-entity id="camera" 
                   camera
                   position="0 1.6 0"
@@ -205,16 +218,16 @@
         
         <!-- Checkpoint -->
         <a-entity>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="6.907 0 3.652" color="#380402"  material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="5.416 0 -6.208" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.371 0 2.086" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.080 0 -3.995" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-2.587 0 4.783" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 0 4.783" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 -1.435 0.584" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 0.584" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -2.095" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -5.515" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="5.721 0 4.857" scale="1 2 1" color="#380402"  material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="5.416 0 -6.208" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.371 0 2.086" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="1.080 0 -3.995" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-2.587 0 4.783" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 0 4.783" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 -1.435 0.584" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 0.584" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -2.095" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -5.515" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
         </a-entity>
       
 
@@ -259,6 +272,10 @@
 
           <a-entity id="garryButton" position="-3.401 0.311 -1.158" rotation="0 90 0" mixin="frame" class="raycastable menu-button">
             <a-entity material="src: #garryPoster" mixin="poster"></a-entity>
+          </a-entity>
+
+          <a-entity id="rearButton" position="0.467 2.285 5.685" rotation="0 180.000 0" scale="2.792 1.574 1" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #rear-video" mixin="poster"></a-entity>
           </a-entity>
 
         </a-entity>
