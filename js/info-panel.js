@@ -12,26 +12,27 @@ AFRAME.registerComponent('info-panel', {
     var modal = document.getElementById("myModal"); // Store the modal reference
     var welcomeModal = document.getElementById("welcomeModal"); // Store the modal reference 
     var span = document.getElementsByClassName("close")[0];
+    // Close the welcomeModal pop-up
+    var welcomeModalSpan = document.querySelector('.welcomeClose');
+    var helpModal = document.querySelector('#helpBG');
+    
+    welcomeModal.style.display = "flex";
+    helpModal.style.display = "flex";
+
 
     span.onclick = function() {
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
     }; 
 
-        // Close the welcomeModal pop-up
-    var welcomeModalSpan = document.querySelector('.welcomeClose');
-    var helpModal = document.querySelector('#helpBG');
+
     
     welcomeModalSpan.onclick = function() {
-      var welcomeModal = document.querySelector('#welcomeModal');
       welcomeModal.style.display = "none";
-
     };
 
     helpModal.onclick = function() {
-      var welcomeModal = document.querySelector('#welcomeModal');
       welcomeModal.style.display = "flex";
-
     };
 
     span.onclick = function() {
@@ -103,6 +104,34 @@ AFRAME.registerComponent('info-panel', {
           description: `
           <div style="text-align: center;">
           <iframe width="100%" height="450px" src="https://www.youtube.com/embed/sTPuWor5kNI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+        },
+        leftButton: {
+          title: 'Mogumber Moore River',
+          imgEl: document.querySelector('#leftImage'),
+          description: `
+          <div style="text-align: center;">
+          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/SST1hwjRyyM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+        },
+        middleButton: {
+          title: 'Wandering Mission',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <div style="text-align: center;">
+          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/yw5dZFTT1nA?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+        },
+        floorButton: {
+          title: 'Site Map',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <div style="text-align: center;">
+          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/lasT77J2vH8?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+        },
+        displayButton: {
+          title: 'Catelogue',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <div style="text-align: center;">
+          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/n9YqZFGrNHM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
         },
       };
 

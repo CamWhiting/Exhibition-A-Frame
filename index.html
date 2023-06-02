@@ -26,7 +26,7 @@
     </div> 
 
     <!-- Inital Pop-up -->
-    <div id="welcomeModal" class="modal-wrapper" >
+    <div id="welcomeModal" class="modal-wrapper" style="display: none;">
       <div class="modal-content">
         <span class="welcomeClose">&times;</span>
         <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence exhibition.</h2>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <!-- ? Help Symbol to display the welcomeModal again -->
-    <div id="helpBG">
+    <div id="helpBG" style="display: none;">
       <p id="help">?</p>
     </div>
 
@@ -109,11 +109,20 @@
 
         <!-- Video Test -->
         <img id="rear" crossorigin="anonymous"/>
-        <img id="rear-video" autoplay loop="true" src="src/img/carrolup-marribank-final-version.jpg" crossorigin="anonymous"/>
+        <img id="rear-video" src="src/img/carrolup-marribank-final-version.jpg" crossorigin="anonymous"/>
 
-        <a-asset-item id="left-video" autoplay loop="true" src="src/img/mogumber_moore_river.jpg"></a-asset-item>
-        <a-asset-item id="middle-video" autoplay loop="true" src="src/img/wandering_mission.jpg"></a-asset-item>
-        <a-asset-item id="floor-video" autoplay loop="true" src="src/img/site-maps.jpg"></a-asset-item>
+        <img id="left" crossorigin="anonymous"/>
+        <img id="left-video" src="src/img/mogumber_moore_river.jpg" crossorigin="anonymous"/>
+
+        <img id="middle" crossorigin="anonymous"/>
+        <img id="middle-video" src="src/img/wandering_mission.jpg" crossorigin="anonymous"/>
+
+        <img id="floor" crossorigin="anonymous"/>
+        <img id="floor-video" src="src/img/site-maps.jpg" crossorigin="anonymous"/>
+
+        <img id="display" crossorigin="anonymous"/>
+        <img id="display-video" src="src/img/catelogue0.jpg" crossorigin="anonymous"/>
+
         
         <!-- Frame Animation -->
         <a-mixin
@@ -277,29 +286,29 @@
 
           <!-- MIDDLE Video -->
           <a-entity scale="4 1.5 1" position="-1.25 2 -7.5">
-            <a-entity id="rearButton" rotation="0 -20 0" mixin="frame" class="raycastable menu-button">
-              <a-entity material="src: #rear-video" mixin="poster"></a-entity>
+            <a-entity id="middleButton" rotation="0 -20 0" mixin="frame" class="raycastable menu-button">
+              <a-entity material="src: #middle-video" mixin="poster"></a-entity>
             </a-entity>
           </a-entity>
 
           <!-- FLOOR Video -->
           <a-entity scale="4.780 1.5 1.880" position="1.390 0.002 -1.390">
-            <a-entity id="rearButton" rotation="-90 0 0" mixin="frame" class="raycastable menu-button">
-              <a-entity material="src: #rear-video" mixin="poster"></a-entity>
+            <a-entity id="floorButton" rotation="-90 0 0" mixin="frame" class="raycastable menu-button">
+              <a-entity material="src: #floor-video" mixin="poster"></a-entity>
             </a-entity>
           </a-entity>
 
           <!-- LEFT Video -->
-          <a-entity scale="4 1.5 1" rotation="0 -5.31 0" position="-5.320 2 -7.960">
-            <a-entity id="rearButton"  mixin="frame" class="raycastable menu-button">
-              <a-entity material="src: #rear-video" mixin="poster"></a-entity>
+          <a-entity scale="4 1.5 1" rotation="0 -5.31 0" position="-5.320 2 -7.940">
+            <a-entity id="leftButton"  mixin="frame" class="raycastable menu-button">
+              <a-entity material="src: #left-video" mixin="poster"></a-entity>
             </a-entity>
           </a-entity>
 
           <!-- DISPLAY Video -->
           <a-entity scale="2 0.770 0.5" position="7.374 1.146 3.270" rotation="15.820 167.090 0">
-            <a-entity id="rearButton" rotation="0 180 0" mixin="frame" class="raycastable menu-button">
-              <a-entity material="src: #rear-video" mixin="poster"></a-entity>
+            <a-entity id="displayButton" rotation="0 180 0" mixin="frame" class="raycastable menu-button">
+              <a-entity material="src: #display-video" mixin="poster"></a-entity>
             </a-entity>
           </a-entity>
 
