@@ -14,25 +14,16 @@ AFRAME.registerComponent('info-panel', {
     var span = document.getElementsByClassName("close")[0];
     // Close the welcomeModal pop-up
     var welcomeModalSpan = document.querySelector('.welcomeClose');
-    var helpModal = document.querySelector('#helpBG');
     
     welcomeModal.style.display = "flex";
-    helpModal.style.display = "flex";
-
 
     span.onclick = function() {
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
     }; 
 
-
-    
     welcomeModalSpan.onclick = function() {
       welcomeModal.style.display = "none";
-    };
-
-    helpModal.onclick = function() {
-      welcomeModal.style.display = "flex";
     };
 
     span.onclick = function() {

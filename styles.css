@@ -77,19 +77,17 @@
   user-select: none; /* Standard syntax */
 }
 
-#helpBG {
-  display: block;
-  width: 70px;
-  height: 70px; 
-  background-color: rgba(0,0,0,0.4); 
-  border-radius: 50%;
-  position: fixed;
-  right: 0;
-  z-index: 1;
-  margin: 45px;
+a-scene {
+  display: flex;
+  height: 80%;
+  min-height: 80vh;
 }
 
-   
-#helpBG:hover, #helpBG:focus {
-  background-color: rgba(255, 255, 255, 0.4);
-}
+
+@media (max-width : 400px) {
+  a-scene {
+    height: 840px;
+    margin: auto;
+    width: 100%;
+  }
+ }
