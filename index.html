@@ -14,15 +14,31 @@
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-enviropacks@0.10.0/aframe-enviropacks.js"></script> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="src/js/highlight.js"></script>
     <script src="src/js/info-message.js"></script>
     <script src="src/js/info-panel.js"></script>
     <script src="src/js/joystick.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link href='https://fonts.googleapis.com/css?family=Viga' rel='stylesheet'>
   </head>
- 
   <body>
+    <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
+    <script>
+      AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
+      if (this.touchStarted && this.data.touchEnabled) {
+          this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
+          this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
+          this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+          this.touchStart = {
+              x: t.touches[0].pageX,
+              y: t.touches[0].pageY
+          }
+      }
+  }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <a-scene
     reflection="directionalLight:a-entity#spotlights;"
       allowvr="no"
@@ -71,9 +87,9 @@
         
         
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_3.glb" material="roughness: 0"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_4.glb" material="roughness: 0"></a-asset-item>
         <a-asset-item id="exhibition_glass" src="src/mesh/exhibition_glass.glb"></a-asset-item>
-        <a-asset-item id="exhibition_props" src="src/mesh/props_2.glb"></a-asset-item>
+        <a-asset-item id="exhibition_props" src="src/mesh/props_3.glb"></a-asset-item>
         <a-asset-item id="exhibition_scaffolding" src="src/mesh/exhibition_scaffolding.glb"></a-asset-item>
 
         <!-- Nav Mesh -->
@@ -108,6 +124,9 @@
 
           <img id="tonji" crossorigin="anonymous"/>
           <img id="tonjiPoster" src="src/img/tonji-hansen.jpg" crossorigin="anonymous"/>
+
+          <img id="unnamed" crossorigin="anonymous"/>
+          <img id="unnamedPoster" src="src/img/blank-poster.jpg" crossorigin="anonymous"/>
 
           <!-- Video Test -->
           <img id="rear" crossorigin="anonymous"/>
@@ -279,6 +298,10 @@
             <a-entity material="src: #garryPoster" mixin="poster"></a-entity>
           </a-entity>
 
+          <a-entity id="unnamedButton" position="-5.467 2.596 -1.498" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
+            <a-entity material="src: #unnamedPoster" mixin="poster"></a-entity>
+          </a-entity>
+
           <!-- For resizing videos, a additional entity is used -->
           <!-- REAR Video -->
           <a-entity scale="4 1.5 1" position="0.510 2.25 5.6">
@@ -309,7 +332,7 @@
           </a-entity>
 
           <!-- DISPLAY Video -->
-          <a-entity scale="1.890 0.770 0.5" position="7.334 1.136 2.269" rotation="15.410 151.130 0">
+          <a-entity scale="2 0.75 1" position="4.347 1.176 4.357" rotation="0 -90 0">
             <a-entity id="displayButton" rotation="0 180 0" mixin="frame" class="raycastable menu-button">
               <a-entity material="src: #display-video" mixin="poster"></a-entity>
             </a-entity>
@@ -321,19 +344,8 @@
       </a-entity>
       <button class="a-help" title="Get help for how to use this experience" aframe-injected=""></button>
     </a-scene>
+
+     
+
   </body>
-  <script>
-    // Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis
-    AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
-    if (this.touchStarted && this.data.touchEnabled) {
-        this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
-        this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
-        this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-        this.touchStart = {
-            x: t.touches[0].pageX,
-            y: t.touches[0].pageY
-        }
-    }
-}
-  </script>
 </html>

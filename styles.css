@@ -52,6 +52,10 @@
   float: right;
   font-size: 28px;
   font-weight: bold;
+  right: 0;
+  position: absolute;
+  top: 0;
+  padding: 0.45em 15pt;
 }
 
 .close:hover, .welcomeClose:hover,

@@ -47,7 +47,11 @@ AFRAME.registerComponent('info-panel', {
         dianneButton: {
           title: 'Dianne Mippy',
           imgEl: document.querySelector('#dianneImage'),
-          description: 'The Wind Rises is a fictionalised biographical film of Jiro Horikoshi (1903, 1982), designer of the Mitsubishi A5M fighter aircraft and its successor, the Mitsubishi A6M Zero, used by the Empire of Japan during World War II. The film is adapted from Miyazaki\'s manga of the same name, which was in turn loosely based on both the 1937 novel The Wind Has Risen by Tatsuo Hori and the life of Jiro Horikoshi.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Dianne Mippy Dual Audio">
+          </iframe>
+          </div>`
         },
         edithButton: {
           title: 'Edith de Giambattista',
@@ -57,12 +61,22 @@ AFRAME.registerComponent('info-panel', {
         garryButton: {
           title: 'Garry Ryder',
           imgEl: document.querySelector('#garryImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Garry Ryder">
+          </iframe>
+          </div>
+          `
         },
         jenniferButton: {
           title: 'Jennifer Mogridge',
           imgEl: document.querySelector('#jenniferImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
+          </iframe>
+          </div>
+          `
         },
         lenButton: {
           title: 'Len Oglive',
@@ -88,6 +102,11 @@ AFRAME.registerComponent('info-panel', {
           title: 'Tonji Hansen',
           imgEl: document.querySelector('#tonjiImage'),
           description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+        },
+        unnamedButton: {
+          title: 'Unnamed',
+          imgEl: document.querySelector('#tonjiImage'),
+          description: 'A tribute to the lost children and an invitation to continue and share their stories.'
         },
         rearButton: {
           title: 'Carrolup Marribank',
