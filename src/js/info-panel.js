@@ -40,9 +40,10 @@ AFRAME.registerComponent('info-panel', {
           title: 'Howard Riley',
           imgEl: document.querySelector('#howardImage'),
           description: `
-          <div style="text-align: center;">
-          <iframe width="600" height="315" src="https://www.youtube.com/embed/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><br>
-          <p>This is an example of Howard\'s dialogue. Here, I would advise adding the transcript of what howard is saying, along with any other background information on Howard that he is comfortable providing.</p>`, 
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LIMEN 2.0: Howard Riley">
+          </iframe>
+          </div>`, 
         },
         dianneButton: {
           title: 'Dianne Mippy',
@@ -81,17 +82,32 @@ AFRAME.registerComponent('info-panel', {
         lenButton: {
           title: 'Len Oglive',
           imgEl: document.querySelector('#lenImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LIMEN 2.0: Len Oglive">
+          </iframe>
+          </div>
+          `
         },
         maisieButton: {
           title: 'Maisie Weston',
           imgEl: document.querySelector('#maisieImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Maisie Weston 2">
+          </iframe>
+          </div>
+          `
         },
         stephanieButton: {
           title: 'Stephanie Mippy',
-          imgEl: document.querySelector('#jenniferImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          imgEl: document.querySelector('#stephanieImage'),
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Stephanie Mippy">
+          </iframe>
+          </div>
+          `
         },
         timButton: {
           title: 'Tim Flowers',
