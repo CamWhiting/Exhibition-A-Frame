@@ -112,12 +112,21 @@ AFRAME.registerComponent('info-panel', {
         timButton: {
           title: 'Tim Flowers',
           imgEl: document.querySelector('#timImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/841784139?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="tim flowers">
+          </iframe>
+          </div>
+          `
         },
         tonjiButton: {
           title: 'Tonji Hansen',
           imgEl: document.querySelector('#tonjiImage'),
-          description: 'It is the eighth film Miyazaki directed for Studio Ghibli, and his tenth overall. The film tells the story of Ponyo (Nara), a goldfish who escapes from the ocean and is rescued by a five-year-old human boy, Sōsuke (Doi) after she is washed ashore while trapped in a glass jar.'
+          description: `
+          <div style="padding:35% 0 0 0;position:relative;">
+          <iframe src="https://player.vimeo.com/video/841784177?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Tonji Hansen">
+          </iframe>
+          </div>`
         },
         unnamedButton: {
           title: 'Unnamed',
