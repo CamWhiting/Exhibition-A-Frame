@@ -13,8 +13,8 @@
     <meta name="description" content="Curtin Exhibition Space">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-enviropacks@0.10.0/aframe-enviropacks.js"></script> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
     <script src="src/js/highlight.js"></script>
     <script src="src/js/info-message.js"></script>
     <script src="src/js/info-panel.js"></script>
@@ -40,12 +40,12 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <a-scene
-    reflection="directionalLight:a-entity#spotlights;"
       allowvr="no"
       renderer="colorManagement: true;" 
       info-message
       loading-screen="dotsColor: white; backgroundColor: black"
       embedded
+      reflection="directionalLight:a-light#sky;"
       shadow="type: pcfsoft; autoUpdate: true">
  
       <div id="myModal" class="modal-wrapper">
@@ -83,15 +83,10 @@
       
       <!-- Asset Section. Code added here can be referenced but won't appear on page -->
       <a-assets>
-        <a-entity enviropack="preset: night"></a-entity>
-        
-        
+        <img id="sky" src="src/img/panorama_image.jpg">
+
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_4.glb" material="roughness: 0"></a-asset-item>
-        <!-- <a-asset-item id="exhibition_artwork" src="src/mesh/" material="roughness: 0"></a-asset-item> -->
-        <a-asset-item id="exhibition_glass" src="src/mesh/exhibition_glass.glb"></a-asset-item>
-        <a-asset-item id="exhibition_props" src="src/mesh/props_3.glb"></a-asset-item>
-        <a-asset-item id="exhibition_scaffolding" src="src/mesh/exhibition_scaffolding.glb"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space.glb" shadow="cast: true; receive: true"></a-asset-item>
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh_3.glb"></a-asset-item>
@@ -174,17 +169,13 @@
         
       </a-assets>
 
-      <!-- Lights  -->
-      <a-entity id="lighting">
-        <a-entity id="ambient" light="type:spot; intensity: 0.1; angle: 100; distance: 12.580" position="1.309 4.504 -0.894" rotation="-90 0 0"></a-entity>
-        <a-entity id="ambient" light="type:spot; intensity: 0.1; angle: 100; distance: 10.740" position="1.309 -3.118 -0.894" rotation="90 0 0"></a-entity>
-        <a-entity id="spotlight 1" light="type:spot; castShadow:true; angle: 51.800; intensity: 0.480; penumbra:1" position="1.309 4.208 2" rotation="-72.420 45.620 0"></a-entity>
-        <a-entity id="spotlight 2" light="type:spot; castShadow:true; angle: 51.800; intensity: 0.480; penumbra:1" position="-1.367 4.208 -6.725" rotation="-72.420 3.440 0"></a-entity>
-        <a-entity id="spotlight 3" light="type:spot; castShadow:true; angle: 51.800; intensity: 0.480; penumbra:1" position="-5.461 4.208 -6.725" rotation="-72.420 3.440 0"></a-entity>
-        <a-entity id="spotlight 4" light="type:spot; castShadow:true; angle: 51.800; intensity: 0.480; penumbra:1; shadowCameraFar: 4.840;" position="0.576 4.208 5.468" rotation="-72.420 3.440 0"></a-entity>
-        <a-entity id="spotlight 5" light="type:spot; castShadow:true; angle: 51.800; intensity: 1.3; penumbra:1" position="6.279 3.672 -2.368" rotation="-72.420 2.810 0"></a-entity>
-        <a-entity id="spotlight 6" light="type:spot; castShadow:true; angle: 51.800; intensity: 0.480; penumbra:1" position="6.279 3.672 3.606" rotation="-90 0 0"></a-entity>
-      </a-entity>
+      <!-- Sky  -->
+      <a-entity light="type: ambient; color: #ffffff; intensity: 0.5; castShadow:true"></a-entity>
+      <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow:true" position="-1 2 1"></a-entity>
+  
+      <a-sky src="#sky"></a-sky>
+      
+      
 
       <!-- Messages -->
       <a-entity 
@@ -196,16 +187,11 @@
         material="color: #000000; transparent: true; opacity: 0.80;">
       </a-entity>
 
-      
+  
       <!-- Meshes -->
       <a-entity>
-        <a-entity id="exhibition" gltf-model="#exhibition_space" shadow="cast: true; receive: true" position="0 -1.525 0"></a-entity>
-        <a-entity id="scaffolding" gltf-model="#exhibition_scaffolding" shadow="cast: true;" material="color: #032225;" renderer="colorManagement: true;"  position="0 -1.525 0"></a-entity>
+        <a-entity id="exhibition_space" gltf-model="#exhibition_space" position="0 -1.525 0" material="sphericalEnvMap: #sky; roughness: 0;"></a-entity>
         <a-entity id="navmesh" nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
-        <a-entity id="glass" gltf-model="#exhibition_glass" material="opacity:0.5; transparent: true;" position="0 -1.525 0"></a-entity>
-        <a-entity id="props" gltf-model="#exhibition_props" shadow="cast: true; receive: true" material="side: double;" position="0 -1.525 0"></a-entity>
-        <!-- <a-entity id="garment_1" gltf-model="#garment_1" material="shader: flat;" renderer="colorManagement: true;" position="4.362 1.236 -4.045"></a-entity> -->
-      <!-- 7.372 1.138 3.243 -15.207 -12.830 -3.246-->
       </a-entity>
 
       <a-entity
@@ -343,6 +329,7 @@
         <!-- Info panel of the selected Poster. -->
         <a-entity id="infoPanel" info-panel visible="false" class="raycastable"></a-entity>
       </a-entity>
+
       <button class="a-help" title="Get help for how to use this experience" aframe-injected=""></button>
     </a-scene>
 
