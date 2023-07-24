@@ -89,7 +89,7 @@
         <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space.glb" shadow="cast: true; receive: true"></a-asset-item>
 
         <!-- Nav Mesh -->
-        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_navmesh_3.glb"></a-asset-item>
+        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_top.glb"></a-asset-item>
         <a-entity id="Posters">
           <img id="howard" crossorigin="anonymous"/>
           <img id="howardPoster" src="src/img/howard-riley.jpg" crossorigin="anonymous"/>
@@ -170,11 +170,10 @@
       </a-assets>
 
       <!-- Sky  -->
-      <a-entity light="type: ambient; color: #ffffff; intensity: 0.5; castShadow:true"></a-entity>
+      <a-entity light="type: ambient; color: #ffffff; intensity: 0.5;"></a-entity>
       <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow:true" position="-1 2 1"></a-entity>
   
       <a-sky src="#sky"></a-sky>
-      
       
 
       <!-- Messages -->
@@ -233,13 +232,7 @@
           <a-cylinder id="cp-3" checkpoint radius="0.5" height="0.01" position="5.515 0 -3.25" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder checkpoint radius="0.5" height="0.01" position="1.371 0 1.75" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder checkpoint radius="0.5" height="0.01" position="1.080 0 -3.25" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-2.587 0 4.783" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 0 4.783" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-5.100 -1.435 0.584" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 0.584" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -2.095" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder checkpoint radius="0.5" height="0.01" position="-9.212 -1.435 -5.515" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder checkpoint radius="0.5" height="0.01" position="5.701 0 4.857" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
         </a-entity>
         
       <a-entity id="ui">
