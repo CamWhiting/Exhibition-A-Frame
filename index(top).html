@@ -52,7 +52,7 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">[LIMEN EXHIBITION SPEAKER]</h2>
-          <p id="Description">[LIMEN EXHIBITION SPEAKER DESCRIPTION]</p>
+          <p id="Description" style="height: 100%;">[LIMEN EXHIBITION SPEAKER DESCRIPTION]</p>
         </div>
       </div> 
   
@@ -63,7 +63,7 @@
           <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence exhibition.</h2>
           <p id="Description" style="padding: 10px">
             <strong>CONTROLS</strong><br>
-            For PC, use WASD or ↑←↓→ keys to move around the exhibition and the mouse to look around. You can click on pictures in the exhibition to hear the Survivor's story.<br><br>
+            For computers, use WASD or ↑←↓→ keys to move around the exhibition and the mouse to look around. You can click on pictures in the exhibition to hear the Survivor's story.<br><br>
             For mobile, click on the brown circles on the floor to move from place to place within the exhibition. Drag with your finger to look around and tap pictures in the exhibition to hear the Survivor's story.<br><br>
             If you need to exit this experience on the computer, press the escape key at any stage. If you need to see these instructions again, press the "?" in the top right corner.
           </p>
@@ -86,7 +86,7 @@
         <img id="sky" src="src/img/panorama_image.jpg">
 
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space.glb" shadow="cast: true; receive: true"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_2.glb" shadow="cast: true; receive: true"></a-asset-item>
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_top.glb"></a-asset-item>
@@ -177,14 +177,14 @@
       
 
       <!-- Messages -->
-      <a-entity 
+      <!-- <a-entity 
         id="warning"
         position="-3.730 1.493 4.557"
         rotation="0 90 0"
         text="wdith: 1.610; anchor: center; baseline: center; wrapCount: 41; transparent: true; opacity: 0.90; color: #FFFFFF; value: ⛔ Warning ⛔ \n This content beyond here contains strong content \n that can relate to sexual assault and abuse. \n Listener's discression is advised.;"
         geometry="primitive: plane; height: auto; width: auto"
         material="color: #000000; transparent: true; opacity: 0.80;">
-      </a-entity>
+      </a-entity> -->
 
   
       <!-- Meshes -->
@@ -214,8 +214,10 @@
           <a-entity cursor
                     position="0 0 -0.1"
                     raycaster="objects: .raycastable"
-                    geometry="primitive: circle; radius: 0.001; "
-                    material="color: #CCC">
+                    geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.002;"
+                    material="color: #CCC"
+                    cursor="fuse: true; fuseTimeout: 750"
+                    animation="startEvents: fusing; property: scale; dur: 750; from: 1 1 1; to: 0.5 0.5 0.5; easing: easeInOutQuad;">
           </a-entity>
           <a-entity
               id="fadeBackground"

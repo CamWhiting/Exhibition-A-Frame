@@ -40,8 +40,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Howard Riley',
           imgEl: document.querySelector('#howardImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LIMEN 2.0: Howard Riley">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Howard Riley">
           </iframe>
           </div>`, 
         },
@@ -49,8 +49,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Dianne Mippy',
           imgEl: document.querySelector('#dianneImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Dianne Mippy Dual Audio">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Dianne Mippy Dual Audio">
           </iframe>
           </div>`
         },
@@ -58,8 +58,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Edith de Giambattista',
           imgEl: document.querySelector('#edithImage'),
           description: `
-          <div style="padding:56.25% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston">
           </iframe>
           </div>
           `
@@ -68,8 +68,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Garry Ryder',
           imgEl: document.querySelector('#garryImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Garry Ryder">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Garry Ryder">
           </iframe>
           </div>
           `
@@ -78,8 +78,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Jennifer Mogridge',
           imgEl: document.querySelector('#jenniferImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
           </iframe>
           </div>
           `
@@ -88,8 +88,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Len Oglive',
           imgEl: document.querySelector('#lenImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LIMEN 2.0: Len Oglive">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Len Oglive">
           </iframe>
           </div>
           `
@@ -98,8 +98,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Maisie Weston',
           imgEl: document.querySelector('#maisieImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Maisie Weston 2">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Maisie Weston 2">
           </iframe>
           </div>
           `
@@ -108,8 +108,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Stephanie Mippy',
           imgEl: document.querySelector('#stephanieImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Stephanie Mippy">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy">
           </iframe>
           </div>
           `
@@ -118,8 +118,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Tim Flowers',
           imgEl: document.querySelector('#timImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841784139?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="tim flowers">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841784139?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="tim flowers">
           </iframe>
           </div>
           `
@@ -128,8 +128,8 @@ AFRAME.registerComponent('info-panel', {
           title: 'Tonji Hansen',
           imgEl: document.querySelector('#tonjiImage'),
           description: `
-          <div style="padding:35% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/841784177?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Tonji Hansen">
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841784177?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
           </iframe>
           </div>`
         },
