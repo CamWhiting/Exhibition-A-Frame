@@ -26,17 +26,19 @@
   <body>
     <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
     <script>
+
       AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
-      if (this.touchStarted && this.data.touchEnabled) {
-          this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
-          this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
-          this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-          this.touchStart = {
-              x: t.touches[0].pageX,
-              y: t.touches[0].pageY
-          }
+        if (this.touchStarted && this.data.touchEnabled) {
+            this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
+            this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
+            this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+            this.touchStart = {
+                x: t.touches[0].pageX,
+                y: t.touches[0].pageY
+            }
+        }
       }
-  }
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <a-scene
@@ -327,8 +329,7 @@
 
       <button class="a-help" title="Get help for how to use this experience" aframe-injected=""></button>
     </a-scene>
-
-     
+<div class="sketchfab-embed-wrapper"> <iframe title="LIMEN 2.0 Artwork" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8667ddc21f69476bbd8321ad0353cc0c/embed?preload=1"> </iframe> </div>
 
   </body>
 </html>

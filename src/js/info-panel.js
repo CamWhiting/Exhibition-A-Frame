@@ -3,6 +3,9 @@ AFRAME.registerComponent('info-panel', {
   modal: null,
   welcomeModal: null,
   init: function () {
+
+   
+
     var buttonEls = document.querySelectorAll('.menu-button');
     var fadeBackgroundEl = this.fadeBackgroundEl = document.querySelector('#fadeBackground');
     var self = this;
@@ -33,7 +36,7 @@ AFRAME.registerComponent('info-panel', {
 
     this.TitleEl = document.querySelector('#Title');
     this.DescriptionEl = document.querySelector('#Description');
-  
+ 
       this.Info = {
         /* Safe Speakers. No viewer discression */
         howardButton: {
@@ -175,7 +178,9 @@ AFRAME.registerComponent('info-panel', {
         },
       };
 
-      
+
+            
+  
   
       this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
       this.onBackgroundClick = this.onBackgroundClick.bind(this);
@@ -193,13 +198,15 @@ AFRAME.registerComponent('info-panel', {
       this.el.object3D.depthTest = false;
       fadeBackgroundEl.object3D.renderOrder = 9;
       fadeBackgroundEl.getObject3D('mesh').material.depthTest = false;
+      
+    
     },
   
+    // NEW FUNCTION FOR BUTTON EVENTS
     onMenuButtonClick: function (evt) {
       var modal = document.getElementById("myModal"); // Store the modal reference
       var welcomeModal = document.getElementById("welcomeModal");
       var Info = this.Info[evt.currentTarget.id];
-
       var currentEntity = evt.currentTarget;
       if (!currentEntity.classList.contains('menu-button')) {
         currentEntity.classList.add('menu-button')
@@ -225,6 +232,17 @@ AFRAME.registerComponent('info-panel', {
         this.TitleEl.setAttribute('text', 'value', Info.title);
         this.DescriptionEl.setAttribute('text', 'value', Info.description);
       }
+
+      // Wait for the iframe to load then detects if videos have been played
+    var iframe = document.querySelector('iframe');
+    if (iframe) {
+        iframe.addEventListener('load', function () {
+            var player = new Vimeo.Player(iframe);
+            player.on('play', function () {
+                console.log('Played by the User!');
+            });
+        });
+    }
     },
 
   
