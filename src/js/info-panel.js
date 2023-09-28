@@ -176,11 +176,16 @@ AFRAME.registerComponent('info-panel', {
           <div style="text-align: center;">
           <iframe width="100%" height="450px" src="https://www.youtube.com/embed/n9YqZFGrNHM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
         },
+        artworkButton: {
+          title: 'Artwork',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <div class="sketchfab-embed-wrapper"> 
+          <iframe width="100%" height="450px" title="LIMEN 2.0 Artwork" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8667ddc21f69476bbd8321ad0353cc0c/embed?preload=1">
+          </iframe>
+          </div>`, 
+        },
       };
-
-
-            
-  
   
       this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
       this.onBackgroundClick = this.onBackgroundClick.bind(this);
@@ -233,16 +238,24 @@ AFRAME.registerComponent('info-panel', {
         this.DescriptionEl.setAttribute('text', 'value', Info.description);
       }
 
-      // Wait for the iframe to load then detects if videos have been played
-    var iframe = document.querySelector('iframe');
-    if (iframe) {
-        iframe.addEventListener('load', function () {
-            var player = new Vimeo.Player(iframe);
-            player.on('play', function () {
-                console.log('Played by the User!');
-            });
-        });
-    }
+      var counterValue = 0; // Initialize counterValue
+      var iframe = document.querySelector('iframe');
+      var player = new Vimeo.Player(iframe);
+
+      player.on('play', function () {
+          console.log('Played by the User!');
+          counterValue++; // Increment counterValue by 1
+          updateCounter(counterValue); // Update the counter value
+      });
+
+      function updateCounter(value) {
+          var counterText = document.getElementById('counter-text');
+          counterText.innerText = value + '/10';
+      }
+
+
+      
+      
     },
 
   
