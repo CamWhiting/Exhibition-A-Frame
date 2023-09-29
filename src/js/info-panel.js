@@ -238,26 +238,39 @@ AFRAME.registerComponent('info-panel', {
         this.DescriptionEl.setAttribute('text', 'value', Info.description);
       }
 
-      var counterValue = 0; // Initialize counterValue
-      var iframe = document.querySelector('iframe');
-      var player = new Vimeo.Player(iframe);
-
-      player.on('play', function () {
-          console.log('Played by the User!');
-          counterValue++; // Increment counterValue by 1
-          updateCounter(counterValue); // Update the counter value
-      });
-
-      function updateCounter(value) {
-          var counterText = document.getElementById('counter-text');
-          counterText.innerText = value + '/10';
+        // Check if counter value is already stored in local storage
+      var counterValue = localStorage.getItem('counterValue');
+      if (counterValue === null) {
+          counterValue = 0; // If not found, initialize counterValue to 0
+      } else {
+          counterValue = parseInt(counterValue); // Convert stored value to integer
       }
 
 
+          var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
+          var iframe = document.querySelector('iframe');
+          var player = new Vimeo.Player(iframe);
       
-      
-    },
+          player.on('play', function () {
+              var videoId = iframe.src.split('/').pop(); // Extract the video ID from the URL
+              var checkbox = document.getElementById('checkbox');
 
+              // Check if the video has already been played
+              if (!playedVideos.includes(videoId)) {
+                  console.log('Played by the User!');
+                  playedVideos.push(videoId); // Add video ID to the playedVideos array
+                  updateCounter(playedVideos.length); // Update the counter value
+                  localStorage.setItem('playedVideos', JSON.stringify(playedVideos)); // Store the updated array in local storage
+                  checkbox.setAttribute('material', 'color', '#00FF00'); // Change color to green
+                }
+
+          });
+      
+          function updateCounter(value) {
+              var counterText = document.getElementById('counter-text');
+              counterText.innerText = value + '/10';
+          }
+      },
   
     onBackgroundClick: function (evt) {
       this.backgroundEl.object3D.scale.set(0.001, 0.001, 0.001);
@@ -267,9 +280,70 @@ AFRAME.registerComponent('info-panel', {
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
 
       
-    },
-
-    
+    }, 
   })
   
+  window.onload = function() {
+    localStorage.removeItem('playedVideos');
+  };
+
+//  Phone Look Controls
+AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
+  if (this.touchStarted && this.data.touchEnabled) {
+      this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
+      this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
+      this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+      this.touchStart = {
+          x: t.touches[0].pageX,
+          y: t.touches[0].pageY
+      }
+  }
+}
+//  Cursor Animation
+AFRAME.registerComponent('interactive-cursor', {
+  init: function () {
+    var cursor = document.querySelector('#cursor');
+    var innerRing = document.querySelector('#inner-ring');
+    var middleRing = document.querySelector('#middle-ring');
+    var outerRing = document.querySelector('#outer-ring');
+
+    var animateOuterRing = function () {
+      outerRing.setAttribute('geometry', 'thetaStart: 0; thetaLength: 0');
+      outerRing.setAttribute('animation__theta', 'property: geometry.thetaLength; to: 360; dur: 1000; easing: linear; loop: false');
+    };
+
+    cursor.addEventListener('mouseenter', function () {
+      innerRing.setAttribute('color', 'rgba(1,28,64,1)');
+      innerRing.setAttribute('animation__expand-inner', 'property: radius-inner; to: 0.03; dur: 800; easing: linear');
+      innerRing.setAttribute('animation__expand-outer', 'property: radius-outer; to: 0.05; dur: 800; easing: linear');
+      innerRing.setAttribute('animation__expand-opacity', 'property: opacity; to: 1; dur: 400; easing: linear');
+      animateOuterRing();
+    });
+
+    cursor.addEventListener('mouseleave', function () {
+      innerRing.removeAttribute('animation__expand-inner');
+      innerRing.removeAttribute('animation__expand-outer');
+      innerRing.removeAttribute('animation__expand-opacity');
+      innerRing.setAttribute('radius-inner', '0.025');
+      innerRing.setAttribute('radius-outer', '0.035');
+      innerRing.setAttribute('color', '#fff');
+      innerRing.setAttribute('opacity', '0.5');
+      middleRing.setAttribute('color', '#fff');
+      middleRing.setAttribute('opacity', '0.5');
+      outerRing.removeAttribute('animation__theta');
+      outerRing.setAttribute('geometry', 'thetaStart: 0; thetaLength: 0');
+    });
+
+    cursor.addEventListener('fusing', function () {
+      innerRing.setAttribute('color', '#88c9d1');    
+      outerRing.setAttribute('visible', 'true');
+      animateOuterRing();
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var cursor = document.querySelector('#cursor');
+  cursor.setAttribute('interactive-cursor', '');
+});
 

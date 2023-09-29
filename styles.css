@@ -103,13 +103,22 @@ a-scene {
  .counter-container {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   padding: 10px;
   background-color: #fff;
   color: #272321;
   font-weight: bold;
   z-index: 1;
-  margin: 10px;
+  margin: 20px;
   border-radius: 10px;
   border: 2px solid #272321; /* Add this line for the black stroke */
+}
+
+.checkbox {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.a-enter-vr {
+  display: none;
 }

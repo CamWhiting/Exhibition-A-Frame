@@ -25,78 +25,11 @@
   </head>
   <body>
     <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
-    <script>
-      //  Phone Look Controls
-      AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
-        if (this.touchStarted && this.data.touchEnabled) {
-            this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
-            this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
-            this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-            this.touchStart = {
-                x: t.touches[0].pageX,
-                y: t.touches[0].pageY
-            }
-        }
-      }
-      //  Cursor Animation
-      AFRAME.registerComponent('interactive-cursor', {
-      init: function () {
-        var cursor = document.querySelector('#cursor');
-        var innerRing = document.querySelector('#inner-ring');
-        var middleRing = document.querySelector('#middle-ring');
-        var outerRing = document.querySelector('#outer-ring');
-
-        var animateOuterRing = function () {
-          outerRing.setAttribute('geometry', 'thetaStart: 0; thetaLength: 0');
-          outerRing.setAttribute('animation__theta', 'property: geometry.thetaLength; to: 360; dur: 1000; easing: linear; loop: false');
-        };
-
-        cursor.addEventListener('mouseenter', function () {
-          innerRing.setAttribute('color', 'rgba(1,28,64,1)');
-          innerRing.setAttribute('animation__expand-inner', 'property: radius-inner; to: 0.03; dur: 800; easing: linear');
-          innerRing.setAttribute('animation__expand-outer', 'property: radius-outer; to: 0.05; dur: 800; easing: linear');
-          innerRing.setAttribute('animation__expand-opacity', 'property: opacity; to: 1; dur: 400; easing: linear');
-          animateOuterRing();
-        });
-
-        cursor.addEventListener('mouseleave', function () {
-          innerRing.removeAttribute('animation__expand-inner');
-          innerRing.removeAttribute('animation__expand-outer');
-          innerRing.removeAttribute('animation__expand-opacity');
-          innerRing.setAttribute('radius-inner', '0.025');
-          innerRing.setAttribute('radius-outer', '0.035');
-          innerRing.setAttribute('color', '#fff');
-          innerRing.setAttribute('opacity', '0.5');
-          middleRing.setAttribute('color', '#fff');
-          middleRing.setAttribute('opacity', '0.5');
-          outerRing.removeAttribute('animation__theta');
-          outerRing.setAttribute('geometry', 'thetaStart: 0; thetaLength: 0');
-        });
-
-        cursor.addEventListener('fusing', function () {
-          innerRing.setAttribute('color', '#88c9d1');    
-          outerRing.setAttribute('visible', 'true');
-          animateOuterRing();
-        });
-
-        cursor.addEventListener('click', function () {
-          console.log('Click event');
-          // Add your click event logic here
-        });
-      }
-    });
-      document.addEventListener('DOMContentLoaded', function () {
-        var cursor = document.querySelector('#cursor');
-        cursor.setAttribute('interactive-cursor', '');
-      });
-    
-
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
     <!--  Scoring System -->
     <div class="counter-container">
-      <span id="counter-text">2/10</span>
+      <span id="counter-text">0/10</span>
     </div>
     
     <a-scene
@@ -298,9 +231,11 @@
       <a-entity id="ui">
         <!-- Poster menu -->
         <a-entity id="menu" highlight shadow="cast: true;">
-          <a-entity id="edithButton" position="-0.686 1.6 0.863" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
-            <a-entity material="src: #edithPoster;" mixin="poster"></a-entity>
-          </a-entity>
+            <a-entity id="edithButton" position="-0.686 1.6 0.863" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
+              <a-entity material="src: #edithPoster;" mixin="poster">
+                <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.15 0.15 0.15" material="side: double; color: #696969;"></a-entity>
+              </a-entity>
+            </a-entity>
 
           <a-entity id="howardButton" position="-2.416 2.013 -1.525" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
             <a-entity material="src: #howardPoster" mixin="poster"></a-entity>
