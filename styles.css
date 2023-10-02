@@ -85,6 +85,9 @@ a-scene {
   min-height: 600px;
   /* margin: 10px 10px; */
   width: auto;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 

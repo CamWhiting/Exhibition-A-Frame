@@ -20,6 +20,8 @@ AFRAME.registerComponent('info-panel', {
     
     welcomeModal.style.display = "flex";
 
+
+
     span.onclick = function() {
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
@@ -62,7 +64,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#edithImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston">
+          <iframe src="https://player.vimeo.com/video/837837238?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston">
           </iframe>
           </div>
           `
@@ -206,6 +208,8 @@ AFRAME.registerComponent('info-panel', {
       
     
     },
+
+
   
     // NEW FUNCTION FOR BUTTON EVENTS
     onMenuButtonClick: function (evt) {
@@ -213,6 +217,12 @@ AFRAME.registerComponent('info-panel', {
       var welcomeModal = document.getElementById("welcomeModal");
       var Info = this.Info[evt.currentTarget.id];
       var currentEntity = evt.currentTarget;
+
+      const clickedButton = evt.target;
+      const checkbox = clickedButton.querySelector('#checkbox');
+      const checkboxBG = clickedButton.querySelector('#checkbox_border');
+      const tick = clickedButton.querySelector('#tick');
+      
       if (!currentEntity.classList.contains('menu-button')) {
         currentEntity.classList.add('menu-button')
 
@@ -239,37 +249,38 @@ AFRAME.registerComponent('info-panel', {
       }
 
         // Check if counter value is already stored in local storage
-      var counterValue = localStorage.getItem('counterValue');
-      if (counterValue === null) {
-          counterValue = 0; // If not found, initialize counterValue to 0
-      } else {
-          counterValue = parseInt(counterValue); // Convert stored value to integer
-      }
+        var counterValue = localStorage.getItem('counterValue');
+        if (counterValue === null) {
+            counterValue = 0;
+        } else {
+            counterValue = parseInt(counterValue);
+        }
 
+        var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
+        var iframe = document.querySelector('iframe');
+        var player = new Vimeo.Player(iframe);
 
-          var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
-          var iframe = document.querySelector('iframe');
-          var player = new Vimeo.Player(iframe);
-      
-          player.on('play', function () {
-              var videoId = iframe.src.split('/').pop(); // Extract the video ID from the URL
-              var checkbox = document.getElementById('checkbox');
+        player.on('play', function () {
+            var videoId = iframe.src.split('/').pop();
 
-              // Check if the video has already been played
-              if (!playedVideos.includes(videoId)) {
-                  console.log('Played by the User!');
-                  playedVideos.push(videoId); // Add video ID to the playedVideos array
-                  updateCounter(playedVideos.length); // Update the counter value
-                  localStorage.setItem('playedVideos', JSON.stringify(playedVideos)); // Store the updated array in local storage
-                  checkbox.setAttribute('material', 'color', '#00FF00'); // Change color to green
-                }
+            // Check if the video has already been played
+            if (!playedVideos.includes(videoId)) {
+                checkbox.setAttribute('material', 'color', '#0075FF');
+                checkboxBG.setAttribute('material', 'color', '#0075FF');
+                clickedButton.setAttribute('material', 'color', '#0075FF');
+                tick.setAttribute('visible', 'true');
+                playedVideos.push(videoId);
+                localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
+                localStorage.setItem('lastClickedPoster', videoId);
+                updateCounter(playedVideos.length);
+            }
 
-          });
-      
-          function updateCounter(value) {
-              var counterText = document.getElementById('counter-text');
-              counterText.innerText = value + '/10';
-          }
+        });
+
+        function updateCounter(value) {
+            var counterText = document.getElementById('counter-text');
+            counterText.innerText = value + '/10';
+        }       
       },
   
     onBackgroundClick: function (evt) {
