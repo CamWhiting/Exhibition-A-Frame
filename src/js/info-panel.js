@@ -1,11 +1,10 @@
+
+
 /* global AFRAME */
 AFRAME.registerComponent('info-panel', {
   modal: null,
   welcomeModal: null,
   init: function () {
-
-   
-
     var buttonEls = document.querySelectorAll('.menu-button');
     var fadeBackgroundEl = this.fadeBackgroundEl = document.querySelector('#fadeBackground');
     var self = this;
@@ -14,12 +13,13 @@ AFRAME.registerComponent('info-panel', {
     // Code to close modal
     var modal = document.getElementById("myModal"); // Store the modal reference
     var welcomeModal = document.getElementById("welcomeModal"); // Store the modal reference 
+    var score = document.getElementById("score");
     var span = document.getElementsByClassName("close")[0];
     // Close the welcomeModal pop-up
     var welcomeModalSpan = document.querySelector('.welcomeClose');
     
+    score.style.display = "block";
     welcomeModal.style.display = "flex";
-
 
 
     span.onclick = function() {
@@ -147,36 +147,36 @@ AFRAME.registerComponent('info-panel', {
           title: 'Carrolup Marribank',
           imgEl: document.querySelector('#rearImage'),
           description: `
-          <div style="text-align: center;">
-          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/sTPuWor5kNI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/845777052?h=fa1075c132" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         leftButton: {
           title: 'Mogumber Moore River',
           imgEl: document.querySelector('#leftImage'),
           description: `
-          <div style="text-align: center;">
-          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/SST1hwjRyyM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/845777149?h=b190e3af4e" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         middleButton: {
           title: 'Wandering Mission',
           imgEl: document.querySelector('#rearImage'),
           description: `
-          <div style="text-align: center;">
-          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/yw5dZFTT1nA?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/845777365?h=bcc510e21d" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         floorButton: {
           title: 'Site Map',
           imgEl: document.querySelector('#rearImage'),
           description: `
-          <div style="text-align: center;">
-          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/lasT77J2vH8?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/845777347?h=53f40f2216" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         displayButton: {
           title: 'Catelogue',
           imgEl: document.querySelector('#rearImage'),
           description: `
-          <div style="text-align: center;">
-          <iframe width="100%" height="450px" src="https://www.youtube.com/embed/n9YqZFGrNHM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`, 
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/845777608?h=4c09178b0f" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         artworkButton: {
           title: 'Artwork',
@@ -256,6 +256,7 @@ AFRAME.registerComponent('info-panel', {
             counterValue = parseInt(counterValue);
         }
 
+        // Records played Vimeo videos. This is external from A-Frame in the event the experience does not work. If that occurs, they can video videos in accordion below. 
         var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
         var iframe = document.querySelector('iframe');
         var player = new Vimeo.Player(iframe);
@@ -271,7 +272,6 @@ AFRAME.registerComponent('info-panel', {
                 tick.setAttribute('visible', 'true');
                 playedVideos.push(videoId);
                 localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
-                localStorage.setItem('lastClickedPoster', videoId);
                 updateCounter(playedVideos.length);
             }
 

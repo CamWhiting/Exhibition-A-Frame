@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 649.17 313.43">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 8.93px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #505050;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-3, .cls-2, .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-5 {
+        font-family: Viga-Regular, Viga;
+        font-size: 162px;
+        letter-spacing: -.04em;
+      }
+
+      .cls-5, .cls-4 {
+        fill: #515151;
+      }
+
+      .cls-2 {
+        stroke-width: 4px;
+      }
+
+      .cls-2, .cls-4 {
+        font-family: Bahnschrift, Bahnschrift;
+        font-size: 54.09px;
+        font-variation-settings: 'wght' 400, 'wdth' 100;
+      }
+
+      .cls-6 {
+        fill: #f4f4f4;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2-2" data-name="Layer 2">
+    <rect class="cls-6" width="649.17" height="313.43"/>
+    <g class="cls-3">
+      <text class="cls-4" transform="translate(397.5 185.58)"><tspan x="0" y="0">+</tspan></text>
+      <text class="cls-2" transform="translate(397.5 185.58)"><tspan x="0" y="0">+</tspan></text>
+    </g>
+    <path class="cls-1" d="m558.07,195.07v25.61c0,13.57-11.01,24.58-24.58,24.58h-34.07c-13.58,0-24.58-11.01-24.58-24.58v-113.06c0-13.58,11.01-24.58,24.58-24.58h34.07c13.58,0,24.58,11.01,24.58,24.58v25.61"/>
+    <polygon class="cls-1" points="585.03 207.72 585.03 180.78 533.85 180.78 533.85 147.5 585.03 147.5 585.03 120.56 629.59 164.14 585.03 207.72"/>
+    <text class="cls-5" transform="translate(12.95 222.64) scale(.93 1)"><tspan x="0" y="0">HELP</tspan></text>
+  </g>
+</svg>

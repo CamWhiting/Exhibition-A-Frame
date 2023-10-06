@@ -27,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
     <!--  Scoring System -->
-    <div class="counter-container">
+    <div class="counter-container" id="score" style="display: none;">
       <span id="counter-text">0/10</span>
     </div>
     
@@ -50,22 +50,65 @@
   
       <!-- Inital Pop-up -->
       <div id="welcomeModal" class="modal-wrapper" style="display: none;">
-        <div class="modal-content">
+        <div class="modal-content" style="overflow-y: scroll; overflow-x: hidden;">
           <span class="welcomeClose">&times;</span>
-          <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence exhibition.</h2>
-          <p id="Description" style="padding: 10px">
-            <strong>CONTROLS</strong><br>
-            For computers, use WASD or ↑←↓→ keys to move around the exhibition and the mouse to look around. You can click on pictures in the exhibition to hear the Survivor's story.<br><br>
-            For mobile, click on the brown circles on the floor to move from place to place within the exhibition. Drag with your finger to look around and tap pictures in the exhibition to hear the Survivor's story.<br><br>
-            If you need to exit this experience on the computer, press the escape key at any stage. If you need to see these instructions again, press the "?" in the top right corner.
-          </p>
-          
-          <p id="Description" style="padding: 10px">
-            <strong>WARNING</strong><br>
-            The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture.<br><br>
-            This project contains distressing stories as Survivors bear witness to the traumas that occured in these places.<br><br>
-            This may be triggering for some people. We wish to advise that this exhibition and research study contains images, video footage and voice recordings of deceased persons, used with the permission of their familities.
-          </p>
+          <div class="container-fluid">
+            <h2>Welcome to the <i>LIMEN: Beyond the Fence</i> Exhibition.</h2>
+            <div class="row">
+              <div class="col"><p>You are about to enter a recreation of the exhibition held at Curtin University back in 2022. Feel free to explore at your own pace. To proceed, you will need to have watched at least 5 videos from the stole generation to proceed.</p></div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <div class="row">
+                  <div class="col-sm"><img class="icons" src="src/img/CPU_ctrls.svg"/></div>
+                  <div class="w-100"></div>
+                  <div class="col-sm">
+                    <strong>Computer Controls</strong> 
+                    <p>
+                      <ul>
+                        <li>Use WASD or arrow (↑←↓→) keys to move and the mouse to look around.</li>
+                        <li>Hover over items to click them.</li>
+                        <li>Alternatively, you can navigate by hovering over dots on the floor.</li>
+                      </ul>  
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="row">
+                  <div class="col-sm"><img class="icons" src="src/img/MB_ctrls.svg"/></div>
+                  <div class="w-100"></div>
+                  <div class="col-sm">
+                    <strong>Mobile Controls</strong> 
+                    <p>
+                      <ul>
+                        <li>Tap and drag your finger to look around.</li>
+                        <li>Hover over elements to click on them.</li>
+                      </ul>  
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="row">
+                  <div class="col-sm"><img class="icons" src="src/img/A_ctrls.svg"/></div>
+                  <div class="w-100"></div>
+                  <div class="col-sm">
+                    <strong>Additional Controls</strong> 
+                  <p>
+                    <ul>
+                      <li>You may leave the experience at any time by processing the “escape” key on your computer</li>
+                      <li>To view these options again, click the "HELP" icon in the bottom left.</li>
+                    </ul>  
+                  </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col bg-success"><strong>WARNING</strong><p>The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture. This project contains distressing stories as Survivors bear witness to the traumas that occured in these places. This may be triggering for some people. We wish to advise that this exhibition and research study contains images, video footage and voice recordings of deceased persons, used with the permission of their familities.</p></div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- ? Help Symbol to display the welcomeModal again -->
@@ -78,7 +121,8 @@
         <img id="sky" src="src/img/panorama_image_3.jpg">
 
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_2.glb" shadow="cast: true; receive: true"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_3.glb" shadow="cast: true; receive: true"></a-asset-item>
+        <a-asset-item id="exhibition_artwork" src="src/mesh/artwork.glb" shadow="cast: true;"></a-asset-item>
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_top.glb"></a-asset-item>
@@ -327,6 +371,7 @@
 
           <a-entity id="unnamedButton" position="-5.467 2.596 -1.498" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
             <a-entity material="src: #unnamedPoster" mixin="poster"></a-entity>
+            <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
           </a-entity>
 
           <!-- For resizing videos, a additional entity is used -->
@@ -366,11 +411,7 @@
           </a-entity>
 
           <!-- Artwork Button -->
-          <a-entity scale="2 0.75 1" position="0 1.176 4.357" rotation="0 -90 0">
-            <a-entity id="artworkButton" rotation="0 180 0" mixin="frame" class="raycastable menu-button">
-              <a-entity material="src: #display-video" mixin="poster"></a-entity>
-            </a-entity>
-          </a-entity>
+              <a-entity id="artworkButton" class="raycastable menu-button" gltf-model="#exhibition_artwork" position="3.988 0 -0.652" material="sphericalEnvMap: #sky; roughness: 0;" mixin="frame"></a-entity>
 
         </a-entity>
         <!-- Info panel of the selected Poster. -->
@@ -379,6 +420,143 @@
 
       <button class="a-help" title="Get help for how to use this experience" aframe-injected=""></button>
     </a-scene>
-
+    <div class="row notes">
+      <div class="col bg-success notes2"><strong>Note</strong><p>If you experience any issues accessing the experience, you can also view the videos below.</p></div>
+  </div>
+    <!-- Alternative accordion for those that cannot load page correctly -->
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Howard Riley
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Howard Riley"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Dianne Mippy
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Dianne Mippy Dual Audio"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            Edith de Giambattista
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/837837238?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+            Garry Ryder
+          </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Garry Ryder"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+            Jennifer Mogridge
+          </button>
+        </h2>
+        <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Jennifer Mogridge_duel_audio"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+            Len Oglive
+          </button>
+        </h2>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Len Oglive"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+            Maisie Weston
+          </button>
+        </h2>
+        <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Maisie Weston 2"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+            Stephanie Mippy
+          </button>
+        </h2>
+        <div id="flush-collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <div style="height:100%">
+              <iframe src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+            Tim Flowers
+          </button>
+        </h2>
+        <div id="flush-collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+            Garry Ryder
+          </button>
+        </h2>
+        <div id="flush-collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
