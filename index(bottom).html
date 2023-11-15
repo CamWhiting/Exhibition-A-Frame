@@ -18,27 +18,19 @@
     <script src="src/js/highlight.js"></script>
     <script src="src/js/info-message.js"></script>
     <script src="src/js/info-panel.js"></script>
-    <script src="src/js/joystick.js"></script>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link href='https://fonts.googleapis.com/css?family=Viga' rel='stylesheet'>
   </head>
   <body>
     <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
-    <script>
-      AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
-      if (this.touchStarted && this.data.touchEnabled) {
-          this.pitchObject.rotation.x += .6 * Math.PI * (t.touches[0].pageY - this.touchStart.y) / this.el.sceneEl.canvas.clientHeight;
-          this.yawObject.rotation.y += /*  */ Math.PI * (t.touches[0].pageX - this.touchStart.x) / this.el.sceneEl.canvas.clientWidth;
-          this.pitchObject.rotation.x = Math.max(Math.PI / -2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-          this.touchStart = {
-              x: t.touches[0].pageX,
-              y: t.touches[0].pageY
-          }
-      }
-  }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+    <!--  Scoring System -->
+    <div class="counter-container" id="score" style="display: none;">
+      <span id="counter-text">0/4</span>
+    </div>
+    
     <a-scene
       allowvr="no"
       renderer="colorManagement: true;" 
@@ -52,28 +44,32 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">[LIMEN EXHIBITION SPEAKER]</h2>
-          <p id="Description">[LIMEN EXHIBITION SPEAKER DESCRIPTION]</p>
+          <p id="Description" style="height: 100%;">[LIMEN EXHIBITION SPEAKER DESCRIPTION]</p>
         </div>
       </div> 
   
       <!-- Inital Pop-up -->
       <div id="welcomeModal" class="modal-wrapper" style="display: none;">
-        <div class="modal-content">
+        <div class="modal-content" style="overflow-y: scroll; overflow-x: hidden;">
           <span class="welcomeClose">&times;</span>
-          <h2 id="Title" text="shader: msdf; anchor: left; width: 1.5;">Welcome to the LIMEN: beyond the fence exhibition.</h2>
-          <p id="Description" style="padding: 10px">
-            <strong>CONTROLS</strong><br>
-            For computers, use WASD or ↑←↓→ keys to move around the exhibition and the mouse to look around. You can click on pictures in the exhibition to hear the Survivor's story.<br><br>
-            For mobile, click on the brown circles on the floor to move from place to place within the exhibition. Drag with your finger to look around and tap pictures in the exhibition to hear the Survivor's story.<br><br>
-            If you need to exit this experience on the computer, press the escape key at any stage. If you need to see these instructions again, press the "?" in the top right corner.
-          </p>
-          
-          <p id="Description" style="padding: 10px">
-            <strong>WARNING</strong><br>
-            The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture.<br><br>
-            This project contains distressing stories as Survivors bear witness to the traumas that occured in these places.<br><br>
-            This may be triggering for some people. We wish to advise that this exhibition and research study contains images, video footage and voice recordings of deceased persons, used with the permission of their familities.
-          </p>
+          <div class="container-fluid">
+            <h2>Welcome to the <i>LIMEN: Beyond the Fence</i> Exhibition.</h2>
+            <div class="row">
+              <div class="col"><p>You are about to enter a re-creation of the the ‘Limen 2.0 – At the Fence’ exhibition held at Curtin University back in 2022. LIMEN 2.0 shares the childhood stories of three mission sites, including the Carrolup/Marribank, Mogumber/Moore River and Wandering missions and the institutionalisation that occured there. You may explore at your own pace, engage with the survivors, to hear their stories at the place they spent their years of childhood feeling lost, isolated, traumatised and stolen. Feel free to explore at your own pace.
+              </p></div>
+            </div>
+            <div class="row">
+              <div class="col"><strong>Your Mission</strong><p>To proceed onto the next section, you will be required to watch a 5 or more videos and hear the stories the stolen generation has to share. You can see how many videos you have watched in the top left corner and a tick will appear over speakers you have listened to. Once you have listened to 5 or more videos, you will be able to proceed.
+              </p></div>
+            </div>
+            <div class="row">
+              <div class="col"><strong>Controls & Help</strong><p>To move around the space, please review the instructions below. If you experience any issues viewing the exhibition space, a dropdown is available for you below to also view the videos. If you would like to review this information again, press the "HELP" button in the bottom left corner.
+              </p></div>
+            </div>
+            <div class="row">
+                <div class="col bg-success"><strong>WARNING</strong><p>The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture. This project contains distressing stories as Survivors bear witness to the traumas that occured in these places. This may be triggering for some people. We wish to advise that this exhibition and research study contains images, video footage and voice recordings of deceased persons, used with the permission of their familities.</p></div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- ? Help Symbol to display the welcomeModal again -->
@@ -83,10 +79,11 @@
       
       <!-- Asset Section. Code added here can be referenced but won't appear on page -->
       <a-assets>
-        <img id="sky" src="src/img/panorama_image.jpg">
+        <img id="sky" src="src/img/panorama_image_3.jpg">
 
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space.glb" shadow="cast: true; receive: true"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_3.glb" shadow="cast: true; receive: true"></a-asset-item>
+        <a-asset-item id="exhibition_artwork" src="src/mesh/artwork.glb" shadow="cast: true;"></a-asset-item>
 
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_bottom.glb"></a-asset-item>
@@ -103,6 +100,10 @@
           <img id="edith" crossorigin="anonymous"/>
           <img id="edithPoster" src="src/img/edith-de-giambattista.jpg" crossorigin="anonymous"/>
 
+          
+          <img id="tick" src="src\img\checkmark_icon.png">
+
+      
         
         </a-entity>
         
@@ -167,6 +168,7 @@
         scale="0.001 0.001 0.001"
         visible="false" class="raycastable">
       </a-entity>
+
       <a-entity id="rig"
                 movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
                 checkpoint-controls="mode: animate"
@@ -177,14 +179,13 @@
                   position="0 1.6 0"
                   look-controls="pointerLockEnabled: true; magicWindowTrackingEnabled: false;"
                   touch-listener>
-          <a-entity cursor
-                    position="0 0 -0.1"
-                    raycaster="objects: .raycastable"
-                    geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.002;"
-                    material="color: #CCC"
-                    cursor="fuse: true; fuseTimeout: 750"
-                    animation="startEvents: fusing; property: scale; dur: 750; from: 1 1 1; to: 0.5 0.5 0.5; easing: easeInOutQuad;">
-          </a-entity>
+            <a-entity id="cursor" cursor="fuse: false; fuseTimeout: 1100" raycaster="objects: .raycastable">
+              <!-- Define the rings as child elements of cursor -->
+              <a-ring id="inner-ring" position="0 0 -0.5" radius-inner="0.025" radius-outer="0.035" color="#fff" opacity="0.5" scale="0.5 0.5 0.5"></a-ring>
+              <a-ring id="middle-ring" position="0 0 -0.5" radius-inner="0.045" radius-outer="0.05" color="#fff" opacity="0.5" scale="0.5 0.5 0.5"></a-ring>
+              <!-- Only visible if on mobile -->
+              <a-ring id="outer-ring" position="0 0 -0.5" radius-inner="0.06" radius-outer="0.065" color="#88c9d1" scale="0.5 0.5 0.5" visible="false"></a-ring>
+            </a-entity>
           <a-entity
               id="fadeBackground"
               geometry="primitive: sphere; radius: 2.5"
@@ -192,6 +193,9 @@
             </a-entity>
         </a-entity>
       </a-entity>
+
+
+
 
         <!-- Checkpoint -->
         <a-entity>
@@ -203,22 +207,41 @@
         
       <a-entity id="ui">
         <!-- Poster menu -->
-        <a-entity id="menu" highlight shadow="cast: true;">
-          <a-entity id="edithButton" position="-10.340 0.314 -2" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
-            <a-entity material="src: #edithPoster;" mixin="poster"></a-entity>
+          <a-entity id="edithButton" position="-10.340 0.314 -2" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
+            <a-entity material="src: #edithPoster" mixin="poster">
+              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
+                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
+              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
+              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
+            </a-entity>
           </a-entity>
 
-          <a-entity id="howardButton" position="-10.340 0.314 -4"rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
-            <a-entity material="src: #howardPoster" mixin="poster"></a-entity>
+
+          <a-entity id="howardButton" position="-10.340 0.314 -4"rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
+            <a-entity material="src: #howardPoster" mixin="poster">
+              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
+                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
+              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
+              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
+            </a-entity>
           </a-entity>
 
-          <a-entity id="dianneButton" position="-10.340 0.314 -6
-          " rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button">
-            <a-entity material="src: #diannePoster" mixin="poster"></a-entity>
+          <a-entity id="dianneButton" position="-10.340 0.314 -6" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
+            <a-entity material="src: #diannePoster" mixin="poster">
+              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
+                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
+              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
+              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
+            </a-entity>
           </a-entity>
 
-          <a-entity id="lenButton" position="-8.976 0.314 -7.087" rotation="0 0 0" mixin="frame" material="side: double" class="raycastable menu-button">
-            <a-entity material="src: #lenPoster" mixin="poster"></a-entity>
+          <a-entity id="lenButton" position="-7.904 0.314 -6" rotation="0 -90 0"  mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
+            <a-entity material="src: #lenPoster" mixin="poster">
+              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
+                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
+              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
+              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
+            </a-entity>
           </a-entity>
          
 
@@ -232,5 +255,100 @@
 
      
 
-  </body>
+   <!-- CONTROLS UI -->
+   <div class="panel-container">
+    <div class="panel">
+      <strong>Computer Controls</strong>
+      <p style="margin-bottom: 0;">
+        • Use WASD or ↑←↓→ to move or click the dots on the ground to move.<br>
+        • Click them posters
+      </p>
+    </div>
+    <div class="panel">
+        <strong>Mobile Controls</strong>
+      <p style="margin-bottom: 0;">
+        • Tap and drag your finger to look around.<br>
+        • Hover over elements to click on them.<br>
+      </p>
+    </div>
+    <div class="panel">
+        <strong>Additional Controls</strong>
+      <p style="margin-bottom: 0;">
+        • Press escape key to mouse out of the experience.<br>
+        • Click the "HELP" icon for more information.<br>
+      </p>
+    </div>
+  </div>
+
+  <!-- Alternative accordion for those that cannot load page correctly -->
+
+
+  <div class="row" style="--bs-gutter-x: 0;">
+    <div class="col">
+      <div class="accordion" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Howard Riley
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div style="height:100%">
+                <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Howard Riley"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Dianne Mippy
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div style="height:100%">
+                <iframe src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Dianne Mippy Dual Audio"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+              Edith de Giambattista
+            </button>
+          </h2>
+          <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div style="height:100%">
+                <iframe src="https://player.vimeo.com/video/837837238?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+              Len Oglive
+            </button>
+          </h2>
+          <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div style="height:100%">
+                <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Len Oglive"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+  
+</body>
 </html>

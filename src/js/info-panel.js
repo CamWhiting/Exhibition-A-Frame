@@ -31,11 +31,6 @@ AFRAME.registerComponent('info-panel', {
       welcomeModal.style.display = "none";
     };
 
-    span.onclick = function() {
-      modal.style.display = "none";
-      document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
-    }; 
-
     this.TitleEl = document.querySelector('#Title');
     this.DescriptionEl = document.querySelector('#Description');
  
@@ -279,7 +274,8 @@ AFRAME.registerComponent('info-panel', {
 
         function updateCounter(value) {
             var counterText = document.getElementById('counter-text');
-            counterText.innerText = value + '/10';
+            var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
+            counterText.innerText = value + '/' + currentMax;
         }       
       },
   
@@ -324,7 +320,7 @@ AFRAME.registerComponent('interactive-cursor', {
     };
 
     cursor.addEventListener('mouseenter', function () {
-      innerRing.setAttribute('color', 'rgba(1,28,64,1)');
+      innerRing.setAttribute('color', '#88c9d1');
       innerRing.setAttribute('animation__expand-inner', 'property: radius-inner; to: 0.03; dur: 800; easing: linear');
       innerRing.setAttribute('animation__expand-outer', 'property: radius-outer; to: 0.05; dur: 800; easing: linear');
       innerRing.setAttribute('animation__expand-opacity', 'property: opacity; to: 1; dur: 400; easing: linear');
@@ -356,5 +352,20 @@ AFRAME.registerComponent('interactive-cursor', {
 document.addEventListener('DOMContentLoaded', function () {
   var cursor = document.querySelector('#cursor');
   cursor.setAttribute('interactive-cursor', '');
+
+  // Function to detect mobile devices
+  function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+  };
+
+  if (isMobileDevice()) {
+      // Make the outer-ring visible if on a mobile device
+      var outerRing = document.querySelector('#outer-ring');
+      outerRing.setAttribute('visible', true);
+      
+      // Enable fuse behavior for cursor on mobile
+      var cursorEntity = document.querySelector('#cursor');
+      cursorEntity.setAttribute('cursor', 'fuse: true; fuseTimeout: 1100');
+  }
 });
 
