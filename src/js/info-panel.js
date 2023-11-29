@@ -1,4 +1,23 @@
-
+AFRAME.registerShader('portal2', {
+  schema: {
+    borderEnabled: {
+      default: 1.0,
+      type: 'int',
+      is: 'uniform'
+    },
+    backgroundColor: {
+      default: 'red',
+      type: 'color',
+      is: 'uniform'
+    },
+    pano: {
+      type: 'map',
+      is: 'uniform'
+    },
+  },
+  vertexShader: ['vec3 portalPosition;', 'varying vec3 vWorldPosition;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'void main() {', 'vDistanceToCenter = clamp(length(position - vec3(0.0, 0.0, 0.0)), 0.0, 1.0);', 'portalPosition = (modelMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;', 'vDistance = length(portalPosition - cameraPosition);', 'vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;', 'gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);', '}'].join('\n'),
+  fragmentShader: ['#define RECIPROCAL_PI2 0.15915494', 'uniform sampler2D pano;', 'uniform vec3 strokeColor;', 'uniform vec3 backgroundColor;', 'uniform float borderEnabled;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'varying vec3 vWorldPosition;', 'void main() {', 'vec3 direction = normalize(vWorldPosition - cameraPosition);', 'vec2 sampleUV;', 'float borderThickness = clamp(exp(-vDistance / 50.0), 0.6, 0.95);', 'sampleUV.y = clamp(direction.y * 0.5  + 0.5, 0.0, 1.0);', 'sampleUV.x = atan(direction.z, -direction.x) * -RECIPROCAL_PI2 + 0.5;', 'if (vDistanceToCenter > borderThickness && borderEnabled == 1.0) {', 'gl_FragColor = vec4(strokeColor, 1.0);', '} else {', 'gl_FragColor = texture2D(pano, sampleUV); // Use the pano texture color directly', '}', '}'].join('\n')
+});
 
 /* global AFRAME */
 AFRAME.registerComponent('info-panel', {
@@ -167,11 +186,18 @@ AFRAME.registerComponent('info-panel', {
           <iframe src="https://player.vimeo.com/video/845777347?h=53f40f2216" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         displayButton: {
-          title: 'Catelogue',
+          title: 'Information Panel',
           imgEl: document.querySelector('#rearImage'),
           description: `
-          <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/845777608?h=4c09178b0f" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
+          <img style="width:100%; display: block;" src="src/img/info-board.jpg">
+          `, 
+        },
+        welcomeButton: {
+          title: 'Welcome',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <img style="width:100%; display: block;" src="src/img/welcome-board.jpg">
+          `, 
         },
         artworkButton: {
           title: 'Artwork',
@@ -368,4 +394,3 @@ document.addEventListener('DOMContentLoaded', function () {
       cursorEntity.setAttribute('cursor', 'fuse: true; fuseTimeout: 1100');
   }
 });
-
