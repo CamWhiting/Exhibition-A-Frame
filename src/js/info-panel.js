@@ -152,6 +152,22 @@ AFRAME.registerComponent('info-panel', {
           </iframe>
           </div>`
         },
+        gailButton: {
+          title: 'Gail Yorkshire',
+          imgEl: document.querySelector('#gailImage'),
+          description: `
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/841784177?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
+          </iframe>
+          </div>`
+        },
+        yarningButton: {
+          title: 'Yarning',
+          imgEl: document.querySelector('#yarningImage'),
+          description: `
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/888981328?h=896621e015&amp;badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
+        },
         unnamedButton: {
           title: 'Unnamed',
           imgEl: document.querySelector('#tonjiImage'),

@@ -26,6 +26,10 @@
     <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
+    <div class="counter-container" id="score" style="display: none;">
+      <span id="counter-text" style="display: none;"></span>
+    </div>
+    
     <a-scene
       allowvr="no"
       renderer="colorManagement: true;" 
@@ -43,6 +47,27 @@
         </div>
       </div> 
   
+      <!-- Inital Pop-up -->
+      <div id="welcomeModal" class="modal-wrapper" style="display: none;">
+        <div class="modal-content" style="overflow-y: scroll; overflow-x: hidden;">
+          <span class="welcomeClose">&times;</span>
+          <div class="container-fluid">
+            <h2><i>LIMEN: Beyond the Fence</i> Strong Content</h2>
+            <div class="row">
+              <div class="col bg-success"><strong>WARNING</strong><p>The following section of the symposium contains strong content including first-hand accounts of sexual abuse and violent physical abuse, as well as other content that viewers may find emotionally distressing, particularly Aboriginal and Torres Strait Islander people.
+                Viewer discretion is advised. Please consider your safety and wellbeing. Viewing is completely voluntary.                
+              </p></div>
+          </div>
+            <div class="row">
+              <div class="col"><strong>Your Mission</strong><p>Given the nature of this content, you may view as much or as little of this content as you wish. If you do not wish to listen to this content and would like to move on to "Strength and Resilience", please press "escape" key and then the "NEXT" button at the bottom of the page.  </p></div>
+            </div>
+            <div class="row">
+              <div class="col"><strong>Controls & Help</strong><p>To move around the space, please review the instructions below. If you experience any issues viewing the exhibition space, a dropdown is available for you below to also view the videos. If you would like to review this information again, press the "HELP" button in the bottom left corner.
+              </p></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- ? Help Symbol to display the welcomeModal again -->
       <div id="helpBG" style="display: none;">
         <p id="help">?</p>
@@ -51,25 +76,17 @@
       <!-- Asset Section. Code added here can be referenced but won't appear on page -->
       <a-assets>
         <img id="sky" src="src/img/panorama_image_3.jpg">
+        <img id="sky2" src="src/img/panorama_image_2.jpg">
 
         <!-- Exhibition Space  -->
         <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_4.glb" shadow="cast: true; receive: true"></a-asset-item>
-        <a-asset-item id="exhibition_artwork" src="src/mesh/artwork.glb" shadow="cast: true;"></a-asset-item>
+        <a-asset-item id="fence" src="src/mesh/fences.glb" shadow="cast: true;"></a-asset-item>
 
         <!-- Nav Mesh -->
-        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_bottom.glb"></a-asset-item>
+        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_end.glb"></a-asset-item>
         <a-entity id="Posters">
-          <img id="howard" crossorigin="anonymous"/>
-          <img id="howardPoster" src="src/img/howard-riley.jpg" crossorigin="anonymous"/>
-      
-          <img id="dianne" crossorigin="anonymous"/>
-          <img id="diannePoster" src="src/img/dianne-mippy.jpg" crossorigin="anonymous"/>
-
-          <img id="len" crossorigin="anonymous"/>
-          <img id="lenPoster" src="src/img/len-ogilvie.jpg" crossorigin="anonymous"/>
-        
-          <img id="edith" crossorigin="anonymous"/>
-          <img id="edithPoster" src="src/img/edith-de-giambattista.jpg" crossorigin="anonymous"/>
+          <img id="yarning" crossorigin="anonymous"/>
+          <img id="yarning-video" src="src/img/carrolup-marribank-final-version.jpg" crossorigin="anonymous"/>
 
           
           <img id="tick" src="src\img\checkmark_icon.png">
@@ -129,6 +146,8 @@
       <a-entity>
         <a-entity id="exhibition_space" gltf-model="#exhibition_space" position="0 -1.525 0" material="sphericalEnvMap: #sky; roughness: 0;"></a-entity>
         <a-entity id="navmesh" nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
+        <a-entity id="fence" gltf-model="#fence" position="0 -1.525 0" material="sphericalEnvMap: #sky;"></a-entity>
+        <a-entity id="yarning" geometry="primitive: sphere; thetaLength: 150.180; segmentsWidth: 16;" material="shader: portal2; pano: #sky2; side: double; borderEnabled: 0; " position="-0.874 17.847 11.738" rotation="90 0 0" scale="4.737 4.737 4.737"></a-entity>
       </a-entity>
 
       <a-entity
@@ -143,8 +162,8 @@
       <a-entity id="rig"
                 movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
                 checkpoint-controls="mode: animate"
-                position="-0.724 -6.369 -5.871"
-                rotation="0 180.000 0">
+                position="-0.724 16.291 -0.442"
+                rotation="0 180.000 0">>
         <a-entity id="camera" 
                   camera
                   position="0 1.6 0"
@@ -178,43 +197,14 @@
         
       <a-entity id="ui">
         <!-- Poster menu -->
-          <a-entity id="edithButton" position="-10.340 0.314 -2" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #edithPoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
+        <a-entity scale="6.328 1.986 2.489" position="-0.832 19.544 13.167">
+          <a-entity id="yarningButton" rotation="0 180 0" mixin="frame" class="raycastable menu-button" data-clicked="false">
+            <a-entity material="src: #yarning-video" mixin="poster"></a-entity>
           </a-entity>
+        </a-entity>
 
 
-          <a-entity id="howardButton" position="-10.340 0.314 -4"rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #howardPoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity>
-
-          <a-entity id="dianneButton" position="-10.340 0.314 -6" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #diannePoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity>
-
-          <a-entity id="lenButton" position="-7.904 0.314 -6" rotation="0 -90 0"  mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #lenPoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity>
-         
+          
 
         </a-entity>
         <!-- Info panel of the selected Poster. -->
