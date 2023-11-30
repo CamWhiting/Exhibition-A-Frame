@@ -56,7 +56,9 @@
           <div class="container-fluid">
             <h2>Welcome to the <i>LIMEN: Beyond the Fence</i></h2>
             <div class="row">
-              <div class="col"><strong>Your Mission</strong><p>To proceed onto the next section, you will be required to watch a 3 or more videos and hear the stories the stolen generation has to share. You can see how many videos you have watched in the top left corner and a tick will appear over speakers you have listened to. Once you have listened to 5 or more videos, you will be able to proceed.
+              <div class="col"><p>You are about to enter a re-creation of Limen 2.0 – At the Fence. Inside, you can explore and engage with the survivors at your own pace. 
+                
+                While inside, please view three portraits and one video. You can see which pieces you have listened to as a tick will appear over each one when you have finished. There is also a counter in the top left corner. After listening to four pieces, you can proceed to the next section, or stay and listen to more.                
               </p></div>
             </div>
             <div class="row">
@@ -64,7 +66,10 @@
               </p></div>
             </div>
             <div class="row">
-                <div class="col bg-success"><strong>WARNING</strong><p>The content of the exhibition you are entering relates to former Mission sites where Aboriginal children were taken from family, country and culture. This project contains distressing stories as Survivors bear witness to the traumas that occured in these places. This may be triggering for some people. We wish to advise that this exhibition and research study contains images, video footage and voice recordings of deceased persons, used with the permission of their familities.</p></div>
+                <div class="col bg-success"><strong>WARNING</strong><p>It is advised that there is material in the next part of the symposium that may cause distress, or viewers may find triggering including first-hand accounts of physical and substance abuse, and childhood trauma. 
+                  Aboriginal and Torres Strait Islander people should be aware that audio and video in this symposium may contain images, voices and names of people who have passed away. 
+                  Viewer discretion is advised - please consider your safety and wellbeing. Viewing is completely voluntary, so please do not participate if you do not wish to. 
+                  </p></div>
             </div>
           </div>
         </div>
@@ -176,6 +181,7 @@
 
       <!-- Sky  -->
       <a-entity light="type: ambient; color: #ffffff; intensity: 0.5;"></a-entity>
+      <a-entity light="type: spot; intensity: 4; penumbra: 1; distance: 6.640;" position="7.673 1.752 0" rotation="0 90 0"></a-entity>
       <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow:true" position="-1 2 1"></a-entity>
   
       <a-sky src="#sky"></a-sky>
@@ -403,7 +409,7 @@
           </a-entity> -->
 
           <!-- Artwork Button -->
-            <a-entity id="artworkButton" class="raycastable menu-button" data-clicked="false" gltf-model="#exhibition_artwork" position="4.488 0 -0.003" material="sphericalEnvMap: #sky; roughness: 0;"></a-entity>
+            <a-entity id="artworkButton" class="raycastable menu-button" data-clicked="false" gltf-model="#exhibition_artwork" position="4.488 0 -0.003" material="sphericalEnvMap: #sky; shader: flat; roughness: 0;"></a-entity>
             
           <!-- Info panel of the selected Poster. -->
             <a-entity id="infoPanel" info-panel visible="false" class="raycastable"></a-entity>

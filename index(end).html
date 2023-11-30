@@ -26,11 +26,6 @@
     <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
-    <!--  Scoring System -->
-    <div class="counter-container" id="score" style="display: none;">
-      <span id="counter-text">0/3</span>
-    </div>
-    
     <a-scene
       allowvr="no"
       renderer="colorManagement: true;" 
@@ -48,28 +43,6 @@
         </div>
       </div> 
   
-      <!-- Inital Pop-up -->
-      <div id="welcomeModal" class="modal-wrapper" style="display: none;">
-        <div class="modal-content" style="overflow-y: scroll; overflow-x: hidden;">
-          <span class="welcomeClose">&times;</span>
-          <div class="container-fluid">
-            <h2><i>LIMEN: Beyond the Fence</i> Strong Content</h2>
-            <div class="row">
-              <div class="col bg-success"><strong>WARNING</strong><p>It is advised that there is material in the next part of the symposium that may cause distress, or viewers may find triggering including first-hand accounts of physical and substance abuse, and childhood trauma. 
-                Aboriginal and Torres Strait Islander people should be aware that audio and video in this symposium may contain images, voices and names of people who have passed away. 
-                Viewer discretion is advised - please consider your safety and wellbeing. Viewing is completely voluntary, so please do not participate if you do not wish to.                  
-              </p></div>
-          </div>
-            <div class="row">
-              <div class="col"><strong>Your Mission</strong><p>Given the nature of this content, you may view as much or as little of this content as you wish. When you would like to move one, please press the "NEXT" button at the bottom of the page.  </p></div>
-            </div>
-            <div class="row">
-              <div class="col"><strong>Controls & Help</strong><p>To move around the space, please review the instructions below. If you experience any issues viewing the exhibition space, a dropdown is available for you below to also view the videos. If you would like to review this information again, press the "HELP" button in the bottom left corner.
-              </p></div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- ? Help Symbol to display the welcomeModal again -->
       <div id="helpBG" style="display: none;">
         <p id="help">?</p>
@@ -170,8 +143,8 @@
       <a-entity id="rig"
                 movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
                 checkpoint-controls="mode: animate"
-                position="-9.162 -1.436 0.594"
-                rotation="0 0 0">
+                position="-0.724 -6.369 -5.871"
+                rotation="0 180.000 0">
         <a-entity id="camera" 
                   camera
                   position="0 1.6 0"
