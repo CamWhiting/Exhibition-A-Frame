@@ -123,9 +123,9 @@ a-scene {
   overflow: hidden;
 }
 
-.a-enter-vr {
+/* .a-enter-vr {
   display: none;
-}
+} */
 
 .icons {
   display: block;

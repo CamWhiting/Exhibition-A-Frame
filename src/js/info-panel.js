@@ -1,3 +1,5 @@
+
+
 AFRAME.registerShader('portal2', {
   schema: {
     borderEnabled: {
@@ -214,6 +216,13 @@ AFRAME.registerComponent('info-panel', {
           description: `
           <img style="width:100%; display: block;" src="src/img/welcome-board.jpg">
           `, 
+        },
+        tim2Button: {
+          title: 'Tim\'s Grandmother Story',
+          imgEl: document.querySelector('#rearImage'),
+          description: `
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/896734162?h=db3415a96f" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         artworkButton: {
           title: 'Artwork',
