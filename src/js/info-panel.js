@@ -143,6 +143,16 @@ AFRAME.registerComponent('info-panel', {
           </div>
           `
         },
+        tim2Button: {
+          title: 'Tim\'s Grandmother Story',
+          imgEl: document.querySelector('#timImage'),
+          description: `
+          <div style="height:100%">
+          <iframe src="https://player.vimeo.com/video/896734162?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="tim flowers">
+          </iframe>
+          </div>
+          `
+        },
         tonjiButton: {
           title: 'Tonji Hansen',
           imgEl: document.querySelector('#tonjiImage'),

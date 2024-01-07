@@ -120,6 +120,9 @@
           <img id="tim" crossorigin="anonymous"/>
           <img id="timPoster" src="src/img/tim-flowers.jpg" crossorigin="anonymous"/>
 
+          <img id="tim2" crossorigin="anonymous"/>
+          <img id="tim2-image" src="src/img/tim2-image.jpg" crossorigin="anonymous"/>
+
           <img id="tonji" crossorigin="anonymous"/>
           <img id="tonjiPoster" src="src/img/tonji-hansen.jpg" crossorigin="anonymous"/>
 
@@ -187,14 +190,14 @@
       
 
       <!-- Messages -->
-      <a-entity 
+      <!-- <a-entity 
         id="warning"
         position="-3.730 1.493 4.762"
         rotation="0 90 0"
         text="wdith: 1.610; anchor: center; baseline: center; wrapCount: 41; transparent: true; opacity: 0.90; color: #FFFFFF; value: ⛔ Warning ⛔ \n This content beyond here contains strong content \n that can relate to sexual assault and abuse. \n Listener's discression is advised.;"
         geometry="primitive: plane; height: auto; width: auto"
         material="color: #000000; transparent: true; opacity: 0.80;">
-      </a-entity>
+      </a-entity> -->
 
   
       <!-- Meshes -->
@@ -246,15 +249,15 @@
           <a-cylinder id="cp-1" checkpoint radius="0.5" height="0.01" position="-5.721 0 -3.250" scale="1 2 1" color="#380402"  material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-2" checkpoint radius="0.5" height="0.01" position="6.948 0 -0.059" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-3" checkpoint radius="0.5" height="0.01" position="6.948 0 -5.263" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-4" checkpoint radius="0.5" height="0.01" position="1.078 0 1.75" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-5" checkpoint radius="0.5" height="0.01" position="-2.223 0 4.734" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-6" checkpoint radius="0.5" height="0.01" position="1.032 0 -5.190" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder id="cp-4" checkpoint radius="0.5" height="0.01" position="2.500 0 1.75" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder id="cp-6" checkpoint radius="0.5" height="0.01" position="2.500 0 -5.190" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-7" checkpoint radius="0.5" height="0.01" position="7.477 0 4.201" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-8" checkpoint radius="0.5" height="0.01" position="1.036 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder id="cp-8" checkpoint radius="0.5" height="0.01" position="2.500 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-9" checkpoint radius="0.5" height="0.01" position="-1.437 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-10" checkpoint radius="0.5" height="0.01" position="7.477 0 9.946" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-11" checkpoint radius="0.5" height="0.01" position="7.477 0 7.393" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
           <a-cylinder id="cp-12" checkpoint radius="0.5" height="0.01" position="-1.437 0 1.750" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder id="cp-13" checkpoint radius="0.5" height="0.01" position="-1.437 0 0.022" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
         </a-entity>
         
       <a-entity id="ui">
@@ -297,7 +300,7 @@
             </a-entity>
           </a-entity> -->
 
-          <a-entity id="tonjiButton" position="-2.364 1.712 1.953" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
+          <a-entity id="tonjiButton" position="-2.364 1.712 1.750" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
             <a-entity material="src: #tonjiPoster" mixin="poster">
               <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
                 <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
@@ -398,7 +401,17 @@
               <a-entity material="src: #welcome-image" mixin="poster"></a-entity>
             </a-entity>
           </a-entity>
-           
+
+          <!-- TIM VIDEO 2 IMAGE -->
+          <a-entity position="-0.540 0 0">
+            <a-entity position="1.097 3.778 -4.656" geometry="primitive: cylinder; radius: 0.003; segmentsHeight: 1; segmentsRadial: 3; height: 0.550;" material="color: #FFF;"></a-entity>
+            <a-entity position="1.097 3.778 -5.796" geometry="primitive: cylinder; radius: 0.003; segmentsHeight: 1; segmentsRadial: 3; height: 0.550;" material="color: #FFF;"></a-entity>
+            <a-entity scale="2.664 3.195 3.000" position="1.097 2.242 -5.233" rotation="0 -90 0">
+              <a-entity id="tim2Button" rotation="0 180 0" mixin="frame" class="raycastable menu-button" data-clicked="false" material="side: double;">
+                <a-entity material="src: #tim2-image" mixin="poster"></a-entity>
+              </a-entity>
+            </a-entity>
+          </a-entity>  
            
            <!-- <a-entity scale="1.776 2.130 2.000" position="5.597 1.443 5.973" rotation="0 -90 0">
             <a-entity id="welcomeButton" rotation="0 90 0" mixin="frame" class="raycastable menu-button" data-clicked="false" material="side: double;">
