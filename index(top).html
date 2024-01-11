@@ -8,7 +8,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Curtin Exhibition Space</title>
     <meta name="description" content="Curtin Exhibition Space">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
@@ -25,10 +25,9 @@
   <body>
     <!-- Small adjustment to add look functionality on mobile. By default you are locked on a horizontal axis -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    
     <!--  Scoring System -->
     <div class="counter-container" id="score" style="display: none;">
-      <span id="counter-text">0/4</span>
+      <span id="counter-text">0/3</span>
     </div>
     
     <a-scene
@@ -39,7 +38,8 @@
       embedded
       reflection="directionalLight:a-light#sky;"
       shadow="type: pcfsoft; autoUpdate: true"
-      physics>
+      physics
+      >
  
       <div id="myModal" class="modal-wrapper">
         <div class="modal-content">
@@ -65,12 +65,6 @@
               <div class="col"><strong>Controls & Help</strong><p>To move around the space, please review the instructions below. If you experience any issues viewing the exhibition space, a dropdown is available for you below to also view the videos. If you would like to review this information again, press the "HELP" button in the bottom left corner.
               </p></div>
             </div>
-            <!-- <div class="row">
-                <div class="col bg-success"><strong>WARNING</strong><p>It is advised that there is material in the next part of the symposium that may cause distress, or viewers may find triggering including first-hand accounts of physical and substance abuse, and childhood trauma. 
-                  Aboriginal and Torres Strait Islander people should be aware that audio and video in this symposium may contain images, voices and names of people who have passed away. 
-                  Viewer discretion is advised - please consider your safety and wellbeing. Viewing is completely voluntary, so please do not participate if you do not wish to. 
-                  </p></div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -93,29 +87,11 @@
         <!-- Nav Mesh -->
         <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_top_2.glb"></a-asset-item>
         <a-entity id="Posters">
-          <img id="howard" crossorigin="anonymous"/>
-          <img id="howardPoster" src="src/img/howard-riley.jpg" crossorigin="anonymous"/>
-      
           <img id="dianne" crossorigin="anonymous"/>
           <img id="diannePoster" src="src/img/dianne-mippy.jpg" crossorigin="anonymous"/>
 
-          <img id="len" crossorigin="anonymous"/>
-          <img id="lenPoster" src="src/img/len-ogilvie.jpg" crossorigin="anonymous"/>
-        
-          <img id="edith" crossorigin="anonymous"/>
-          <img id="edithPoster" src="src/img/edith-de-giambattista.jpg" crossorigin="anonymous"/>
-
-          <img id="garry" crossorigin="anonymous"/>
-          <img id="garryPoster" src="src/img/garry-ryder.jpg" crossorigin="anonymous"/>
-
           <img id="jennifer" crossorigin="anonymous"/>
           <img id="jenniferPoster" src="src/img/jennifer-mogridge.jpg" crossorigin="anonymous"/>
-
-          <img id="maisie" crossorigin="anonymous"/>
-          <img id="maisiePoster" src="src/img/maisie-weston.jpg" crossorigin="anonymous"/>
-
-          <img id="stephanie" crossorigin="anonymous"/>
-          <img id="stephaniePoster" src="src/img/stephanie-mippy.jpg" crossorigin="anonymous"/>
 
           <img id="tim" crossorigin="anonymous"/>
           <img id="timPoster" src="src/img/tim-flowers.jpg" crossorigin="anonymous"/>
@@ -125,9 +101,6 @@
 
           <img id="tonji" crossorigin="anonymous"/>
           <img id="tonjiPoster" src="src/img/tonji-hansen.jpg" crossorigin="anonymous"/>
-
-          <img id="unnamed" crossorigin="anonymous"/>
-          <img id="unnamedPoster" src="src/img/blank-poster.jpg" crossorigin="anonymous"/>
 
           <!-- Video Test -->
           <img id="rear" crossorigin="anonymous"/>
@@ -187,23 +160,11 @@
       <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow:true" position="-1 2 1"></a-entity>
   
       <a-sky src="#sky"></a-sky>
-      
-
-      <!-- Messages -->
-      <!-- <a-entity 
-        id="warning"
-        position="-3.730 1.493 4.762"
-        rotation="0 90 0"
-        text="wdith: 1.610; anchor: center; baseline: center; wrapCount: 41; transparent: true; opacity: 0.90; color: #FFFFFF; value: ⛔ Warning ⛔ \n This content beyond here contains strong content \n that can relate to sexual assault and abuse. \n Listener's discression is advised.;"
-        geometry="primitive: plane; height: auto; width: auto"
-        material="color: #000000; transparent: true; opacity: 0.80;">
-      </a-entity> -->
 
   
       <!-- Meshes -->
       <a-entity>
         <a-entity id="exhibition_space" gltf-model="#exhibition_space" position="0 -1.525 0" material="sphericalEnvMap: #sky; roughness: 0;"></a-entity>
-        <!-- <a-entity id="door" gltf-model="#door" position="7.477 0 5.897" material="sphericalEnvMap: #sky;"></a-entity> -->
         <a-entity id="fence" gltf-model="#fence" position="0 -1.525 0" material="sphericalEnvMap: #sky;"></a-entity>
         <a-entity id="navmesh" nav-mesh="" normal-material="" visible="false" position="0 -1.525 0" gltf-model="#exhibition_navmesh"></a-entity>
         <a-entity id="logo" scale="3.236 0.960 6.783" position="6.561 1.498 -7.251" geometry="primitive: plane" material="transparent:true; src:#logo;"></a-entity>
@@ -217,71 +178,51 @@
         scale="0.001 0.001 0.001"
         visible="false" class="raycastable">
       </a-entity>
-      <a-entity id="rig"
-                movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
-                checkpoint-controls="mode: animate"
-                position="7.415 0 9.986"
-                rotation="0 0 0"
-                physics-collider
-                static-body="shape: sphere; sphereRadius: 0.02">
+      <a-entity id="rig" 
+      movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
+      checkpoint-controls="mode: animate" 
+      cursor="rayOrigin: mouse; fuse: false" 
+      raycaster="objects: .raycastable"
+      position="7.415 0 9.986" 
+      rotation="0 0 0"
+      camera-check
+      animation="property: rotation; dur: 20; easing: easeOutQuad;">
+
         <a-entity id="camera" 
-                  camera
-                  position="0 1.6 0"
-                  look-controls="pointerLockEnabled: true; magicWindowTrackingEnabled: false;"
-                  touch-listener>
-            <a-entity id="cursor" cursor="fuse: false; fuseTimeout: 1100" raycaster="objects: .raycastable">
-              <!-- Define the rings as child elements of cursor -->
-              <a-ring id="inner-ring" position="0 0 -0.5" radius-inner="0.025" radius-outer="0.035" color="#fff" opacity="0.5" scale="0.5 0.5 0.5"></a-ring>
-              <a-ring id="middle-ring" position="0 0 -0.5" radius-inner="0.045" radius-outer="0.05" color="#fff" opacity="0.5" scale="0.5 0.5 0.5"></a-ring>
-              <!-- Only visible if on mobile -->
-              <a-ring id="outer-ring" position="0 0 -0.5" radius-inner="0.06" radius-outer="0.065" color="#88c9d1" scale="0.5 0.5 0.5" visible="false"></a-ring>
-            </a-entity>
-          <a-entity
-              id="fadeBackground"
-              geometry="primitive: sphere; radius: 2.5"
-              material="color: black; side: back; shader: flat; transparent: true; opacity: 0.6" visible="false">
-            </a-entity>
+                camera ="zoom:1;"
+                look-controls="reverse-mouse-drag: true;" 
+                position="0 1.6 0"
+                >
+
+          <a-entity id="fadeBackground" 
+                    geometry="primitive: sphere; radius: 2.5"
+                    material="color: black; side: back; shader: flat; transparent: true; opacity: 0.6" 
+                    visible="false">
+          </a-entity>
         </a-entity>
       </a-entity>
 
+
+
         <!-- Checkpoint -->
         <a-entity>
-          <a-cylinder id="cp-1" checkpoint radius="0.5" height="0.01" position="-5.721 0 -3.250" scale="1 2 1" color="#380402"  material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-2" checkpoint radius="0.5" height="0.01" position="6.948 0 -0.059" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-3" checkpoint radius="0.5" height="0.01" position="6.948 0 -5.263" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-4" checkpoint radius="0.5" height="0.01" position="2.500 0 1.75" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-6" checkpoint radius="0.5" height="0.01" position="2.500 0 -5.190" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-7" checkpoint radius="0.5" height="0.01" position="7.477 0 4.201" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-8" checkpoint radius="0.5" height="0.01" position="2.500 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-9" checkpoint radius="0.5" height="0.01" position="-1.437 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-10" checkpoint radius="0.5" height="0.01" position="7.477 0 9.946" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-11" checkpoint radius="0.5" height="0.01" position="7.477 0 7.393" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-12" checkpoint radius="0.5" height="0.01" position="-1.437 0 1.750" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
-          <a-cylinder id="cp-13" checkpoint radius="0.5" height="0.01" position="-1.437 0 0.022" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable"></a-cylinder>
+          <a-cylinder id="cp-1" checkpoint radius="0.5" height="0.01" position="-5.721 0 -3.250" scale="1 2 1" color="#380402"  material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-2" checkpoint radius="0.5" height="0.01" position="6.948 0 -0.059" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-3" checkpoint radius="0.5" height="0.01" position="6.948 0 -5.263" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-4" checkpoint radius="0.5" height="0.01" position="2.500 0 1.75" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-6" checkpoint radius="0.5" height="0.01" position="2.500 0 -5.190" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-7" checkpoint radius="0.5" height="0.01" position="7.477 0 4.201" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-8" checkpoint radius="0.5" height="0.01" position="2.500 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-9" checkpoint radius="0.5" height="0.01" position="-1.437 0 -3.250" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-10" checkpoint radius="0.5" height="0.01" position="7.477 0 9.946" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-11" checkpoint radius="0.5" height="0.01" position="7.477 0 7.393" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-12" checkpoint radius="0.5" height="0.01" position="-1.437 0 1.750" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
+          <a-cylinder id="cp-13" checkpoint radius="0.5" height="0.01" position="-1.437 0 0.022" scale="1 2 1" color="#380402" material="shader: flat; opacity: 0.5;" class="raycastable" animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave" animation__color="property: material.color; type: color; to: #ffffff; dur: 200; startEvents: mouseenter" animation__color_reverse="property: material.color; type: color; to: #380402; dur: 200; startEvents: mouseleave"></a-cylinder>
         </a-entity>
         
       <a-entity id="ui">
         <!-- Poster menu -->
         <a-entity id="menu" highlight shadow="cast: true;">
-            <!-- <a-entity id="edithButton" position="-0.686 1.6 0.863" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-              <a-entity material="src: #edithPoster;" mixin="poster">
-                <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-
-            </a-entity>
-
-          <a-entity id="howardButton" position="-2.416 2.013 -1.525" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #howardPoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity> -->
-
           <a-entity id="dianneButton" position="-6.814 1.712 -4.314" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
             <a-entity material="src: #diannePoster" mixin="poster">
               <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
@@ -290,15 +231,6 @@
               <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
             </a-entity>
           </a-entity>
-
-          <!-- <a-entity id="lenButton" position="-0.686 1.6 2.824" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #lenPoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity> -->
 
           <a-entity id="tonjiButton" position="-2.364 1.712 1.750" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
             <a-entity material="src: #tonjiPoster" mixin="poster">
@@ -318,24 +250,6 @@
             </a-entity>
           </a-entity>
 
-          <!-- <a-entity id="stephanieButton" position="-3.995 2.079 -2.429" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #stephaniePoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity>
-
-          <a-entity id="maisieButton" position="-1.580 1.643 -2.770" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #maisiePoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity> -->
-
           <a-entity id="jenniferButton" position="-6.814 1.712 -2.145" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
             <a-entity material="src: #jenniferPoster" mixin="poster">
               <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
@@ -344,20 +258,6 @@
               <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
             </a-entity>
           </a-entity>
-
-          <!-- <a-entity id="garryButton" position="-3.401 1.911 -3.658" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #garryPoster" mixin="poster">
-              <a-entity id="checkbox_border" geometry="primitive: plane;" position="0.29 0.41 0.005" scale="0.18 0.18 0.18" material="side: double; color: #696969;"></a-entity>
-                <a-entity id="tick" geometry="primitive: plane;" visible="false" material="src: #tick; transparent: true; alpha-test: 0.5" position="0.29 0.41 0.015" scale="0.15 0.15 0.15" ></a-entity>
-              <a-entity id="checkbox" geometry="primitive: plane;" position="0.29 0.41 0.01" scale="0.15 0.15 0.15" material="side: double; color: #fff;"></a-entity>
-              <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-            </a-entity>
-          </a-entity>
-
-          <a-entity id="unnamedButton" position="-5.467 2.596 -1.498" rotation="0 90 0" mixin="frame" material="side: double" class="raycastable menu-button" data-clicked="false">
-            <a-entity material="src: #unnamedPoster" mixin="poster"></a-entity>
-            <a-entity material="src: #unnamedPoster" mixin="poster" rotation="0 -180 0" position="0 0 -0.01"></a-entity>
-          </a-entity> -->
 
           <!-- For resizing videos, a additional entity is used -->
           <!-- REAR Video -->
@@ -375,7 +275,7 @@
           </a-entity>
 
           <!-- FLOOR Video -->
-          <a-entity scale="6.328 1.986 2.489" rotation="0 180 0" position="1.390 0.012 -0.770">
+          <a-entity scale="6.328 1.986 2.489" rotation="0 90 0" position="0.557 0.012 -0.770">
             <a-entity id="floorButton" rotation="-90 0 0" mixin="frame" class="raycastable menu-button" data-clicked="false">
               <a-entity material="src: #floor-video" mixin="poster"></a-entity>
             </a-entity>
@@ -412,15 +312,9 @@
               </a-entity>
             </a-entity>
           </a-entity>  
-           
-           <!-- <a-entity scale="1.776 2.130 2.000" position="5.597 1.443 5.973" rotation="0 -90 0">
-            <a-entity id="welcomeButton" rotation="0 90 0" mixin="frame" class="raycastable menu-button" data-clicked="false" material="side: double;">
-              <a-entity material="src: #welcome-image" mixin="poster"></a-entity>
-            </a-entity>
-          </a-entity> -->
 
           <!-- Artwork Button -->
-            <a-entity id="artworkButton" class="raycastable menu-button" data-clicked="false" gltf-model="#exhibition_artwork" position="4.488 0 -0.003" material="sphericalEnvMap: #sky; shader: flat; roughness: 0;"></a-entity>
+            <a-entity id="artworkButton" class="raycastable menu-button" data-clicked="false" gltf-model="#exhibition_artwork" position="4.488 0 -0.003" material="sphericalEnvMap: #sky; shader: flat; roughness: 0;" ></a-entity>
             
           <!-- Info panel of the selected Poster. -->
             <a-entity id="infoPanel" info-panel visible="false" class="raycastable"></a-entity>
@@ -429,23 +323,17 @@
         
       </a-entity>
 
-      <button class="a-help" title="Get help for how to use this experience" aframe-injected=""></button>
+      <button class="a-help" title="Get help for how to use this experience." aframe-injected=""></button>
+      <button class="a-help" title="Enter fullscreen mode." aframe-injected=""></button>
     </a-scene>
     
     <!-- CONTROLS UI -->
     <div class="panel-container">
       <div class="panel">
-        <strong>Computer Controls</strong>
+        <strong>Controls</strong>
         <p style="margin-bottom: 0;">
-          • Use WASD or ↑←↓→ to move or click the dots on the ground to move.<br>
-          • Click them posters
-        </p>
-      </div>
-      <div class="panel">
-          <strong>Mobile Controls</strong>
-        <p style="margin-bottom: 0;">
-          • Tap and drag your finger to look around.<br>
-          • Hover over elements to click on them.<br>
+          • Click and drag to look around and click the dots on the ground to move.<br>
+          • Click the posters to view the Stolen Generation's stories
         </p>
       </div>
       <div class="panel">
@@ -462,21 +350,7 @@
 
     <div class="row" style="--bs-gutter-x: 0;">
       <div class="col">
-        <div class="accordion" id="accordionFlushExample">
-          <!-- <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                Howard Riley
-              </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <div style="height:100%">
-                  <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Howard Riley"></iframe>
-                </div>
-              </div>
-            </div>
-          </div> -->
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
@@ -491,34 +365,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Edith de Giambattista
-              </button>
-            </h2>
-            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <div style="height:100%">
-                  <iframe src="https://player.vimeo.com/video/837837238?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston"></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                Garry Ryder
-              </button>
-            </h2>
-            <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <div style="height:100%">
-                  <iframe src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Garry Ryder"></iframe>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
@@ -536,49 +382,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="accordion" id="accordionFlushExample">
-          <!-- <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                Len Oglive
-              </button>
-            </h2>
-            <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <div style="height:100%">
-                  <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Len Oglive"></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                Maisie Weston
-              </button>
-            </h2>
-            <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <div style="height:100%">
-                  <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Maisie Weston 2"></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
-                Stephanie Mippy
-              </button>
-            </h2>
-            <div id="flush-collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <div style="height:100%">
-                  <iframe src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy"></iframe>
-                </div>
-              </div>
-            </div>
-          </div> -->
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
@@ -610,10 +414,6 @@
         </div>
       </div>
     </div>
-
-
-    
-
     
   </body>
 </html>
