@@ -1,3 +1,30 @@
+document.addEventListener('DOMContentLoaded', function () {
+  // Check if it's the final launch (not during testing)
+  var isFinalLaunch = true;  // Set this to true for the final launch
+
+  if (isFinalLaunch) {
+    // Task 1: Disable the button with class "tutor-topbar-mark-btn"
+    var markButton = document.querySelector('.tutor-topbar-mark-btn');
+    if (markButton) {
+      markButton.disabled = true;
+    }
+
+    // Task 2: Replace "Mark as Complete" with "Complete watching videos"
+    var markButtonText = document.querySelector('.tutor-topbar-mark-btn');
+    if (markButtonText) {
+      markButtonText.textContent = "Complete watching videos";
+    }
+
+    // Task 3: Disable the link within div with class "tutor-single-course-content-next"
+    var nextLink = document.querySelector('.tutor-single-course-content-next a');
+    if (nextLink) {
+      nextLink.style.pointerEvents = "none"; // Change this to "none" to disable the link
+      nextLink.style.display = "none";
+    }
+  }
+});
+
+
 // For ending scene entering yarning space
 AFRAME.registerShader('portal2', {
   schema: {
@@ -38,7 +65,13 @@ AFRAME.registerComponent('info-panel', {
     // Close the welcomeModal pop-up
     var welcomeModalSpan = document.querySelector('.welcomeClose');
     score.style.display = "block";
-    welcomeModal.style.display = "flex";
+    // Get the current page's filename (including extension)
+    var currentPage = window.location.pathname.split('/').pop();
+
+    // Check if the current page is not the end page
+    if (currentPage !== 'index(end).html') {
+        welcomeModal.style.display = "flex";
+    }
 
     // Close the modal pop-up
     span.onclick = function() {
@@ -53,54 +86,6 @@ AFRAME.registerComponent('info-panel', {
     this.TitleEl = document.querySelector('#Title');
     this.DescriptionEl = document.querySelector('#Description');
  
-    // Task 1: Disable the button with class "tutor-topbar-mark-btn"
-    var markButton = document.querySelector('.tutor-topbar-mark-btn');
-    if (markButton) {
-      markButton.disabled = true;
-    }
-
-    // Task 2: Replace "Mark as Complete" with "Complete watching videos"
-    var markButtonText = document.querySelector('.tutor-topbar-mark-btn span');
-    if (markButtonText && markButtonText.textContent.trim() === 'Mark as Complete') {
-      markButtonText.textContent = 'Complete watching videos';
-    }
-
-    // Task 3: Disable the link within the div with class "tutor-single-course-content-next"
-    var nextLink = document.querySelector('.tutor-single-course-content-next a');
-    if (nextLink) {
-      nextLink.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-      });
-    }
-
-
-    // Check if it's the final launch (not during testing)
-    var isFinalLaunch = true;  // Set this to true for the final launch
-
-    if (isFinalLaunch) {
-      // Task 1: Disable the button with class "tutor-topbar-mark-btn"
-      var markButton = document.querySelector('.tutor-topbar-mark-btn');
-      if (markButton) {
-        markButton.disabled = true;
-      }
-
-      // Task 2: Replace "Mark as Complete" with "Complete watching videos"
-      var markButtonText = document.querySelector('.tutor-topbar-mark-btn');
-      if (markButtonText) {
-        markButtonText.textContent = "Complete watching videos";
-      }
-
-      // Task 3: Disable the link within div with class "tutor-single-course-content-next"
-      var nextLink = document.querySelector('.tutor-single-course-content-next a');
-      if (nextLink) {
-        nextLink.addEventListener('click', function(event) {
-          event.preventDefault();
-        });
-      }
-    }
-
-
-
       this.Info = {
         /* Safe Speakers. No viewer discression */
         howardButton: {
@@ -224,7 +209,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#yarningImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/888981328?h=896621e015&amp;badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
+          <iframe src="https://player.vimeo.com/video/888981328?h=896621e015" frameborder="0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Yarning Circle"></iframe>`,
         },
         unnamedButton: {
           title: '',
@@ -401,9 +386,8 @@ AFRAME.registerComponent('info-panel', {
 
               // Task 4D: Enable the link within div with class "tutor-single-course-content-next"
               if (nextLink) {
-                nextLink.removeEventListener('click', function(event) {
-                  event.preventDefault();
-                });
+                nextLink.style.pointerEvents = "all"; // Change this to "all" to disable the link
+                nextLink.style.display = "block";
               }
             }
         }    

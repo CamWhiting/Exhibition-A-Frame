@@ -17,11 +17,15 @@ AFRAME.registerComponent('info-message', {
      
       var helpModal = document.querySelector('.a-info-message-button');
       
-      helpModal.style.display = "flex";
+        // Check if the current page is "index(end).html"
+        if (window.location.pathname.endsWith("index(end).html")) {
+          var helpModal = document.querySelector('.a-info-message-button');
+          helpModal.style.display = "flex";
+        };
 
-      helpModal.onclick = function() {
-        welcomeModal.style.display = "flex";
-      };
+        helpModal.onclick = function() {
+          welcomeModal.style.display = "flex";
+        };
 
     },
 
@@ -81,7 +85,7 @@ AFRAME.registerComponent('info-message', {
     createInfoButton: function (onClick) {
       var infoButton;
       var wrapper;
-  
+
       // Create elements.
       wrapper = document.createElement('div');
       wrapper.classList.add('a-info-message-container');

@@ -190,3 +190,7 @@ a-scene {
       flex-direction: column;
   }
 }
+
+.a-enter-vr-button {
+  display: none;
+}
