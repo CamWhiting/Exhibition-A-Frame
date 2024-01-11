@@ -8,7 +8,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Curtin Exhibition Space</title>
     <meta name="description" content="Curtin Exhibition Space">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
@@ -27,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <!--  Scoring System -->
     <div class="counter-container" id="score" style="display: none;">
-      <span id="counter-text">0/4</span>
+      <span id="counter-text">0/3</span>
     </div>
     
     <a-scene
@@ -178,23 +178,31 @@
         scale="0.001 0.001 0.001"
         visible="false" class="raycastable">
       </a-entity>
-      <a-entity id="rig"
-                movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
-                checkpoint-controls="mode: animate"
-                cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .raycastable"
-                position="7.415 0 9.986"
-                rotation="0 0 0">
+      <a-entity id="rig" 
+      movement-controls="constrainToNavMesh: true; controls: checkpoint, keyboard"
+      checkpoint-controls="mode: animate" 
+      cursor="rayOrigin: mouse; fuse: false" 
+      raycaster="objects: .raycastable"
+      position="7.415 0 9.986" 
+      rotation="0 0 0"
+      camera-check
+      animation="property: rotation; dur: 20; easing: easeOutQuad;">
+
         <a-entity id="camera" 
-                  camera
-                  look-controls="reverse-mouse-drag: true;" 
-                  position="0 1.6 0">
-          <a-entity
-              id="fadeBackground"
-              geometry="primitive: sphere; radius: 2.5"
-              material="color: black; side: back; shader: flat; transparent: true; opacity: 0.6" visible="false">
-            </a-entity>
+                camera ="zoom:1;"
+                look-controls="reverse-mouse-drag: true;" 
+                position="0 1.6 0"
+                >
+
+          <a-entity id="fadeBackground" 
+                    geometry="primitive: sphere; radius: 2.5"
+                    material="color: black; side: back; shader: flat; transparent: true; opacity: 0.6" 
+                    visible="false">
+          </a-entity>
         </a-entity>
       </a-entity>
+
+
 
         <!-- Checkpoint -->
         <a-entity>
@@ -267,7 +275,7 @@
           </a-entity>
 
           <!-- FLOOR Video -->
-          <a-entity scale="6.328 1.986 2.489" rotation="0 180 0" position="1.390 0.012 -0.770">
+          <a-entity scale="6.328 1.986 2.489" rotation="0 90 0" position="0.557 0.012 -0.770">
             <a-entity id="floorButton" rotation="-90 0 0" mixin="frame" class="raycastable menu-button" data-clicked="false">
               <a-entity material="src: #floor-video" mixin="poster"></a-entity>
             </a-entity>
@@ -315,23 +323,17 @@
         
       </a-entity>
 
-      <button class="a-help" title="Get help for how to use this experience" aframe-injected=""></button>
+      <button class="a-help" title="Get help for how to use this experience." aframe-injected=""></button>
+      <button class="a-help" title="Enter fullscreen mode." aframe-injected=""></button>
     </a-scene>
     
     <!-- CONTROLS UI -->
     <div class="panel-container">
       <div class="panel">
-        <strong>Computer Controls</strong>
+        <strong>Controls</strong>
         <p style="margin-bottom: 0;">
-          • Use WASD or ↑←↓→ to move or click the dots on the ground to move.<br>
-          • Click them posters
-        </p>
-      </div>
-      <div class="panel">
-          <strong>Mobile Controls</strong>
-        <p style="margin-bottom: 0;">
-          • Tap and drag your finger to look around.<br>
-          • Hover over elements to click on them.<br>
+          • Click and drag to look around and click the dots on the ground to move.<br>
+          • Click the posters to view the Stolen Generation's stories
         </p>
       </div>
       <div class="panel">
@@ -348,7 +350,7 @@
 
     <div class="row" style="--bs-gutter-x: 0;">
       <div class="col">
-        <div class="accordion" id="accordionFlushExample">
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
@@ -380,7 +382,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="accordion" id="accordionFlushExample">
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
@@ -412,5 +414,6 @@
         </div>
       </div>
     </div>
+    
   </body>
 </html>
