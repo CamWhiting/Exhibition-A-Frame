@@ -1,30 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Check if it's the final launch (not during testing)
-  var isFinalLaunch = true;  // Set this to true for the final launch
-
-  if (isFinalLaunch) {
-    // Task 1: Disable the button with class "tutor-topbar-mark-btn"
-    var markButton = document.querySelector('.tutor-topbar-mark-btn');
-    if (markButton) {
-      markButton.disabled = true;
-    }
-
-    // Task 2: Replace "Mark as Complete" with "Complete watching videos"
-    var markButtonText = document.querySelector('.tutor-topbar-mark-btn');
-    if (markButtonText) {
-      markButtonText.textContent = "Complete watching videos";
-    }
-
-    // Task 3: Disable the link within div with class "tutor-single-course-content-next"
-    var nextLink = document.querySelector('.tutor-single-course-content-next a');
-    if (nextLink) {
-      nextLink.style.pointerEvents = "none"; // Change this to "none" to disable the link
-      nextLink.style.display = "none";
-    }
-  }
-});
-
-
 // For ending scene entering yarning space
 AFRAME.registerShader('portal2', {
   schema: {
@@ -358,14 +331,13 @@ AFRAME.registerComponent('info-panel', {
 
         });
 
-        function updateCounter(value) {
-            var counterText = document.getElementById('counter-text');
-            var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
-            counterText.innerText = value + '/' + currentMax; 
-
-            
-            // Task 4: Check and perform actions based on the playedVideos.length and currentMax
+        function updateCounter(value) {          
+          var counterText = document.getElementById('counter-text');
+          var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
+          counterText.innerText = value + '/' + currentMax; 
+          // Task 4: Check and perform actions based on the playedVideos.length and currentMax
             if (playedVideos.length >= currentMax) {
+              parent.postMessage('working', 'https://missionsconnect.net');
 
               // Task 4A: Change the style of element with class "counter-container"
               if (counterContainer) {
@@ -374,21 +346,6 @@ AFRAME.registerComponent('info-panel', {
                 counterContainer.style.border = '1px solid white';
               }
 
-              // Task 4B: Enable the "tutor-topbar-mark-btn"
-              if (markButton) {
-                markButton.disabled = false;
-              }
-
-              // Task 4C: Replace "Complete watching videos" with "Mark as Complete"
-              if (markButtonText) {
-                markButtonText.textContent = "Mark as Complete";
-              }
-
-              // Task 4D: Enable the link within div with class "tutor-single-course-content-next"
-              if (nextLink) {
-                nextLink.style.pointerEvents = "all"; // Change this to "all" to disable the link
-                nextLink.style.display = "block";
-              }
             }
         }    
       },

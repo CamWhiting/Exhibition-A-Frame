@@ -1,0 +1,50 @@
+<script>
+// Code to disable progression
+document.addEventListener('DOMContentLoaded', function() {
+// Task 1: Disable the button with class "tutor-topbar-mark-btn"
+var markButton = document.querySelector('.tutor-topbar-mark-btn');
+if (markButton) {
+  markButton.disabled = true;
+}
+
+// Task 2: Replace "Mark as Complete" with "Complete watching videos"
+var markButtonText = document.querySelector('.tutor-topbar-mark-btn');
+if (markButtonText) {
+  markButtonText.textContent = "Complete watching videos";
+}
+
+// Task 3: Disable the link within div with class "tutor-single-course-content-next"
+var nextLink = document.querySelector('.tutor-single-course-content-next a');
+if (nextLink) {
+  nextLink.style.pointerEvents = "none"; // Change this to "none" to disable the link
+  nextLink.style.display = "none";
+}
+
+window.addEventListener('message', function (event) {
+  // Check the message received from the iframe
+  if (event.origin !== 'https://missionsconnect.net') {
+    // Ignore messages from unexpected origins
+    return;
+  }
+
+  if (event.data === 'working') {
+    // Task 4B: Enable the "tutor-topbar-mark-btn"
+    if (markButton) {
+    markButton.disabled = false;
+    }
+
+    // Task 4C: Replace "Complete watching videos" with "Mark as Complete"
+    if (markButtonText) {
+    markButtonText.textContent = "Mark as Complete";
+    }
+
+    // Task 4D: Enable the link within div with class "tutor-single-course-content-next"
+    if (nextLink) {
+    nextLink.style.pointerEvents = "all"; // Change this to "all" to disable the link
+    nextLink.style.display = "block";
+    }
+  }
+});
+});
+</script>
+<iframe id="iframe" src="http://127.0.0.1:5500/index(top).html" width="800" height="600" sandbox="allow-same-origin allow-scripts allow-presentation"></iframe>
