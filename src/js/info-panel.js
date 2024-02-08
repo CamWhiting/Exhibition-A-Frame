@@ -1,24 +1,49 @@
-// For ending scene entering yarning space
-AFRAME.registerShader('portal2', {
-  schema: {
-    borderEnabled: {
-      default: 1.0,
-      type: 'int',
-      is: 'uniform'
-    },
-    backgroundColor: {
-      default: 'red',
-      type: 'color',
-      is: 'uniform'
-    },
-    pano: {
-      type: 'map',
-      is: 'uniform'
-    },
-  },
-  vertexShader: ['vec3 portalPosition;', 'varying vec3 vWorldPosition;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'void main() {', 'vDistanceToCenter = clamp(length(position - vec3(0.0, 0.0, 0.0)), 0.0, 1.0);', 'portalPosition = (modelMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;', 'vDistance = length(portalPosition - cameraPosition);', 'vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;', 'gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);', '}'].join('\n'),
-  fragmentShader: ['#define RECIPROCAL_PI2 0.15915494', 'uniform sampler2D pano;', 'uniform vec3 strokeColor;', 'uniform vec3 backgroundColor;', 'uniform float borderEnabled;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'varying vec3 vWorldPosition;', 'void main() {', 'vec3 direction = normalize(vWorldPosition - cameraPosition);', 'vec2 sampleUV;', 'float borderThickness = clamp(exp(-vDistance / 50.0), 0.6, 0.95);', 'sampleUV.y = clamp(direction.y * 0.5  + 0.5, 0.0, 1.0);', 'sampleUV.x = atan(direction.z, -direction.x) * -RECIPROCAL_PI2 + 0.5;', 'if (vDistanceToCenter > borderThickness && borderEnabled == 1.0) {', 'gl_FragColor = vec4(strokeColor, 1.0);', '} else {', 'gl_FragColor = texture2D(pano, sampleUV); // Use the pano texture color directly', '}', '}'].join('\n')
-});
+// Standalone Vimeo player function
+var player;
+var counterContainer = document.querySelector('.counter-container');
+
+function initializeVimeoPlayer() {
+  var iframe = document.querySelector('iframe');
+  player = new Vimeo.Player(iframe);
+  player.on('play', function () {
+    // Your play event logic here
+    var videoId = iframe.src.split('/').pop();
+    // Check if the video has already been played
+    if (!playedVideos.includes(videoId)) {
+        checkbox.setAttribute('material', 'color', '#0075FF');
+        checkboxBG.setAttribute('material', 'color', '#0075FF');
+        clickedButton.setAttribute('material', 'color', '#0075FF');
+        tick.setAttribute('visible', 'true');
+        playedVideos.push(videoId);
+        localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
+        updateCounter(playedVideos.length);
+    }
+  });
+}
+
+window.onload = function() {
+  initializeVimeoPlayer();
+  // This wipes current score for testing
+  // localStorage.removeItem('playedVideos');
+
+  // THis reloads score on refreshed pages. above code needs to be deleted.
+  var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
+  var counterText = document.getElementById('counter-text');
+  var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
+  counterText.innerText = playedVideos.length + '/' + currentMax; 
+
+  // If user re-checks the page and has already completed watching X no. of videos, allow them to continue again
+  if (playedVideos.length >= currentMax) {
+    console.log("quota reached");
+    parent.postMessage('working', 'https://missionsconnect.net');
+    counterContainer.style.backgroundColor = '#1263D3';
+    counterContainer.style.color = 'white';
+    counterContainer.style.border = '1px solid white';
+
+  }
+};
+
+
 
 /* global AFRAME */
 AFRAME.registerComponent('info-panel', {
@@ -46,12 +71,32 @@ AFRAME.registerComponent('info-panel', {
         welcomeModal.style.display = "flex";
     }
 
-    // Close the modal pop-up
-    span.onclick = function() {
+    function closeModal(){
       modal.style.display = "none";
       document.querySelector('#camera').setAttribute('look-controls', 'enabled', true);
       player.pause();
+    }
+
+    // Close the modal pop-up
+    span.onclick = function() {
+      closeModal();
     }; 
+
+    document.body.addEventListener('keydown', function(e) {
+      if (e.key == "Escape") {
+        closeModal();
+      }
+    });
+
+    // var modalwrapper = document.querySelector('#myModal');
+
+    // modalwrapper.onclick = function() {
+    //   console.log("alert!");
+    //   closeModal();
+    // };
+
+
+
     welcomeModalSpan.onclick = function() {
       welcomeModal.style.display = "none";
     };
@@ -242,8 +287,8 @@ AFRAME.registerComponent('info-panel', {
           title: '',
           imgEl: document.querySelector('#rearImage'),
           description: `
-          <div class="sketchfab-embed-wrapper"> 
-          <iframe width="100%" height="500px" title="LIMEN 2.0 Artwork" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8667ddc21f69476bbd8321ad0353cc0c/embed?preload=1">
+          <div class="sketchfab-embed-wrapper" style="height:100%;"> 
+          <iframe width="100%" height="100%" title="LIMEN 2.0 Artwork" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8667ddc21f69476bbd8321ad0353cc0c/embed?preload=1">
           </iframe>
           </div>`, 
         },
@@ -303,14 +348,6 @@ AFRAME.registerComponent('info-panel', {
         this.DescriptionEl.setAttribute('text', 'value', Info.description);
       }
 
-        // Check if counter value is already stored in local storage
-        var counterValue = localStorage.getItem('counterValue');
-        if (counterValue === null) {
-            counterValue = 0;
-        } else {
-            counterValue = parseInt(counterValue);
-        }
-
         // Records played Vimeo videos. This is external from A-Frame in the event the experience does not work. If that occurs, they can video videos in accordion below. 
         var iframe = document.querySelector('iframe');
         player = new Vimeo.Player(iframe);
@@ -361,10 +398,6 @@ AFRAME.registerComponent('info-panel', {
     }, 
   })
   
-  window.onload = function() {
-    localStorage.removeItem('playedVideos');
-  };
-
 //  Phone Look Controls
 AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
   if (this.touchStarted && this.data.touchEnabled) {
@@ -376,3 +409,25 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
           y: t.touches[0].pageY
       }
   }};
+
+  // For ending scene entering yarning space
+AFRAME.registerShader('portal2', {
+  schema: {
+    borderEnabled: {
+      default: 1.0,
+      type: 'int',
+      is: 'uniform'
+    },
+    backgroundColor: {
+      default: 'red',
+      type: 'color',
+      is: 'uniform'
+    },
+    pano: {
+      type: 'map',
+      is: 'uniform'
+    },
+  },
+  vertexShader: ['vec3 portalPosition;', 'varying vec3 vWorldPosition;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'void main() {', 'vDistanceToCenter = clamp(length(position - vec3(0.0, 0.0, 0.0)), 0.0, 1.0);', 'portalPosition = (modelMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;', 'vDistance = length(portalPosition - cameraPosition);', 'vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;', 'gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);', '}'].join('\n'),
+  fragmentShader: ['#define RECIPROCAL_PI2 0.15915494', 'uniform sampler2D pano;', 'uniform vec3 strokeColor;', 'uniform vec3 backgroundColor;', 'uniform float borderEnabled;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'varying vec3 vWorldPosition;', 'void main() {', 'vec3 direction = normalize(vWorldPosition - cameraPosition);', 'vec2 sampleUV;', 'float borderThickness = clamp(exp(-vDistance / 50.0), 0.6, 0.95);', 'sampleUV.y = clamp(direction.y * 0.5  + 0.5, 0.0, 1.0);', 'sampleUV.x = atan(direction.z, -direction.x) * -RECIPROCAL_PI2 + 0.5;', 'if (vDistanceToCenter > borderThickness && borderEnabled == 1.0) {', 'gl_FragColor = vec4(strokeColor, 1.0);', '} else {', 'gl_FragColor = texture2D(pano, sampleUV); // Use the pano texture color directly', '}', '}'].join('\n')
+});

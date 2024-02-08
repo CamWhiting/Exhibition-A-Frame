@@ -26,19 +26,27 @@
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  /* background-color: #fefefe; */
   margin: 1% auto;
   padding: 20px;
-  border: 1px solid #888;
+  /* border: 1px solid #888; */
   width: 80%;
   position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.filled {
+  background-color: #fefefe;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 
 /* Media query for screens smaller than 768px (typical mobile devices) */
@@ -59,10 +67,11 @@
   font-size: 28px;
   font-weight: bold;
   right: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   padding: 0.45em 15pt;
   background: white;
+  margin: 1%;
 }
 
 .close:hover, .welcomeClose:hover,
@@ -111,9 +120,10 @@ a-scene {
   }
  }
 
+
  .body {
   width: 100%;
-  height: 100%;
+  height: 80%;
  }
 
  .counter-container {
