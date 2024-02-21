@@ -1,44 +1,87 @@
+// This wipes current score for testing
+// localStorage.removeItem('playedVideos');
+
 // Standalone Vimeo player function
 var player;
 var counterContainer = document.querySelector('.counter-container');
+var counterBackup = document.querySelector('.backupCounter');
+var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
 
-function initializeVimeoPlayer() {
-  var iframe = document.querySelector('iframe');
-  player = new Vimeo.Player(iframe);
-  player.on('play', function () {
-    // Your play event logic here
-    var videoId = iframe.src.split('/').pop();
-    // Check if the video has already been played
-    if (!playedVideos.includes(videoId)) {
-        checkbox.setAttribute('material', 'color', '#0075FF');
-        checkboxBG.setAttribute('material', 'color', '#0075FF');
-        clickedButton.setAttribute('material', 'color', '#0075FF');
-        tick.setAttribute('visible', 'true');
+function updateCounter(value) {             
+  var counterText = document.getElementById('counter-text');
+  var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
+  counterText.innerText = value + '/' + currentMax; 
+
+  // Update the button text
+  var counterBackup = document.querySelector('.backupCounter');
+
+  if (counterBackup) {
+    var buttonText = counterBackup.textContent.trim();
+    var newText = buttonText.replace(/\d+(?=\/)/, value); // Replace the number before "/"
+    counterBackup.textContent = newText;
+  }
+
+
+  // Check and perform actions based on the playedVideos.length and currentMax
+    if (playedVideos.length >= currentMax) {
+      parent.postMessage('working', 'https://missionsconnect.net');
+
+      // Change the style of element with class "counter-container"
+      if (counterContainer) {
+        counterContainer.style.backgroundColor = '#1263D3';
+        counterContainer.style.color = 'white';
+        counterContainer.style.border = '1px solid white';
+      }
+
+    }
+}    
+
+window.onload = function() {
+  // Select all iframe elements with Vimeo videos
+  var iframes = document.querySelectorAll('iframe[src*="vimeo.com"]');
+  iframes.forEach(function(iframe) {
+    // Create a new Vimeo player instance
+    var player = new Vimeo.Player(iframe);
+
+    // Attach 'play' event listener to the player instance
+    player.on('play', function () {
+      var videoId = iframe.id; // You can access the video ID from the iframe
+      if (!playedVideos.includes(videoId)) {
+        console.log(videoId);
+        console.log(playedVideos);
         playedVideos.push(videoId);
         localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
         updateCounter(playedVideos.length);
-    }
+        checkingComplete();
+      }
+    });
   });
-}
 
-window.onload = function() {
-  initializeVimeoPlayer();
-  // This wipes current score for testing
-  // localStorage.removeItem('playedVideos');
 
   // THis reloads score on refreshed pages. above code needs to be deleted.
   var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
   var counterText = document.getElementById('counter-text');
   var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
   counterText.innerText = playedVideos.length + '/' + currentMax; 
+  
+  checkingComplete();
+
 
   // If user re-checks the page and has already completed watching X no. of videos, allow them to continue again
   if (playedVideos.length >= currentMax) {
     console.log("quota reached");
-    parent.postMessage('working', 'https://missionsconnect.net');
-    counterContainer.style.backgroundColor = '#1263D3';
-    counterContainer.style.color = 'white';
-    counterContainer.style.border = '1px solid white';
+    var counterContainer = document.querySelector('.counter-container');
+    // Change the style of element with class "counter-container"
+    if (counterContainer) {
+      counterContainer.style.backgroundColor = '#1263D3';
+      counterContainer.style.color = 'white';
+      counterContainer.style.border = '1px solid white';
+    }
+    try {
+      parent.postMessage('working', 'https://missionsconnect.net');
+    } catch (error) {
+      console.error("Error posting message to parent:", error);
+    }
 
   }
 };
@@ -88,12 +131,7 @@ AFRAME.registerComponent('info-panel', {
       }
     });
 
-    // var modalwrapper = document.querySelector('#myModal');
 
-    // modalwrapper.onclick = function() {
-    //   console.log("alert!");
-    //   closeModal();
-    // };
 
 
 
@@ -111,7 +149,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#howardImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Howard Riley">
+          <iframe id="howard" src="https://player.vimeo.com/video/841766857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Howard Riley">
           </iframe>
           </div>`, 
         },
@@ -120,7 +158,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#dianneImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Dianne Mippy Dual Audio">
+          <iframe id="dianne" src="https://player.vimeo.com/video/835658211?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Dianne Mippy Dual Audio">
           </iframe>
           </div>`
         },
@@ -129,7 +167,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#edithImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/837837238?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston">
+          <iframe id="edith" src="https://player.vimeo.com/video/837837238?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Maisie Weston">
           </iframe>
           </div>
           `
@@ -139,7 +177,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#garryImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Garry Ryder">
+          <iframe id="garry" src="https://player.vimeo.com/video/835638228?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Garry Ryder">
           </iframe>
           </div>
           `
@@ -149,7 +187,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#jenniferImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
+          <iframe id="mogridge" src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
           </iframe>
           </div>
           `
@@ -159,7 +197,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#lenImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Len Oglive">
+          <iframe id="len" src="https://player.vimeo.com/video/841769019?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="LIMEN 2.0: Len Oglive">
           </iframe>
           </div>
           `
@@ -169,7 +207,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#maisieImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Maisie Weston 2">
+          <iframe id="maise" src="https://player.vimeo.com/video/841771256?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Maisie Weston 2">
           </iframe>
           </div>
           `
@@ -179,7 +217,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#stephanieImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy">
+          <iframe id="steph" src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy">
           </iframe>
           </div>
           `
@@ -189,7 +227,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#timImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841784139?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="tim flowers">
+          <iframe id="tim" src="https://player.vimeo.com/video/841784139?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="tim flowers">
           </iframe>
           </div>
           `
@@ -199,7 +237,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#timImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/896734162?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="tim flowers">
+          <iframe id="tim2" src="https://player.vimeo.com/video/896734162?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="tim flowers">
           </iframe>
           </div>
           `
@@ -209,7 +247,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#tonjiImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/841784177?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
+          <iframe id="tonji" src="https://player.vimeo.com/video/841784177?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
           </iframe>
           </div>`
         },
@@ -218,7 +256,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#gailImage'),
           description: `
           <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/894344953?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
+          <iframe id="gail" src="https://player.vimeo.com/video/894344953?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
           </iframe>
           </div>`
         },
@@ -275,13 +313,6 @@ AFRAME.registerComponent('info-panel', {
           description: `
           <img style="width:100%; display: block;" src="src/img/welcome-board.jpg">
           `, 
-        },
-        tim2Button: {
-          title: '',
-          imgEl: document.querySelector('#rearImage'),
-          description: `
-          <div style="height:100%">
-          <iframe src="https://player.vimeo.com/video/896734162?h=db3415a96f" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;"></iframe>`, 
         },
         artworkButton: {
           title: '',
@@ -353,9 +384,10 @@ AFRAME.registerComponent('info-panel', {
         player = new Vimeo.Player(iframe);
         var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
 
+
+        
         player.on('play', function () {
-            var videoId = iframe.src.split('/').pop();
-            // Check if the video has already been played
+          var videoId = iframe.id;
             if (!playedVideos.includes(videoId)) {
                 checkbox.setAttribute('material', 'color', '#0075FF');
                 checkboxBG.setAttribute('material', 'color', '#0075FF');
@@ -364,27 +396,10 @@ AFRAME.registerComponent('info-panel', {
                 playedVideos.push(videoId);
                 localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
                 updateCounter(playedVideos.length);
+                checkingComplete();
             }
-
         });
-
-        function updateCounter(value) {          
-          var counterText = document.getElementById('counter-text');
-          var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
-          counterText.innerText = value + '/' + currentMax; 
-          // Task 4: Check and perform actions based on the playedVideos.length and currentMax
-            if (playedVideos.length >= currentMax) {
-              parent.postMessage('working', 'https://missionsconnect.net');
-
-              // Task 4A: Change the style of element with class "counter-container"
-              if (counterContainer) {
-                counterContainer.style.backgroundColor = '#1263D3';
-                counterContainer.style.color = 'white';
-                counterContainer.style.border = '1px solid white';
-              }
-
-            }
-        }    
+ 
       },
   
     onBackgroundClick: function (evt) {
@@ -431,3 +446,44 @@ AFRAME.registerShader('portal2', {
   vertexShader: ['vec3 portalPosition;', 'varying vec3 vWorldPosition;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'void main() {', 'vDistanceToCenter = clamp(length(position - vec3(0.0, 0.0, 0.0)), 0.0, 1.0);', 'portalPosition = (modelMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;', 'vDistance = length(portalPosition - cameraPosition);', 'vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;', 'gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);', '}'].join('\n'),
   fragmentShader: ['#define RECIPROCAL_PI2 0.15915494', 'uniform sampler2D pano;', 'uniform vec3 strokeColor;', 'uniform vec3 backgroundColor;', 'uniform float borderEnabled;', 'varying float vDistanceToCenter;', 'varying float vDistance;', 'varying vec3 vWorldPosition;', 'void main() {', 'vec3 direction = normalize(vWorldPosition - cameraPosition);', 'vec2 sampleUV;', 'float borderThickness = clamp(exp(-vDistance / 50.0), 0.6, 0.95);', 'sampleUV.y = clamp(direction.y * 0.5  + 0.5, 0.0, 1.0);', 'sampleUV.x = atan(direction.z, -direction.x) * -RECIPROCAL_PI2 + 0.5;', 'if (vDistanceToCenter > borderThickness && borderEnabled == 1.0) {', 'gl_FragColor = vec4(strokeColor, 1.0);', '} else {', 'gl_FragColor = texture2D(pano, sampleUV); // Use the pano texture color directly', '}', '}'].join('\n')
 });
+
+
+function checkingComplete(){
+  console.log("checking");
+  var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
+
+  playedVideos.forEach(function(videoId) {
+    console.log("checking Each");
+    // Look for corresponding button with the ID format "videoIdButton"
+    var button = document.getElementById(videoId + 'Button');
+    if (button) {
+        // Look for child elements checkbox, checkbox_border, and tick
+        var checkbox = button.querySelector('#checkbox');
+        var checkboxBorder = button.querySelector('#checkbox_border');
+        var tick = button.querySelector('#tick');
+        console.log("New button found");
+        // Set their attributes
+        checkbox.setAttribute('material', 'color', '#0075FF');
+        checkboxBorder.setAttribute('material', 'color', '#0075FF');
+        button.setAttribute('material', 'color', '#0075FF');
+        tick.setAttribute('visible', 'true');
+
+        // Append a tick symbol to the beginning of the button's title
+        var buttonTitle = button.textContent.trim();
+        button.textContent = "✓ " + buttonTitle;
+    }
+
+    // Look for buttons with class matching the video ID
+    var matchingButtons = document.querySelectorAll('.' + videoId);
+    matchingButtons.forEach(function(matchingButton) {
+        // Set their style properties
+        matchingButton.style.backgroundColor = '#0075FF';
+        matchingButton.style.color = '#fff';
+        matchingButton.style.fontWeight = 'bold';
+
+        // Append a tick symbol to the beginning of the button's title
+        var buttonTitle = matchingButton.textContent.trim();
+        matchingButton.textContent = "✓ " + buttonTitle;
+    });
+  });
+}

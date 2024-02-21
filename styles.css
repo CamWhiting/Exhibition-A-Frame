@@ -27,13 +27,14 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+ 
 }
 
 /* Modal Content */
 .modal-content {
   /* background-color: #fefefe; */
   margin: 1% auto;
-  padding: 20px;
+  padding: 4em;
   /* border: 1px solid #888; */
   width: 80%;
   position: relative;
@@ -67,7 +68,7 @@
   font-size: 28px;
   font-weight: bold;
   right: 0;
-  position: fixed;
+  position: absolute;
   top: 0;
   padding: 0.45em 15pt;
   background: white;
