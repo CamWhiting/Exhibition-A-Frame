@@ -1,29 +1,23 @@
 // This wipes current score for testing
-// localStorage.removeItem('playedVideos');
+localStorage.removeItem('playedVideos');
+var allPlayers = [];
 
 // Standalone Vimeo player function
 var player;
-var counterContainer = document.querySelector('.counter-container');
+var currentMax;
 var counterBackup = document.querySelector('.backupCounter');
 var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
 
 function updateCounter(value) {             
-  var counterText = document.getElementById('counter-text');
-  var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
-  counterText.innerText = value + '/' + currentMax; 
-
-  // Update the button text
-  var counterBackup = document.querySelector('.backupCounter');
-
-  if (counterBackup) {
-    var buttonText = counterBackup.textContent.trim();
-    var newText = buttonText.replace(/\d+(?=\/)/, value); // Replace the number before "/"
-    counterBackup.textContent = newText;
+  var counterText = document.getElementById('counter-text');    
+  if (counterText) {
+    currentMax = parseInt(counterText.innerText.split('/')[1], 10);
+    counterText.innerText = value + '/' + currentMax;
   }
-
-
-  // Check and perform actions based on the playedVideos.length and currentMax
+    // Check and perform actions based on the playedVideos.length and currentMax
     if (playedVideos.length >= currentMax) {
+      console.log("I trigged on update");
+      var counterContainer = document.querySelector('.counter-container');
       parent.postMessage('working', 'https://missionsconnect.net');
 
       // Change the style of element with class "counter-container"
@@ -34,42 +28,48 @@ function updateCounter(value) {
       }
 
     }
+
+  var backcounterText = document.getElementById('Backupcounter-text');
+  var backcurrentMax = backcounterText.innerText.split('/')[1]; // Get the number after the slash
+  backcounterText.innerText = value + '/' + backcurrentMax; 
+
+
 }    
 
 window.onload = function() {
+  var counterText = document.getElementById('counter-text');
+  if (counterText) {
+    currentMax = parseInt(counterText.innerText.split('/')[1], 10);
+    counterText.innerText = playedVideos.length + '/' + currentMax; 
+  }
+
   // Select all iframe elements with Vimeo videos
   var iframes = document.querySelectorAll('iframe[src*="vimeo.com"]');
   iframes.forEach(function(iframe) {
-    // Create a new Vimeo player instance
+    // Create a new Vimeo player instance and prevents multiple videos playing by allPlayers.push
     var player = new Vimeo.Player(iframe);
-
+    allPlayers.push(player);
     // Attach 'play' event listener to the player instance
     player.on('play', function () {
-      var videoId = iframe.id; // You can access the video ID from the iframe
-      if (!playedVideos.includes(videoId)) {
-        console.log(videoId);
-        console.log(playedVideos);
+      var videoId = iframe.id;
+      pauseAllOtherPlayers(player);
+      if (videoId !== '' && !playedVideos.includes(videoId)) {
+        console.log("recorded via on.load");  
+        console.log("Adding video:", videoId);
         playedVideos.push(videoId);
         localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
+        console.log("Updated playedVideos:", playedVideos);
         updateCounter(playedVideos.length);
         checkingComplete();
       }
     });
   });
 
-
-  // THis reloads score on refreshed pages. above code needs to be deleted.
-  var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
-  var counterText = document.getElementById('counter-text');
-  var currentMax = counterText.innerText.split('/')[1]; // Get the number after the slash
-  counterText.innerText = playedVideos.length + '/' + currentMax; 
-  
   checkingComplete();
-
 
   // If user re-checks the page and has already completed watching X no. of videos, allow them to continue again
   if (playedVideos.length >= currentMax) {
-    console.log("quota reached");
+    console.log("I trigged windows.onload");
     var counterContainer = document.querySelector('.counter-container');
     // Change the style of element with class "counter-container"
     if (counterContainer) {
@@ -77,16 +77,18 @@ window.onload = function() {
       counterContainer.style.color = 'white';
       counterContainer.style.border = '1px solid white';
     }
-    try {
-      parent.postMessage('working', 'https://missionsconnect.net');
-    } catch (error) {
-      console.error("Error posting message to parent:", error);
-    }
-
+    parent.postMessage('working', 'https://missionsconnect.net');
   }
 };
 
-
+// Prevents multiple videos being played
+function pauseAllOtherPlayers(currentPlayer) {
+  allPlayers.forEach(function(player) {
+      if (player !== currentPlayer) {
+          player.pause();
+      }
+  });
+}
 
 /* global AFRAME */
 AFRAME.registerComponent('info-panel', {
@@ -187,7 +189,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#jenniferImage'),
           description: `
           <div style="height:100%">
-          <iframe id="mogridge" src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
+          <iframe id="jennifer" src="https://player.vimeo.com/video/835624371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Jennifer Mogridge_duel_audio">
           </iframe>
           </div>
           `
@@ -217,7 +219,7 @@ AFRAME.registerComponent('info-panel', {
           imgEl: document.querySelector('#stephanieImage'),
           description: `
           <div style="height:100%">
-          <iframe id="steph" src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy">
+          <iframe id="stephanie" src="https://player.vimeo.com/video/841780740?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Stephanie Mippy">
           </iframe>
           </div>
           `
@@ -233,7 +235,7 @@ AFRAME.registerComponent('info-panel', {
           `
         },
         tim2Button: {
-          title: 'Tim\'s Grandmother Story',
+          title: '',
           imgEl: document.querySelector('#timImage'),
           description: `
           <div style="height:100%">
@@ -382,13 +384,12 @@ AFRAME.registerComponent('info-panel', {
         // Records played Vimeo videos. This is external from A-Frame in the event the experience does not work. If that occurs, they can video videos in accordion below. 
         var iframe = document.querySelector('iframe');
         player = new Vimeo.Player(iframe);
-        var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
-
 
         
         player.on('play', function () {
           var videoId = iframe.id;
-            if (!playedVideos.includes(videoId)) {
+            if (videoId !== '' && !playedVideos.includes(videoId)) {
+                console.log("recorded via A-Frame");
                 checkbox.setAttribute('material', 'color', '#0075FF');
                 checkboxBG.setAttribute('material', 'color', '#0075FF');
                 clickedButton.setAttribute('material', 'color', '#0075FF');
@@ -398,6 +399,8 @@ AFRAME.registerComponent('info-panel', {
                 updateCounter(playedVideos.length);
                 checkingComplete();
             }
+
+
         });
  
       },
@@ -453,7 +456,7 @@ function checkingComplete(){
   var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
 
   playedVideos.forEach(function(videoId) {
-    console.log("checking Each");
+    // console.log("checking Each");
     // Look for corresponding button with the ID format "videoIdButton"
     var button = document.getElementById(videoId + 'Button');
     if (button) {
@@ -461,16 +464,12 @@ function checkingComplete(){
         var checkbox = button.querySelector('#checkbox');
         var checkboxBorder = button.querySelector('#checkbox_border');
         var tick = button.querySelector('#tick');
-        console.log("New button found");
+        // console.log("New button found");
         // Set their attributes
         checkbox.setAttribute('material', 'color', '#0075FF');
         checkboxBorder.setAttribute('material', 'color', '#0075FF');
         button.setAttribute('material', 'color', '#0075FF');
         tick.setAttribute('visible', 'true');
-
-        // Append a tick symbol to the beginning of the button's title
-        var buttonTitle = button.textContent.trim();
-        button.textContent = "✓ " + buttonTitle;
     }
 
     // Look for buttons with class matching the video ID
@@ -479,11 +478,13 @@ function checkingComplete(){
         // Set their style properties
         matchingButton.style.backgroundColor = '#0075FF';
         matchingButton.style.color = '#fff';
-        matchingButton.style.fontWeight = 'bold';
-
+        matchingButton.style.fontWeight = 'bold'; 
         // Append a tick symbol to the beginning of the button's title
         var buttonTitle = matchingButton.textContent.trim();
-        matchingButton.textContent = "✓ " + buttonTitle;
+      if (!buttonTitle.startsWith("✓")) {
+          matchingButton.textContent = "✓ " + buttonTitle;
+      }
+
     });
   });
 }
