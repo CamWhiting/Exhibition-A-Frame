@@ -1,5 +1,5 @@
 // This wipes current score for testing
-localStorage.removeItem('playedVideos');
+// localStorage.removeItem('playedVideos');
 var allPlayers = [];
 
 // Standalone Vimeo player function
@@ -259,6 +259,15 @@ AFRAME.registerComponent('info-panel', {
           description: `
           <div style="height:100%">
           <iframe id="gail" src="https://player.vimeo.com/video/894344953?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
+          </iframe>
+          </div>`
+        },
+        gail2Button: {
+          title: '',
+          imgEl: document.querySelector('#gailImage'),
+          description: `
+          <div style="height:100%">
+          <iframe id="gail2" src="https://player.vimeo.com/video/932362759?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;" title="Tonji Hansen">
           </iframe>
           </div>`
         },

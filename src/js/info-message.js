@@ -19,8 +19,8 @@ AFRAME.registerComponent('info-message', {
       
         // Check if the current page is "index(end).html"
         if (window.location.pathname.endsWith("index(end).html")) {
-          var helpModal = document.querySelector('.a-info-message-button');
-          helpModal.style.display = "flex";
+          var helpModal = document.querySelector('.a-info-message-container');
+          helpModal.style.display = "none";
         };
 
         helpModal.onclick = function() {
