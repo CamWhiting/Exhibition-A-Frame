@@ -16,7 +16,7 @@ function updateCounter(value) {
   }
     // Check and perform actions based on the playedVideos.length and currentMax
     if (playedVideos.length >= currentMax) {
-      console.log("I trigged on update");
+      // console.log("I trigged on update");
       var counterContainer = document.querySelector('.counter-container');
       parent.postMessage('working', 'https://missionsconnect.net');
 
@@ -54,8 +54,8 @@ window.onload = function() {
       var videoId = iframe.id;
       pauseAllOtherPlayers(player);
       if (videoId !== '' && !playedVideos.includes(videoId)) {
-        console.log("recorded via on.load");  
-        console.log("Adding video:", videoId);
+        // console.log("recorded via on.load");  
+        // console.log("Adding video:", videoId);
         playedVideos.push(videoId);
         localStorage.setItem('playedVideos', JSON.stringify(playedVideos));
         console.log("Updated playedVideos:", playedVideos);
@@ -132,6 +132,17 @@ AFRAME.registerComponent('info-panel', {
         closeModal();
       }
     });
+
+  
+    // Closes UI by clicking off content.
+    // document.querySelectorAll('.modal-wrapper').forEach(function(modal) {
+    //   var videoContainer = document.querySelector(".modal-wrapper");
+    //   modal.addEventListener('click', function(event) {
+    //       if (event.target === videoContainer) {
+    //         closeModal();
+    //       }
+    //   });
+    // });
 
 
 
@@ -342,7 +353,7 @@ AFRAME.registerComponent('info-panel', {
       this.backgroundEl = document.querySelector('#background');
 
       for (var i = 0; i < buttonEls.length; ++i) {
-        buttonEls[i].addEventListener('click', this.onMenuButtonClick);
+        buttonEls[i].addEventListener('mousedown', this.onMenuButtonClick);
         buttonEls[i].addEventListener('mouseleave', this.onMouseLeave);
       }
 
@@ -398,7 +409,7 @@ AFRAME.registerComponent('info-panel', {
         player.on('play', function () {
           var videoId = iframe.id;
             if (videoId !== '' && !playedVideos.includes(videoId)) {
-                console.log("recorded via A-Frame");
+                // console.log("recorded via A-Frame");
                 checkbox.setAttribute('material', 'color', '#0075FF');
                 checkboxBG.setAttribute('material', 'color', '#0075FF');
                 clickedButton.setAttribute('material', 'color', '#0075FF');
@@ -461,7 +472,7 @@ AFRAME.registerShader('portal2', {
 
 
 function checkingComplete(){
-  console.log("checking");
+  // console.log("checking");
   var playedVideos = JSON.parse(localStorage.getItem('playedVideos')) || [];
 
   playedVideos.forEach(function(videoId) {
