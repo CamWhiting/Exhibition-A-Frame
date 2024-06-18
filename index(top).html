@@ -27,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <!--  Scoring System -->
     <div class="counter-container" id="score" style="display: none;">
-      <span id="counter-text">0/5</span>
+      <span id="counter-text">0/4</span>
     </div>
     
     <a-scene
@@ -54,15 +54,21 @@
         <div class="modal-content filled" style="overflow-y: scroll; overflow-x: hidden;">
           <span class="welcomeClose">&times;</span>
           <div class="container-fluid">
-            <h2>Welcome to the <i>LIMEN: At the Fence</i> Exhibition</h2>
+            <h2>Welcome to <i>LIMEN: At the Fence</i></h2>
             <div class="row">
-              <div class="col"><p>You are about to enter a re-creation of Limen 2.0 – At the Fence exhibition. Inside, you can explore and engage with the survivors at your own pace. 
-                
-                While inside, please view three portraits and one video. You can see which pieces you have listened to as a tick will appear over each one when you have finished. There is also a counter in the top left corner. After listening to four pieces, you can proceed to the next section, or stay and listen to more.                
+              <div class="col"><p>You are about to enter a re-creation of the Limen 2.0 - At the Fence exhibition where you will be visiting the lands of the Yued, Ganeang, Goreng and Wiilman Noongar people. 
+                <br><br>
+                While inside, please view four portraits or videos. You can see which pieces you have listened to as a tick will appear over each one when you have finished. There is also a counter in the top left corner. 
+                <br><br>
+                After listening to four pieces, you can proceed to the next section, or stay and listen to more. Pieces labelled OC have subtitles.
               </p></div>
             </div>
             <div class="row">
-              <div class="col"><strong>Controls & Help</strong><p>To move around the space, please review the instructions below. If you experience any issues viewing the exhibition space, a dropdown is available for you below to also view the videos. If you would like to review this information again, press the "HELP" button in the bottom left corner.
+              <div class="col"><strong>Controls & Help</strong><p>To move around the space, please review the instructions below. If you would like to review this information while you are inside the exhibition, press the "HELP" button in the bottom left corner.
+              </p></div>
+            </div>
+            <div class="row">
+              <div class="col"><strong>Enter the model</strong><p>To enter the model, close this box by clicking X. 
               </p></div>
             </div>
           </div>
@@ -75,65 +81,65 @@
       
       <!-- Asset Section. Code added here can be referenced but won't appear on page -->
       <a-assets>
-        <img id="logo" src="src/img/limen_logo.png">
-        <img id="sky" src="src/img/panorama_image_3.jpg">
+        <img id="logo" src="src/img/limen_logo.png" alt="LIMEN 2.0 Logo">
+        <img id="sky" src="src/img/panorama_image_3.jpg" alt="Sky panorama">
 
         <!-- Exhibition Space  -->
-        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_4.glb" shadow="cast: true; receive: true"></a-asset-item>
-        <a-asset-item id="exhibition_artwork" src="src/mesh/artwork_2.glb" shadow="cast: true;"></a-asset-item>
+        <a-asset-item id="exhibition_space" src="src/mesh/exhibition_space_4.glb" shadow="cast: true; receive: true" alt="The exhibition space"></a-asset-item>
+        <a-asset-item id="exhibition_artwork" src="src/mesh/artwork_2.glb" shadow="cast: true;" alt="Artwork of the stolen generation within the exhibition"></a-asset-item>
         
         <!-- <a-asset-item id="door" src="src/mesh/door.glb" shadow="cast: true;"></a-asset-item> -->
-        <a-asset-item id="fence" src="src/mesh/fences.glb" shadow="cast: true;"></a-asset-item>
+        <a-asset-item id="fence" src="src/mesh/fences.glb" shadow="cast: true;" alt="Metal fence"></a-asset-item>
 
         <!-- Nav Mesh -->
-        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_top_2.glb"></a-asset-item>
+        <a-asset-item id="exhibition_navmesh" src="src/mesh/exhibition_top_2.glb" alt="Floor to navigate the exhibition space"></a-asset-item>
         <a-entity id="Posters">
           <img id="dianne" crossorigin="anonymous"/>
-          <img id="diannePoster" src="src/img/dianne-mippy.jpg" crossorigin="anonymous"/>
+          <img id="diannePoster" src="src/img/dianne-mippy.jpg" crossorigin="anonymous" alt="Poster of speaker Dianne Mippy"/>
 
           <img id="jennifer" crossorigin="anonymous"/>
-          <img id="jenniferPoster" src="src/img/jennifer-mogridge.jpg" crossorigin="anonymous"/>
+          <img id="jenniferPoster" src="src/img/jennifer-mogridge.jpg" crossorigin="anonymous" alt="Poster of speaker Jennifer Mogridge"/>
 
           <img id="stephanie" crossorigin="anonymous"/>
-          <img id="stephaniePoster" src="src/img/stephanie-mippy.jpg" crossorigin="anonymous"/>
+          <img id="stephaniePoster" src="src/img/stephanie-mippy.jpg" crossorigin="anonymous" alt="Poster of speaker Stephanie Mippy"/>
 
           <img id="tim" crossorigin="anonymous"/>
-          <img id="timPoster" src="src/img/tim-flowers.jpg" crossorigin="anonymous"/>
+          <img id="timPoster" src="src/img/tim-flowers.jpg" crossorigin="anonymous" alt="Poster of speaker Time Flowers"/>
 
           <img id="tim2" crossorigin="anonymous"/>
-          <img id="tim2-image" src="src/img/tim2-image.jpg" crossorigin="anonymous"/>
+          <img id="tim2-image" src="src/img/tim2-image.jpg" crossorigin="anonymous" alt="Poster of speaker Time Flowers talking about his mother"/>
 
           <img id="tonji" crossorigin="anonymous"/>
-          <img id="tonjiPoster" src="src/img/tonji-hansen.jpg" crossorigin="anonymous"/>
+          <img id="tonjiPoster" src="src/img/tonji-hansen.jpg" crossorigin="anonymous" alt="Poster of speaker Tonji Hansen"/>
 
           <img id="unnamed" crossorigin="anonymous"/>
-          <img id="unnamedPoster" src="src/img/blank-poster.jpg" crossorigin="anonymous"/>
+          <img id="unnamedPoster" src="src/img/blank-poster.jpg" crossorigin="anonymous" alt="Blank poster"/>
 
           <img id="gail2" crossorigin="anonymous"/>
-          <img id="gailPoster" src="src/img/gail-yorkshire.jpg" crossorigin="anonymous"/>
+          <img id="gailPoster" src="src/img/gail-yorkshire.jpg" crossorigin="anonymous" alt="Poster of speaker Gail Yorkshire"/>
 
           <!-- Video Test -->
           <img id="rear" crossorigin="anonymous"/>
-          <img id="rear-video" src="src/img/carrolup-marribank-final-version.jpg" crossorigin="anonymous"/>
+          <img id="rear-video" src="src/img/carrolup-marribank-final-version.jpg" crossorigin="anonymous" alt="Photograph of Carrolup Marribank"/>
 
           <img id="left" crossorigin="anonymous"/>
-          <img id="left-video" src="src/img/mogumber_moore_river.jpg" crossorigin="anonymous"/>
+          <img id="left-video" src="src/img/mogumber_moore_river.jpg" crossorigin="anonymous" alt="Photograph of Mogumber Moore River"/>
 
           <img id="middle" crossorigin="anonymous"/>
-          <img id="middle-video" src="src/img/wandering_mission.jpg" crossorigin="anonymous"/>
+          <img id="middle-video" src="src/img/wandering_mission.jpg" crossorigin="anonymous" alt="Photograph of Wandering Mission"/>
 
           <img id="floor" crossorigin="anonymous"/>
-          <img id="floor-video" src="src/img/site-maps.jpg" crossorigin="anonymous"/>
+          <img id="floor-video" src="src/img/site-maps.jpg" crossorigin="anonymous" alt="Sitemaps"/>
 
           <img id="display" crossorigin="anonymous"/>
-          <img id="display-image" src="src/img/info-board-LP.jpg" crossorigin="anonymous"/>
+          <img id="display-image" src="src/img/info-board-LP.jpg" crossorigin="anonymous" alt="LIMEN 2.0 information board."/>
 
           <img id="welcome" crossorigin="anonymous"/>
-          <img id="welcome-image" src="src/img/welcome-board.jpg" crossorigin="anonymous"/>
+          <img id="welcome-image" src="src/img/welcome-board.jpg" crossorigin="anonymous" alt="LIMEN 2.0 welcome board"/>
         </a-entity>
         
         <a-entity id="Posters">
-          <img id="tick" src="src\img\checkmark_icon.png">
+          <img id="tick" src="src\img\checkmark_icon.png" alt="Checkbox">
         </a-entity>
 
         <!-- Frame Animation -->
